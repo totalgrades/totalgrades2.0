@@ -72,7 +72,7 @@ class TermSetUpController extends Controller
             'school_year_id'=>$r->school_year_id,
             'term'=>$r->term,
             'start_date'=>$r->start_date,
-            'end_date'=>$r->start_date,
+            'end_date'=>$r->end_date,
             'show_until'=>$r->show_until,                   
             
         ]);

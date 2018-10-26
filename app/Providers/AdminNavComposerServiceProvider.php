@@ -62,6 +62,8 @@
             'admin.students.messages.replystudentmessage',
             'admin.students.messages.showstudents',
             'admin.students.messages.sendmessagetostudent',
+            'admin.gradingsetup.courses',
+            'admin.gradingsetup.showcourse',
             ], 
             
             'App\Http\ViewComposers\AdminNavComposer'

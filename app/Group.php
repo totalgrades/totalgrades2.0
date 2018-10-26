@@ -55,8 +55,9 @@ class Group extends Model
         return $this->hasMany('App\StudentRegistration');
     }
 
-    public function grades()
+   
+    public function grade_activities()
     {
-        return $this->hasMany('App\Grade');
+        return $this->hasMany('App\GradeActivity');
     }
 }

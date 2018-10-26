@@ -6,29 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Grade extends Model
 {
-    public function school_year()
+    public function grade_activity()
     {
-    	return $this->belongsTo(School_year::class);
-    }
-
-    public function term()
-    {
-    	return $this->belongsTo(Term::class);
-    }
-
-    public function group()
-    {
-    	return $this->belongsTo(Group::class);
+    	return $this->belongsTo(GradeActivity::class);
     }
 
     public function student()
     {
     	return $this->belongsTo(Student::class);
-    }
-
-    public function course()
-    {
-    	return $this->belongsTo(Course::class);
     }
     
 }

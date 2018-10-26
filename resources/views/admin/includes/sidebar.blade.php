@@ -61,6 +61,13 @@
                         </a>
                     </li>
 
+                    <li {{{ (Request::is('admin/gradingsetup/courses/*') ? 'class=active' : '') }}}>
+                        <a href="{{ url('/admin/gradingsetup/courses/'.$schoolyear->id) }}/{{$term->id}}">
+                            <i class="ti-settings"></i>
+                            <p>Grading Setup</p>
+                        </a>
+                    </li>
+
                     <li {{{ (Request::is('admincourses/*') ? 'class=active' : '') }}}>
                         <a href="{{ url('/admincourses/'.$schoolyear->id) }}/{{$term->id}}">
                             <i class="fa fa-font"></i>

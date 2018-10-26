@@ -155,6 +155,14 @@ Route::group(['middleware' => 'admin_auth'], function(){
     Route::get('/showstudentcoursesgrades/{course}/{schoolyear}/{term}', 'AdminAuth\StudentCoursesGradesController@showCourseGrades')->name('showstudentcoursesgrades');
     Route::get('/deletegrade/{grade}/{schoolyear}/{term}', 'AdminAuth\StudentCoursesGradesController@deleteGrade');
 
+    //Grading setup routes for teachers
+    //{group} refres to the group the teacher is currently registered in
+    Route::get('/admin/gradingsetup/courses/{schoolyear}/{term}', 'AdminAuth\GradingSetup\CrudeController@courses')->name('gradingsetup');
+    Route::get('/admin/gradingsetup/showcourse/{schoolyear}/{term}/{course}', 'AdminAuth\GradingSetup\CrudeController@showCourse')->name('showCourseGA');
+    Route::post('/admin/gradingsetup/addNewGradeActivity', 'AdminAuth\GradingSetup\CrudeController@addNewGradeActivity');
+    Route::post('/admin/gradingsetup/editGradeActivity/{gradeactivity}', 'AdminAuth\GradingSetup\CrudeController@editGradeActivity');
+    Route::get('/admin/gradingsetup/deleteGradeActivity/{gradeactivity}', 'AdminAuth\GradingSetup\CrudeController@deleteGradeActivity');
+
     //comments crud
     Route::get('/addComment/{student}/{schoolyear}/{term}', 'AdminAuth\CommentCrudController@addComment');
     Route::post('/postComment/{schoolyear}/{term}', 'AdminAuth\CommentCrudController@postComment');

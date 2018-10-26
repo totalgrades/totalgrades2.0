@@ -16,6 +16,7 @@ use App\Course;
 use Auth;
 use Image;
 use App\Student;
+use App\GradeActivity;
 
 
 use App\Grade;

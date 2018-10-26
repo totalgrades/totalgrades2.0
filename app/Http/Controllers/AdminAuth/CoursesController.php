@@ -21,7 +21,7 @@ use App\Course;
 
 use App\Admin;
 use \Crypt;
-
+use App\GradeActivity;
 
 class CoursesController extends Controller
 {
@@ -33,8 +33,10 @@ class CoursesController extends Controller
         
         $term_courses = Course::where('term_id', '=', $term->id)->get();
 
+        $grade_activities = GradeActivity::where('School_year_id', $schoolyear->id)->where('term_id', $term->id)->get();
 
-       return view('admin.showadmincourses', compact('schoolyear', 'term','term_courses'));
+
+       return view('admin.showadmincourses', compact('schoolyear', 'term','term_courses', 'grade_activities'));
     }
 
 

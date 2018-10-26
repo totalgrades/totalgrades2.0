@@ -16,7 +16,6 @@ use App\Course;
 use Auth;
 use Image;
 use App\Student;
-use App\GradeActivity;
 
 
 use App\Grade;
@@ -37,19 +36,16 @@ class StudentCoursesGradesController extends Controller
         $group = Group::where('id', '=', $course->group_id)->first();
 
     
-    	$student_grades= Student::join('grades', 'students.id', '=', 'grades.student_id')->get();
-
-        //Joing grade activities and grades
-        $grade_activities_grades = Grade::join('grade_activities', 'grades.grade_activity_id', '=', 'grade_activities.id')->get();
-        dd($grade_activities_grades);
+    	$student_grades= Student::join('grades', 'students.id', '=', 'grades.student_id')
+    	->where('grades.course_id', '=', $course->id)
+        ->orderBy('total', 'desc')
+        ->get();
 
         $grades= Grade::join('students', 'grades.student_id', '=', 'students.id')
         ->where('grades.course_id', '=', $course->id)
         ->select('grades.*', 'students.last_name','students.registration_code')
         ->orderBy('total', 'desc')
         ->get();
-
-        
 
         /*$regsss= \App\StudentRegistration::with('student')->with('school_year')->with('term')->with('group')->where('term_id', $term->id)->where('group_id', \App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('staffer_id', \App\Staffer::where('registration_code', '=', Auth::guard('web_admin')->user()->registration_code)->first()->id)->first()->group_id)->get();*/
 

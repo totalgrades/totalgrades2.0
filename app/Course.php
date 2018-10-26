@@ -30,4 +30,9 @@ class Course extends Model
     {
         return $this->belongsTo('App\Staffer');
     }
+
+    public function grade_activities()
+    {
+        return $this->hasMany('App\GradeActivity');
+    }
 }
