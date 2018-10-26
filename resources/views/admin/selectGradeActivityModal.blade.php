@@ -16,7 +16,7 @@
                 @if($course->id == $grade_activity->course_id)
 
                   <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <strong><a href="#">{{$grade_activity->grade_activity_name}}-({{$grade_activity->course->course_code}})</a></strong>
+                    <strong><a href="{{ url('grades/gradeactivity/students/'.$grade_activity->id) }}/{{$schoolyear->id}}/{{$term->id}}">{{$grade_activity->grade_activity_name}}-({{$course->course_code}})</a></strong>
                     <span class="badge badge-primary badge-pill">Max Point: {{$grade_activity->max_point}} %</span>
                   </li>
 

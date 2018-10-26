@@ -13,7 +13,7 @@
                     <div class="col-md-5">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title"><strong>{{ strtoupper($term->term) }} COURSES</strong><strong><p>{{ strtoupper($schoolyear->school_year) }} School Year</strong></p></h4>
+                                <h4 class="title"><strong>{{ strtoupper($term->term) }} COURSES</strong><strong><p>{{ strtoupper($schoolyear->school_year) }} School Year</p></strong></h4>
                                 <p class="category"> <i class="fa fa-circle text-danger"></i> <strong>My Assigned Class:</strong> {{ @\App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('staffer_id', '=', $teacher->id)->first()->group->name }}</p>
                             </div>
 
@@ -72,8 +72,8 @@
                                     </div>
                                 </div>
 
-                            </div>
                         </div>
+                    </div>
 
                         <div class="col-md-7">
                         <div class="card">

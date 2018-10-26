@@ -133,28 +133,10 @@ Route::group(['middleware' => 'admin_auth'], function(){
     Route::post('/admin/posteditunban/{schoolyear}/{term}/{user}', 'AdminAuth\BanController@posteditUnBan');
 
     //for staffer profile avatar
-
     Route::get('/admin/profile/{schoolyear}/{term}', 'AdminAuth\AdminUserController@profile');
-
     Route::post('/admin/profile/{schoolyear}/{term}', 'AdminAuth\AdminUserController@update_avatar');
 
-    //admin courses
-
-    //Route::get('/admincourses', 'AdminAuth\CoursesController@index');
-
-    Route::get('/admincourses/{schoolyear}/{term}', 'AdminAuth\CoursesController@show');
-
-    //Route::get('/admincourses/{term}/studentsterm', 'AdminAuth\CoursesController@students');
-
-    Route::get('/addGrades/{student}/{course}/{schoolyear}/{term}', 'AdminAuth\GradesCrudController@addGrades');
-    Route::post('/postGrades/{student}/{course}/{schoolyear}/{term}', 'AdminAuth\GradesCrudController@postGrades');
-    Route::get('/editGrades/{student}/{course}/{schoolyear}/{term}', 'AdminAuth\GradesCrudController@editGrades');
-    Route::post('/postGradeUpdate/{student}/{course}/{schoolyear}/{term}', 'AdminAuth\GradesCrudController@postGradeUpdate');
-    //Route::get('/deletegrade/{grade}', 'AdminAuth\GradesCrudController@deleteGrade');
-
-    Route::get('/showstudentcoursesgrades/{course}/{schoolyear}/{term}', 'AdminAuth\StudentCoursesGradesController@showCourseGrades')->name('showstudentcoursesgrades');
-    Route::get('/deletegrade/{grade}/{schoolyear}/{term}', 'AdminAuth\StudentCoursesGradesController@deleteGrade');
-
+    
     //Grading setup routes for teachers
     //{group} refres to the group the teacher is currently registered in
     Route::get('/admin/gradingsetup/courses/{schoolyear}/{term}', 'AdminAuth\GradingSetup\CrudeController@courses')->name('gradingsetup');
@@ -163,6 +145,23 @@ Route::group(['middleware' => 'admin_auth'], function(){
     Route::post('/admin/gradingsetup/editGradeActivity/{gradeactivity}', 'AdminAuth\GradingSetup\CrudeController@editGradeActivity');
     Route::get('/admin/gradingsetup/deleteGradeActivity/{gradeactivity}', 'AdminAuth\GradingSetup\CrudeController@deleteGradeActivity');
 
+    //Show all courses for each teacher when "Enter Grades" on the left sidebar is clicked
+    //Two sets of courses are shown:
+        //1. All courses in the group the Teacher is Assigned to mentor/oversee for the term
+        //2. All courses the Teacher is assigned to teach that term
+    Route::get('/admincourses/{schoolyear}/{term}', 'AdminAuth\CoursesController@show');
+
+    //Routes for adding and editing grades
+    Route::get('/grades/gradeactivity/students/{gradeactivity}/{schoolyear}/{term}', 'AdminAuth\Grades\GradeActivityController@showStudents');
+
+        Route::get('/addGrades/{student}/{course}/{schoolyear}/{term}', 'AdminAuth\GradesCrudController@addGrades');
+        Route::post('/postGrades/{student}/{course}/{schoolyear}/{term}', 'AdminAuth\GradesCrudController@postGrades');
+        Route::get('/editGrades/{student}/{course}/{schoolyear}/{term}', 'AdminAuth\GradesCrudController@editGrades');
+        Route::post('/postGradeUpdate/{student}/{course}/{schoolyear}/{term}', 'AdminAuth\GradesCrudController@postGradeUpdate');
+        Route::get('/showstudentcoursesgrades/{course}/{schoolyear}/{term}', 'AdminAuth\StudentCoursesGradesController@showCourseGrades')->name('showstudentcoursesgrades');
+        Route::get('/deletegrade/{grade}/{schoolyear}/{term}', 'AdminAuth\StudentCoursesGradesController@deleteGrade');
+
+    
     //comments crud
     Route::get('/addComment/{student}/{schoolyear}/{term}', 'AdminAuth\CommentCrudController@addComment');
     Route::post('/postComment/{schoolyear}/{term}', 'AdminAuth\CommentCrudController@postComment');
