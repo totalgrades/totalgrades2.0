@@ -8,6 +8,8 @@
                      @include('admin.includes.headdashboardtop')
                 </div>
 
+                @include('flash::message')
+                @include('formerror')
                 <div class="row">
 
                 	<div class="col-md-12">
@@ -89,36 +91,124 @@
                                         @foreach ($student_grades as $student_grade)
                                             @if($student_grade->student_id == $reg_students->student->id)
                                           		{{$student_grade->activity_grade}} %
-                                         	@endif
+                                          	@endif
+                                        @endforeach
+                                        <!-- Add grade form-->
+                                        <form method="post" action="{{ url('/grades/gradeactivity/student/addgrade') }}" id="addGradeForm-{{$reg_students->student->id}}" style="display: none;">
+                              		      {{ csrf_field() }}
+
+                              		      <input type="hidden" name="grade_activity_id" value="{{$gradeactivity->id}}" required="">
+                              		      <input type="hidden" name="student_id" value="{{$reg_students->student->id}}" required="">
+
+                              		      <div class="row">
+                              		      	<div class="col-md-3">
+                              		           	<label>Grade</label>
+                              		          	<input type="number" step=".01" class="form-control" id="activity_grade" name="activity_grade" required="">
+                              		        </div>
+                              		        <div class="col-md-4">
+                              		        	<label>Comment</label>
+                              		      		<input type="text" class="form-control" id="activity_comment" name="activity_comment"  required="">
+                              		      	</div>
+                              		      
+                              		      </div>
+                              		      <div class="row">
+                              		      	<div class="col-md-2">
+                              		      	 	<button type="submit" class="btn btn-success" id="addGradeSubmit-{{$reg_students->student->id}}">Submit</button>
+                              		      	</div>
+                              		      	<div class="col-md-2">
+                              		      		<button type="button" class="btn btn-danger" id="closeGradeForm-{{$reg_students->student->id}}">Close</button>
+                              		      	</div>
+                              		      </div>
+                              		      
+                              		    </form>
+                              		    <!-- End General Controls -->
+                              		  
+                              		   
+                              		   	<script type="text/javascript">
+				                            jQuery(document).ready(function(){
+				                     
+				                               
+				                               $("#showAddGradeForm-{{$reg_students->student->id}}").click(function(){
+				                                  $("#addGradeForm-{{$reg_students->student->id}}").show(1000);
+				                               });
+				                               $("#closeGradeForm-{{$reg_students->student->id}}").click(function(){
+				                                  $("#addGradeForm-{{$reg_students->student->id}}").hide(1000);
+				                               });
+				                            });
+
+				                        </script>
+                              		  
+                              		    
+                              		   <!-- Add grade form Ends-->
+                              		   <!-- Edit grade form-->
+                              		   @foreach ($student_grades as $student_grade)
+                                            @if($student_grade->student_id == $reg_students->student->id & $student_grade->grade_activity_id == $gradeactivity->id)
+		                                        <form method="post" action="{{ url('/grades/gradeactivity/student/editgrade',[$student_grade->id]) }}" id="editGradeForm-{{$student_grade->id}}" style="display: none;">
+		                              		      {{ csrf_field() }}
+
+		                              		      <div class="row">
+		                              		      	<div class="col-md-3">
+		                              		           	<label>Grade</label>
+		                              		          	<input type="number" step=".01" class="form-control" value="{{$student_grade->activity_grade}}" name="activity_grade" required="">
+		                              		        </div>
+		                              		        <div class="col-md-4">
+		                              		        	<label>Comment</label>
+		                              		      		<input type="text" class="form-control" value="{{$student_grade->activity_comment}}" name="activity_comment"  required="">
+		                              		      	</div>
+		                              		      
+		                              		      </div>
+		                              		      <div class="row">
+		                              		      	<div class="col-md-2">
+		                              		      	 	<button type="submit" class="btn btn-success" id="editGradeSubmit-{{$student_grade->id}}">Submit</button>
+		                              		      	</div>
+		                              		      	<div class="col-md-2">
+		                              		      		<button type="button" class="btn btn-danger" id="closEditGradeForm-{{$student_grade->id}}">Close</button>
+		                              		      	</div>
+		                              		      </div>
+		                              		      
+		                              		    </form>
+		                              		    <script type="text/javascript">
+						                            jQuery(document).ready(function(){
+						                     
+						                               
+						                               $("#showEditGradeForm-{{$student_grade->id}}").click(function(){
+						                                  $("#editGradeForm-{{$student_grade->id}}").show(1000);
+						                               });
+						                               $("#closEditGradeForm-{{$student_grade->id}}").click(function(){
+						                                  $("#editGradeForm-{{$student_grade->id}}").hide(1000);
+						                               });
+						                            });
+
+						                        </script>
+                              		  		@endif
+                                        @endforeach
+                              		    
+                              		   <!-- Add grade form Ends-->
+                                        </td>
+                                      
+                                      
+                                        <td class="text-center"><button type="button" class="btn btn-info" id="showAddGradeForm-{{$reg_students->student->id}}">Add Grade</button></td>
+                                       
+                                        <td class="text-center">
+                                        @foreach ($student_grades as $student_grade)
+                                            @if($student_grade->student_id == $reg_students->student->id & $student_grade->grade_activity_id == $gradeactivity->id)
+                                            
+	                                        <button type="button" class="btn btn-danger" id="showEditGradeForm-{{$student_grade->id}}">Edit Grade</button>
+                                        
+                                        	@endif
                                         @endforeach
                                         </td>
-                                      
-                                      @if($gradeactivity->grades->grade_activity_id != null & $gradeactivity->grades->student_id != null)
+
                                         <td class="text-center">
-                                        
-	                                        <a href="{{ url('/addGrades', [Crypt::encrypt($reg_students->student->id), Crypt::encrypt($gradeactivity->course->id), $schoolyear->id, $term->id] ) }}"> <i class="fa fa-plus fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;Add 
-	                                        </a>
-                                        
-                                        </td>
-                                       @endif
-                                        <td class="text-center">
-                                        
-                                            
-	                                        <a href="{{ url('/editGrades', [Crypt::encrypt($grade->student_id), Crypt::encrypt($gradeactivity->course->id), $schoolyear->id, $term->id] ) }}"> <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;Edit 
-	                                        </a>
-                                        
-                                        
-                                        </td>
-                                        <td class="text-center">
-                                       
-                                                                                  
-	                                        <a href="{{ url('/deletegrade/'.Crypt::encrypt($grade->id) ) }}/{{$schoolyear->id}}/{{$term->id}}" onclick="return confirm('Are you sure you want to Delete this record?')"> <i class="fa fa-trash fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;Delete
-	                                        </a>
-                                        
-                                        
-                                        </td>
-                                      
-                                      
+                                         @foreach ($student_grades as $student_grade)
+                                            @if($student_grade->student_id == $reg_students->student->id & $student_grade->grade_activity_id == $gradeactivity->id)
+                                        		
+	                                        	<a href="{{ url('/grades/gradeactivity/student/deletegrade/'.$student_grade->id) }}" onclick="return confirm('Are you sure you want to Delete this record?')"> <i class="fa fa-trash fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;Delete
+		                                        </a>
+			                                    
+                                      		@endif
+                                        @endforeach
+                                      </td>
                                       </tr>
                                    
                                  
