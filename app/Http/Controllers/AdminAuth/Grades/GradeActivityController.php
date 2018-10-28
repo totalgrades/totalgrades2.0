@@ -27,12 +27,7 @@ class GradeActivityController extends Controller
 {
     public function showStudents(GradeActivity $gradeactivity, School_year $schoolyear, Term $term ){
 
-    	/*//Here we joing 3 trables(students, grades, and grade_activities)
-    	$grade_activities_grades = DB::table('grades')
-    		->join('grade_activities', 'grade_activities.id', '=', 'grades.grade_activity_id')
-		    ->get();*/
-    	//dd($grade_activities_grades);
-
+    	
 		$grade_activities = GradeActivity::where('id', $gradeactivity->id)->get();
 		$student_grades = Grade::where('grade_activity_id', $gradeactivity->id)->get();
 
