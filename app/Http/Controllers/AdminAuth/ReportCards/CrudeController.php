@@ -51,7 +51,29 @@ class CrudeController extends Controller
                
 
                 $student_user = User::where('registration_code', '=', $student->registration_code)->first();
-                
+
+                //join grades and grade_activities used to calculate maximum, minimum and average.
+                //grouped by course_id and student_id FOR TESTING
+                $grade_grade_activities_test = DB::table('grades')
+                    ->join('grade_activities', 'grade_activities.id', '=', 'grades.grade_activity_id')
+                    //->where('grades.student_id', $student->id)
+                    ->where('grade_activities.school_year_id', $schoolyear->id)
+                    ->where('grade_activities.term_id', $term->id)
+                    ->where('grade_activities.group_id', \App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('staffer_id', \App\Staffer::where('registration_code', '=', Auth::guard('web_admin')->user()->registration_code)->first()->id)->first()->group_id )
+                    ->groupBy('course_id')->groupBy('student_id')->get(['student_id', 'course_id', DB::raw('SUM(activity_grade) as sum')])->sortByDesc('sum')->groupBy('course_id');
+
+                //join grades and grade_activities used to calculate maximum, minimum and average.
+                //grouped by course_id and student_id
+                $grade_grade_activities = DB::table('grades')
+                    ->join('grade_activities', 'grade_activities.id', '=', 'grades.grade_activity_id')
+                    //->where('grades.student_id', $student->id)
+                    ->where('grade_activities.school_year_id', $schoolyear->id)
+                    ->where('grade_activities.term_id', $term->id)
+                    ->where('grade_activities.group_id', \App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('staffer_id', \App\Staffer::where('registration_code', '=', Auth::guard('web_admin')->user()->registration_code)->first()->id)->first()->group_id )
+                    ->groupBy('course_id')->groupBy('student_id')->get(['student_id', 'course_id', DB::raw('SUM(activity_grade) as sum')]);
+
+                                    
+                //join grades and grade_activities to get total grades for eachcourse for each students in the group and the term in question.
                 $join_grade_activities = DB::table('grades')
                     ->join('grade_activities', 'grade_activities.id', '=', 'grades.grade_activity_id')
                     ->where('grades.student_id', $student->id)
@@ -60,16 +82,29 @@ class CrudeController extends Controller
                     ->where('grade_activities.group_id', \App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('staffer_id', \App\Staffer::where('registration_code', '=', Auth::guard('web_admin')->user()->registration_code)->first()->id)->first()->group_id )
                     ->groupBy('course_id')->get(['student_id', 'course_id', DB::raw('SUM(activity_grade) as sum')]);
 
-                 $join_grade_activities_no_sum = DB::table('grades')
-                    ->join('grade_activities', 'grade_activities.id', '=', 'grades.grade_activity_id')
-                    ->where('grades.student_id', $student->id)
-                    ->where('grade_activities.school_year_id', $schoolyear->id)
-                    ->where('grade_activities.term_id', $term->id)
-                    ->where('grade_activities.group_id', \App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('staffer_id', \App\Staffer::where('registration_code', '=', Auth::guard('web_admin')->user()->registration_code)->first()->id)->first()->group_id )
-                    ->get()->groupBy('course_id');
-                
+                                
                 $courses = Course::where('term_id', $term->id)
                     ->where('group_id', \App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('staffer_id', \App\Staffer::where('registration_code', '=', Auth::guard('web_admin')->user()->registration_code)->first()->id)->first()->group_id )->get();
+
+                //get health records
+        
+                $health_record = HealthRecord::where('student_id', '=', $student->id)
+                                ->where('term_id', '=', $term->id)
+                                ->first();
+               
+                $attendance = Attendance::where('student_id', '=', $student->id)
+                                            ->where('term_id', '=', $term->id)
+                                            ->count();
+
+                $attendance_code = Attendance::join('attendance_codes', 'attendances.attendance_code_id', '=', 'attendance_codes.id')
+                                            ->where('student_id', '=', $student->id)
+                                            ->where('term_id', '=', $term->id)
+                                            ->get();
+
+
+                $attendance_present = $attendance_code->where('code_name', '=', 'Present')->count();
+                $attendance_absent = $attendance_code->where('code_name', '=', 'Absent')->count();
+                $attendance_late = $attendance_code->where('code_name', '=', 'Late')->count();
 
                 //addd comments
                 $comment_all = Comment::where('student_id', '=', $student->id)
@@ -86,12 +121,15 @@ class CrudeController extends Controller
                 $learnining_accademic = LearningAndAccademic::where('student_id', '=', $student->id)
                                             ->where('term_id', '=', $term->id)
                                             ->first();
-                //dd($join_grade_activities);
+                $ghf = $grade_grade_activities_test->sortByDesc('sum')->groupBy('course_id');
+
+                //dd($ghf);
+
                 //dd($join_grade_activities->sum('activity_grade'));
                 //dd($join_grade_activities->groupBy('course_id')->sum('activity_grade'));
                
                 $pdf = PDF::loadView('admin.reportcards.print', 
-                    compact('student', 'schoolyear', 'term', 'next_term', 'student_user', 'join_grade_activities', 'comment_all', 'psychomotor', 'effective_areas', 'learnining_accademic', 'courses'));
+                    compact('student', 'schoolyear', 'term', 'next_term', 'student_user', 'join_grade_activities', 'comment_all', 'psychomotor', 'effective_areas', 'learnining_accademic', 'courses', 'grade_grade_activities', 'health_record', 'attendance', 'attendance_code', 'attendance_present', 'attendance_absent', 'attendance_late', 'grade_grade_activities_test'));
 
                 return $pdf->inline('reportcard.pdf');
             }
