@@ -145,10 +145,10 @@
                 Class:
                 <span class="label label-primary pull-right">{{ @\App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->first()->group->name }}</span>
               </li>
-              @if(@$join_grade_activities->count() != null)
+              @if(@$join_grade_activities->where('student_id', $student->id)->count() != null)
               <li class="list-group-item justify-content-between">
                 Overall &#37;(Total): 
-                <span class="label label-primary pull-right">{{number_format(@$join_grade_activities->sum('total')/@$join_grade_activities->count()),2}} &#37; ({{@$join_grade_activities->sum('total')}})</span>
+                <span class="label label-primary pull-right">{{number_format(@$join_grade_activities->where('student_id', $student->id)->sum('sum')/@$join_grade_activities->where('student_id', $student->id)->count()),2}} &#37; ({{@$join_grade_activities->where('student_id', $student->id)->sum('sum')}})</span>
               </li>
               @else
               <li class="list-group-item justify-content-between">
@@ -230,19 +230,62 @@
                         
               </li>
               <li class="list-group-item justify-content-between">
-                  <h5>POSITION IN CLASS
+                  <h4>POSITION IN CLASS
                     
-                  <span class="label label-warning pull-right"> 
-                     
+                 <span class="label label-danger pull-right">
+                    
+
+                     @if (array_search($student->id,  $overall_position) + 1 == 1)
+
+                          {{ array_search($student->id,  $overall_position) + 1 }}ST
+
+                      @elseif( array_search($student->id,  $overall_position) + 1 == 2 )
+
+                          {{ array_search($student->id,  $overall_position) + 1 }}ND
+
+                      @elseif( array_search($student->id,  $overall_position) + 1 == 3 )
+
+                          {{ array_search($student->id,  $overall_position) + 1 }}RD
+
+                      @elseif( array_search($student->id,  $overall_position) + 1 == 21 )
+
+                          {{ array_search($student->id,  $overall_position) + 1 }}ST
+
+                      @elseif( array_search($student->id,  $overall_position) + 1 == 22 )
+
+                          {{ array_search($student->id,  $overall_position) + 1 }}ND
+
+                      @elseif( array_search($student->id,  $overall_position) + 1 == 23 )
+
+                          {{ array_search($student->id,  $overall_position) + 1 }}RD
+
+                      @elseif( array_search($student->id,  $overall_position) + 1 == 31 )
+
+                          {{ array_search($student->id,  $overall_position) + 1 }}ST
+
+                      @elseif( array_search($student->id,  $overall_position) + 1 == 32 )
+
+                          {{ array_search($student->id,  $overall_position) + 1 }}ND
+
+                      @elseif( array_search($student->id,  $overall_position) + 1 == 33 )
+
+                          {{ array_search($student->id,  $overall_position) + 1 }}RD
+
+                      @else
+
+                          {{ array_search($student->id,  $overall_position) + 1 }}TH
+
+                      @endif
+                    
                   </span>
-             
-                </h5>
+                
+                </h4>
               </li>
               
               <li class="list-group-item justify-content-between">
                   <h5>PASSED
                           
-                  @if( @$join_grade_activities->count() > 0 && ( @$join_grade_activities->sum('total')/@$join_grade_activities->count() ) >= 50 )
+                  @if( @$join_grade_activities->where('student_id', $student->id)->count() > 0 && ( @$join_grade_activities->where('student_id', $student->id)->sum('sum')/@$join_grade_activities->where('student_id', $student->id)->count() ) >= 50 )
 
                   <span class="label label-primary pull-right"> YES </span>
                           
@@ -260,7 +303,7 @@
               <li class="list-group-item justify-content-between">
                   <h6>NEXT CLASS
                           
-                  @if(@$join_grade_activities->count() > 0 &&( @$join_grade_activities->sum('total')/@$join_grade_activities->count() ) >= 50  && @$term->id == 3)
+                  @if(@$join_grade_activities->where('student_id', $student->id)->count() > 0 &&( @$join_grade_activities->where('student_id', $student->id)->sum('sum')/@$join_grade_activities->where('student_id', $student->id)->count() ) >= 50  && @$term->id == 3)
 
                   <span class="label label-primary pull-right"> {{ @$next_group->name}} </span>
                           
@@ -347,10 +390,11 @@
                               </td>
 
                               <td class="text-center">
-                                @foreach($grade_grade_activities_test as $grouped)
-                                  @foreach($grouped as $k1 => $ggg)
+                                @foreach($grade_grade_activities_ranking as $grouped_for_ranking)
 
-                                    @if($course->id == $ggg->course_id & $student->id == $ggg->student_id)
+                                  @foreach($grouped_for_ranking as $k1 => $grouped)
+
+                                    @if($course->id == $grouped->course_id & $student->id == $grouped->student_id)
 
                                         @if ($k1+1 == 1)
 
