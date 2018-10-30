@@ -56,11 +56,11 @@ class CrudeController extends Controller
                 //grouped by course_id and student_id FOR TESTING
                 $grade_grade_activities_test = DB::table('grades')
                     ->join('grade_activities', 'grade_activities.id', '=', 'grades.grade_activity_id')
-                    //->where('grades.student_id', $student->id)
+                    ->where('grades.student_id', $student->id)
                     ->where('grade_activities.school_year_id', $schoolyear->id)
                     ->where('grade_activities.term_id', $term->id)
                     ->where('grade_activities.group_id', \App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('staffer_id', \App\Staffer::where('registration_code', '=', Auth::guard('web_admin')->user()->registration_code)->first()->id)->first()->group_id )
-                    ->groupBy('student_id')->get(['student_id', DB::raw('SUM(activity_grade) as sum')])->sortByDesc('sum')->pluck('student_id')->toArray();
+                    ->groupBy('course_id')->get();
 
                 //join grades and grade_activities used to calculate students' rank in each course
                 //grouped by course_id and student_id FOR TESTING
