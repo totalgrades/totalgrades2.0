@@ -38,11 +38,16 @@ class CourseController extends Controller
 
         //Start of School statistics
         //school max, min, total, count, school average
-        $school_max_school_year = Grade::where('school_year_id', $schoolyear->id)->max('total');
-        $school_min_school_year = Grade::where('school_year_id', $schoolyear->id)->min('total');
-        $school_total_school_year = Grade::where('school_year_id', $schoolyear->id)->sum('total');
-        $school_count_school_year = Grade::where('school_year_id', $schoolyear->id)->count('total');
-        $school_avg_school_year = Grade::where('school_year_id', $schoolyear->id)->avg('total');
+        $school_grades= DB::table('grades')
+            ->join('grade_activities', 'grade_activities.id', '=', 'grades.grade_activity_id')
+            ->where('grade_activities.school_year_id', $current_school_year->id)
+            ->groupBy('course_id')->groupBy('student_id')->get(['student_id', 'school_year_id', 'course_id', DB::raw('SUM(activity_grade) as total')]);
+        
+        $school_max_school_year = $school_grades->max('total');
+        $school_min_school_year = $school_grades->min('total');
+        $school_total_school_year = $school_grades->sum('total');
+        $school_count_school_year = $school_grades->count('total');
+        $school_avg_school_year = $school_grades->avg('total');
 
         $chart_student_average = Charts::create('bar', 'highcharts')
                 ->title(" $current_school_year->school_year School Wide Statistics")
