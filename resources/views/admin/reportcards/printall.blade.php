@@ -4,10 +4,10 @@
   <title>Toatalgrades - Print All Report Cards</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link href='https://fonts.googleapis.com/css?family=Meddon|Miss+Fajardose' rel='stylesheet'>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href='http://fonts.googleapis.com/css?family=Meddon|Miss+Fajardose' rel='stylesheet'>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
   <style type="text/css" media="all">
 
@@ -158,10 +158,10 @@
                 Class:
                 <span class="label label-primary pull-right">{{ @\App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('staffer_id', $teacher->id)->first()->group->name }}</span>
               </li>
-              @if(@$course_grades->where('student_id', '=', $reg_student->student->id)->count() != null )
+              @if(@$grade_grade_activities->where('student_id', '=', $reg_student->student->id)->count() != null )
               <li class="list-group-item justify-content-between">
                 Overall &#37; (Total): 
-                <span class="label label-primary pull-right">{{number_format(@$course_grades->where('student_id', '=', $reg_student->student->id)->sum('total')/@$course_grades->where('student_id', '=', $reg_student->student->id)->count()), 2}} &#37; ({{@$course_grades->where('student_id', '=', $reg_student->student->id)->sum('total')}})</span>
+                <span class="label label-primary pull-right">{{number_format(@$grade_grade_activities->where('student_id', '=', $reg_student->student->id)->sum('total')/@$grade_grade_activities->where('student_id', '=', $reg_student->student->id)->count()), 2}} &#37; ({{@$grade_grade_activities->where('student_id', '=', $reg_student->student->id)->sum('total')}})</span>
               </li>
               @else
               <li class="list-group-item justify-content-between">
@@ -251,49 +251,47 @@
                                             
                     <span class="label label-warning pull-right"> 
 
-                      {{-- @ordinal({{array_search($reg_student->student->id,  $pluck_mgb_total_term_grade_sorted) + 1}}) --}}
+                       @if ( array_search($reg_student->student->id,  $overall_position) + 1 == 1)
 
-                      @if (array_search($reg_student->student->id,  $pluck_mgb_total_term_grade_sorted) + 1 == 1)
+                        {{ array_search($reg_student->student->id,  $overall_position) + 1 }}ST
 
-                          {{ array_search($reg_student->student->id,  $pluck_mgb_total_term_grade_sorted) + 1 }}ST
+                      @elseif( array_search($reg_student->student->id,  $overall_position) + 1 == 2 )
 
-                      @elseif( array_search($reg_student->student->id,  $pluck_mgb_total_term_grade_sorted) + 1 == 2 )
+                          {{ array_search($reg_student->student->id,  $overall_position) + 1 }}ND
 
-                          {{ array_search($reg_student->student->id,  $pluck_mgb_total_term_grade_sorted) + 1 }}ND
+                      @elseif( array_search($reg_student->student->id,  $overall_position) + 1 == 3 )
 
-                      @elseif( array_search($reg_student->student->id,  $pluck_mgb_total_term_grade_sorted) + 1 == 3 )
+                          {{ array_search($reg_student->student->id,  $overall_position) + 1 }}RD
 
-                          {{ array_search($reg_student->student->id,  $pluck_mgb_total_term_grade_sorted) + 1 }}RD
+                      @elseif( array_search($reg_student->student->id,  $overall_position) + 1 == 21 )
 
-                      @elseif( array_search($reg_student->student->id,  $pluck_mgb_total_term_grade_sorted) + 1 == 21 )
+                          {{ array_search($reg_student->student->id,  $overall_position) + 1 }}ST
 
-                          {{ array_search($reg_student->student->id,  $pluck_mgb_total_term_grade_sorted) + 1 }}ST
+                      @elseif( array_search($reg_student->student->id,  $overall_position) + 1 == 22 )
 
-                      @elseif( array_search($reg_student->student->id,  $pluck_mgb_total_term_grade_sorted) + 1 == 22 )
+                          {{ array_search($reg_student->student->id,  $overall_position) + 1 }}ND
 
-                          {{ array_search($reg_student->student->id,  $pluck_mgb_total_term_grade_sorted) + 1 }}ND
+                      @elseif( array_search($reg_student->student->id,  $overall_position) + 1 == 23 )
 
-                      @elseif( array_search($reg_student->student->id,  $pluck_mgb_total_term_grade_sorted) + 1 == 23 )
+                          {{ array_search($reg_student->student->id,  $overall_position) + 1 }}RD
 
-                          {{ array_search($reg_student->student->id,  $pluck_mgb_total_term_grade_sorted) + 1 }}RD
+                      @elseif( array_search($reg_student->student->id,  $overall_position) + 1 == 31 )
 
-                      @elseif( array_search($reg_student->student->id,  $pluck_mgb_total_term_grade_sorted) + 1 == 31 )
+                          {{ array_search($reg_student->student->id,  $overall_position) + 1 }}ST
 
-                          {{ array_search($reg_student->student->id,  $pluck_mgb_total_term_grade_sorted) + 1 }}ST
+                      @elseif( array_search($reg_student->student->id,  $overall_position) + 1 == 32 )
 
-                      @elseif( array_search($reg_student->student->id,  $pluck_mgb_total_term_grade_sorted) + 1 == 32 )
+                          {{ array_search($reg_student->student->id,  $overall_position) + 1 }}ND
 
-                          {{ array_search($reg_student->student->id,  $pluck_mgb_total_term_grade_sorted) + 1 }}ND
+                      @elseif( array_search($reg_student->student->id,  $overall_position) + 1 == 33 )
 
-                      @elseif( array_search($reg_student->student->id,  $pluck_mgb_total_term_grade_sorted) + 1 == 33 )
-
-                          {{ array_search($reg_student->student->id,  $pluck_mgb_total_term_grade_sorted) + 1 }}RD
+                          {{ array_search($reg_student->student->id,  $overall_position) + 1 }}RD
 
                       @else
 
-                          {{ array_search($reg_student->student->id,  $pluck_mgb_total_term_grade_sorted) + 1 }}TH
+                          {{ array_search($reg_student->student->id,  $overall_position) + 1 }}TH
 
-                      @endif 
+                      @endif
                     </span>
                   
                   </span>
@@ -304,7 +302,7 @@
               <li class="list-group-item justify-content-between">
                   <h5>PASSED
                           
-                  @if( @$course_grades->where('student_id', '=', $reg_student->student->id)->count() > 0 && ( @$course_grades->where('student_id', '=', $reg_student->student->id)->sum('total')/@$course_grades->where('student_id', '=', $reg_student->student->id)->count() ) >= 50 )
+                  @if( @$grade_grade_activities->where('student_id', '=', $reg_student->student->id)->count() > 0 && ( @$grade_grade_activities->where('student_id', '=', $reg_student->student->id)->sum('total')/@$grade_grade_activities->where('student_id', '=', $reg_student->student->id)->count() ) >= 50 )
 
                   <span class="label label-primary pull-right"> YES </span>
                           
@@ -322,7 +320,7 @@
               <li class="list-group-item justify-content-between">
                   <h6>NEXT CLASS
                           
-                  @if(@$course_grades->where('student_id', '=', $reg_student->student->id)->count() > 0 &&( @$course_grades->where('student_id', '=', $reg_student->student->id)->sum('total')/@$course_grades->where('student_id', '=', $reg_student->student->id)->count() ) >= 50 && @$term->id == 3)
+                  @if(@$grade_grade_activities->where('student_id', '=', $reg_student->student->id)->count() > 0 &&( @$grade_grade_activities->where('student_id', '=', $reg_student->student->id)->sum('total')/@$grade_grade_activities->where('student_id', '=', $reg_student->student->id)->count() ) >= 50 && @$term->id == 3)
 
                   <span class="label label-primary pull-right"> {{ @$next_group->name}} </span>
                           
@@ -348,184 +346,165 @@
             
         </div>{{-- row-ATT RECORED CLASS AGV HEALTH RECORD --}}
         
+<div class="row">
+  
+        <div class="col-xs-12">
+            <table class="table table-bordered text-center">
+              <thead>
+                <tr class="info">
+                  <th colspan="1" class="text-center">SUBJECTS</th>
+                  <th colspan="1" class="text-center">TOTAL SCORE</th>
+                  <th colspan="3" class="text-center">CLASS STATISTICS</th>
+                  <th colspan="1" class="text-center">STUDNET</th>
+                  <th colspan="1" class="text-center">LETTER</th>
+                  
+                </tr>
+                <tr class="info">
+                  <th class="text-center">NAME-CODE</th>
+                  <th class="text-center">100%</th>
+                  <th class="text-center">HIGHEST</th>
+                  <th class="text-center">LOWEST</th>
+                  <th class="text-center">AVERAGE</th>
+                  <th class="text-center">POSITION</th>
+                  <th class="text-center">GRAGE</th>
 
-        
+                </tr>
+              </thead>
+              <tbody>
+              
+                  @foreach($courses as $course)
 
-                 <div class="row">
-                
-                      <div class="col-xs-12">
-                          <table class="table table-bordered text-center">
-                            <thead>
-                            <tr>
-                                <th colspan="1" class="text-center">Subjects</th>
-                                <th colspan="4" class="text-center"> Continuous Assessments 10% each</th>
-                                <th colspan="1" class="text-center">60%</th>
-                                <th colspan="1" class="text-center">100%</th>
-                                <th colspan="3" class="text-center">Class Averages</th>
-                                <th colspan="1" class="text-center">Course</th>
-                                <th colspan="1" class="text-center">Letter</th>
-                                
-                              </tr>
-                              <tr class="info">
-                                <th class="text-center">Name</th>
-                                <th class="text-center">Ist</th>
-                                <th class="text-center">2nd</th>
-                                <th class="text-center">3rd</th>
-                                <th class="text-center">4th</th>
-                                <th class="text-center">Exam</th>
-                                <th class="text-center">Total</th>
-                                <th class="text-center">Highest</th>
-                                <th class="text-center">Lowest</th>
-                                <th class="text-center">Average</th>
-                                <th class="text-center">Position</th>
-                                <th class="text-center">Grade</th>
-
-                              </tr>
-                            </thead>
-                            <tbody>
-                            
-                                @foreach ($course_grades as $grade)
-
-                                  @if($grade->student_id == $reg_student->student->id)
-
-                                    @foreach ($sorted_grouped as $k1 => $grouped)
-
-                                        @if ($grade->course_id == $k1 )
-
-                                            @foreach($grouped as $k2 => $sorted)
-
-                                                @if($grade->student_id == $sorted->student_id )
-                                    
-
-                                    
-                                  
-
-                                      <tr>
-                                        
-
-                                        <td class="text-center">{{$grade->name}}</td>
-                                        <td class="text-center">{{$grade->first_ca}}</td>
-                                        <td class="text-center">{{$grade->second_ca}}</td>
-                                        <td class="text-center">{{$grade->third_ca}}</td>
-                                        <td class="text-center">{{$grade->fourth_ca}}</td>
-                                        <td class="text-center">{{$grade->exam}}</td>
-                                        <td class="text-center">{{$grade->total}}</td>
-                                        
-                                        <td class="text-center">
-
-                                        {{$mgb[array_search($grade->course_id, $pluck_course_id)]->max }}
-
-
-                                        </td>
-                                       
-                                        <td class="text-center">
-
-                                        {{$mgb_lowest[array_search($grade->course_id, $pluck_course_id_min)]->min }}
-
-                                        </td>
-
-                                        <td class="text-center">
-
-                                        {{number_format($mgb_avg[array_search($grade->course_id, $pluck_course_id_avg)]->avg, 1) }}
-
-                                        </td>
-
-                                        <td class="text-center">
-
-                                        @if ($k2+1 == 1)
-
-                                            {{ $k2+1 }}st
-
-                                        @elseif( $k2+1 == 2 )
-
-                                            {{ $k2+1 }}nd
-
-                                        @elseif( $k2+1 == 3 )
-
-                                            {{ $k2+1 }}rd
-
-                                        @elseif( $k2+1 == 21 )
-
-                                            {{ $k2+1 }}st
-
-                                        @elseif( $k2+1 == 22 )
-
-                                            {{ $k2+1 }}nd
-
-                                        @elseif( $k2+1 == 23 )
-
-                                            {{ $k2+1 }}rd
-                                        @elseif( $k2+1 == 31 )
-
-                                            {{ $k2+1 }}st
-
-                                        @elseif( $k2+1 == 32 )
-
-                                            {{ $k2+1 }}nd
-
-                                        @elseif( $k2+1 == 33 )
-
-                                            {{ $k2+1 }}rd
-
-                                        @else
-
-                                            {{ $k2+1 }}th
-
-                                        @endif 
-
-
-                                        </td>
-
-
-                                        <td class="text-center">
-
-                                            
-                                            @if ($grade->total < 65)
-                                            F
-                                            @elseif ($grade->total<= 66 && $grade->total >=65)
-                                            D
-                                            @elseif ($grade->total<= 69 && $grade->total >=67)
-                                            D+
-                                            @elseif ($grade->total<= 73 && $grade->total >=70)
-                                            C-
-                                            @elseif ($grade->total<= 76 && $grade->total >=74)
-                                            C
-                                            @elseif ($grade->total<= 79 && $grade->total >=77)
-                                            C+
-                                            @elseif ($grade->total<= 83 && $grade->total >=80)
-                                            B-
-                                            @elseif ($grade->total<= 86 && $grade->total >=84)
-                                            B
-                                            @elseif ($grade->total<= 89 && $grade->total >=87)
-                                            B+
-                                            @elseif ($grade->total<= 93 && $grade->total >=90)
-                                            A-
-                                            @elseif ($grade->total<= 96 && $grade->total >=94)
-                                            A
-                                            @elseif ($grade->total>= 97)
-                                            A+
-                                            @endif
-
-                                         
-                                        </td>
-                                      
-                                      </tr>
-
-                                                @endif
-                                            @endforeach
-                                        @endif
-                                      @endforeach
-                                       
-                                  @endif
-                                @endforeach
+                    @foreach($join_grade_activities->where('course_id', $course->id)->where('student_id', $reg_student->student->id) as $grade)
+                      
+                      
+                        <tr>
                           
-                            </tbody>
-                          </table>
-                        </div>
-                
 
-            </div>{{--ACCADAMIC REPORT--}}
-            </div>
+                          <td class="text-center">{{$course->name}}-{{$course->course_code}}</td>
+                          
+                          <td class="text-center">{{$grade->sum}} %</td>
+                          
+                          <td class="text-center">
+                          
+                          
+                            {{ $grade_grade_activities->where('course_id', $course->id)->max('total') }} %
+                           
+                          </td>
+                         
+                          <td class="text-center">
+
+                             {{ $grade_grade_activities->where('course_id', $course->id)->min('total') }} %
+
+                          </td>
+
+                          <td class="text-center">
+
+                            {{ $grade_grade_activities->where('course_id', $course->id)->avg('total') }} %
+
+
+                          </td>
+
+                          <td class="text-center">
+                            @foreach($grade_grade_activities_ranking as $grouped_for_ranking)
+
+                              @foreach($grouped_for_ranking as $k1 => $grouped)
+
+                                @if($course->id == $grouped->course_id & $reg_student->student->id == $grouped->student_id)
+
+                                    @if ($k1+1 == 1)
+
+                                        {{ $k1+1 }}st
+
+                                    @elseif( $k1+1 == 2 )
+
+                                        {{ $k1+1 }}nd
+
+                                    @elseif( $k1+1 == 3 )
+
+                                        {{ $k1+1 }}rd
+
+                                    @elseif( $k1+1 == 21 )
+
+                                        {{ $k1+1 }}st
+
+                                    @elseif( $k1+1 == 22 )
+
+                                        {{ $k1+1 }}nd
+
+                                    @elseif( $k1+1 == 23 )
+
+                                        {{ $k1+1 }}rd
+                                    @elseif( $k1+1 == 31 )
+
+                                        {{ $k1+1 }}st
+
+                                    @elseif( $k1+1 == 32 )
+
+                                        {{ $k1+1 }}nd
+
+                                    @elseif( $k1+1 == 33 )
+
+                                        {{ $k1+1 }}rd
+
+                                    @else
+
+                                        {{ $k1+1 }}th
+                                        
+                                    @endif
+
+                              @endif
+                              @endforeach
+                            @endforeach
+
+                          </td>
+
+
+                          <td class="text-center">
+
+                              
+                              @if ($grade->sum < 65)
+                              F
+                              @elseif ($grade->sum<= 66 && $grade->sum >=65)
+                              D
+                              @elseif ($grade->sum<= 69 && $grade->sum >=67)
+                              D+
+                              @elseif ($grade->sum<= 73 && $grade->sum >=70)
+                              C-
+                              @elseif ($grade->sum<= 76 && $grade->sum >=74)
+                              C
+                              @elseif ($grade->sum<= 79 && $grade->sum >=77)
+                              C+
+                              @elseif ($grade->sum<= 83 && $grade->sum >=80)
+                              B-
+                              @elseif ($grade->sum<= 86 && $grade->sum >=84)
+                              B
+                              @elseif ($grade->sum<= 89 && $grade->sum >=87)
+                              B+
+                              @elseif ($grade->sum<= 93 && $grade->sum >=90)
+                              A-
+                              @elseif ($grade->sum<= 96 && $grade->sum >=94)
+                              A
+                              @elseif ($grade->sum>= 97)
+                              A+
+                              @endif
+
+                           
+                          </td>
+                        
+                        </tr>
+
+                                 
+                            
+                         
+                        @endforeach
+                         
+                     
+                  @endforeach
+              
+              </tbody>
+            </table>
+        </div>
+    </div>{{--ACCADAMIC REPORT--}}
           
 
     </div>{{--END OF PAGE2--}} 

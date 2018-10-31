@@ -60,7 +60,7 @@ class CrudeController extends Controller
                     ->where('grade_activities.school_year_id', $schoolyear->id)
                     ->where('grade_activities.term_id', $term->id)
                     ->where('grade_activities.group_id', \App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('staffer_id', \App\Staffer::where('registration_code', '=', Auth::guard('web_admin')->user()->registration_code)->first()->id)->first()->group_id )
-                    ->groupBy('course_id')->get();
+                    ->get()->groupBy('course_id');
 
                 //join grades and grade_activities used to calculate students' rank in each course
                 //grouped by course_id and student_id FOR TESTING
@@ -161,23 +161,49 @@ class CrudeController extends Controller
                 
                 $student_users = User::get();
  
+                //join grades and grade_activities used to calculate students' rank in each course
+                //grouped by course_id and student_id FOR TESTING
+                $grade_grade_activities = DB::table('grades')
+                    ->join('grade_activities', 'grade_activities.id', '=', 'grades.grade_activity_id')
+                    //->where('grades.student_id', $student->id)
+                    ->where('grade_activities.school_year_id', $schoolyear->id)
+                    ->where('grade_activities.term_id', $term->id)
+                    ->where('grade_activities.group_id', \App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('staffer_id', \App\Staffer::where('registration_code', '=', Auth::guard('web_admin')->user()->registration_code)->first()->id)->first()->group_id )
+                    ->groupBy('course_id')->groupBy('student_id')->get(['student_id', 'course_id', DB::raw('SUM(activity_grade) as total')]);
+               
                 
-                $course_grades = Course::join('grades', 'courses.id', '=', 'grades.course_id')
-                                ->where('courses.term_id', '=', $term->id)
-                                ->get();
-                //dd($course_grades);
-                //Rank
-                //$mgb_total = DB::table('grades')->groupBy('student_id')->get(['student_id', DB::raw('SUM(total) as sum')]);
-                $mgb_total_term_grade = Course::join('grades', 'courses.id', '=', 'grades.course_id')
-                                ->where('courses.term_id', '=', $term->id)
-                                ->groupBy('student_id')
-                                ->get(['student_id', DB::raw('SUM(total) as sum')]);
+                //join grades and grade_activities used to calculate students' overall positions in class.
+                //grouped by student_id, sorted by sum, plucked, and converted to array
+                $overall_position = DB::table('grades')
+                    ->join('grade_activities', 'grade_activities.id', '=', 'grades.grade_activity_id')
+                    //->where('grades.student_id', $student->id)
+                    ->where('grade_activities.school_year_id', $schoolyear->id)
+                    ->where('grade_activities.term_id', $term->id)
+                    ->where('grade_activities.group_id', \App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('staffer_id', \App\Staffer::where('registration_code', '=', Auth::guard('web_admin')->user()->registration_code)->first()->id)->first()->group_id )
+                    ->groupBy('student_id')->get(['student_id', DB::raw('SUM(activity_grade) as sum')])->sortByDesc('sum')->pluck('student_id')->toArray();
 
-                $mgb_total_term_grade_sorted = $mgb_total_term_grade->sortByDesc('sum');
 
-                $pluck_mgb_total_term_grade_sorted = $mgb_total_term_grade_sorted->pluck('student_id')->toArray();
+                $courses = Course::where('term_id', $term->id)
+                    ->where('group_id', \App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('staffer_id', \App\Staffer::where('registration_code', '=', Auth::guard('web_admin')->user()->registration_code)->first()->id)->first()->group_id )->get();
 
-                //dd($mgb_total_term_grade_sorted);
+                //join grades and grade_activities used to calculate students' rank in each course
+                //grouped by course_id and student_id FOR TESTING
+                $grade_grade_activities_ranking = DB::table('grades')
+                    ->join('grade_activities', 'grade_activities.id', '=', 'grades.grade_activity_id')
+                    //->where('grades.student_id', $student->id)
+                    ->where('grade_activities.school_year_id', $schoolyear->id)
+                    ->where('grade_activities.term_id', $term->id)
+                    ->where('grade_activities.group_id', \App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('staffer_id', \App\Staffer::where('registration_code', '=', Auth::guard('web_admin')->user()->registration_code)->first()->id)->first()->group_id )
+                    ->groupBy('course_id')->groupBy('student_id')->get(['student_id', 'course_id', DB::raw('SUM(activity_grade) as sum')])->sortByDesc('sum')->groupBy('course_id');
+
+                //join grades and grade_activities to get total grades for eachcourse for each students in the group and the term in question.
+                $join_grade_activities = DB::table('grades')
+                    ->join('grade_activities', 'grade_activities.id', '=', 'grades.grade_activity_id')
+                    //->where('grades.student_id', $student->id)
+                    ->where('grade_activities.school_year_id', $schoolyear->id)
+                    ->where('grade_activities.term_id', $term->id)
+                    ->where('grade_activities.group_id', \App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('staffer_id', \App\Staffer::where('registration_code', '=', Auth::guard('web_admin')->user()->registration_code)->first()->id)->first()->group_id )
+                    ->groupBy('course_id')->groupBy('student_id')->get(['student_id', 'course_id', DB::raw('SUM(activity_grade) as sum')]);
 
 
                 //get health records
@@ -188,36 +214,6 @@ class CrudeController extends Controller
                
                 $attendances = Attendance::where('term_id', '=', $term->id)->get();
 
-              
-
-                $mgb = DB::table('grades')->groupBy('course_id')->get(['course_id', DB::raw('MAX(total) as max')]);
-
-
-
-                $mgb_lowest = DB::table('grades')->groupBy('course_id')->get(['course_id', DB::raw('min(total) as min')]);
-
-           
-                $mgb_avg = DB::table('grades')->groupBy('course_id')->get(['course_id', DB::raw('avg(total) as avg')]);
-                
-                
-
-                $pluck_course_id = $mgb->pluck('course_id')->toArray(); 
-
-                $pluck_course_id_min = $mgb_lowest->pluck('course_id')->toArray();
-                
-                $pluck_course_id_avg = $mgb_avg->pluck('course_id')->toArray(); 
-
-
-                $course_grade_all_students = Course::join('grades', 'courses.id', '=', 'grades.course_id')
-                ->where('courses.group_id', '=', \App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->first()->group_id)
-                ->where('courses.term_id', '=', $term->id)
-                ->get();
-
-                            
-                $sorted = $course_grade_all_students->sortByDesc('total'); 
-
-                $sorted_grouped = $course_grade_all_students->sortByDesc('total')->groupBy('course_id');
-
                 //addd comments
                 $comment_all = Comment::where('term_id', '=', $term->id)->get();
                 
@@ -227,13 +223,12 @@ class CrudeController extends Controller
 
                 $learnining_accademics = LearningAndAccademic::where('term_id', '=', $term->id)->get();
 
-                $pdf = PDF::loadView('admin.reportcards.printall', 
-                    compact('schoolyear', 'term', 'next_term', 'student_users', 'course_grades', 'health_records', 'attendances',
-                        'attendance_code', 'attendance_present', 'attendance_absent', 'attendance_late',
-                        'mgb', 'mgb_lowest', 'mgb_avg', 'pluck_course_id', 'pluck_course_id_min',
-                        'pluck_course_id_avg', 'course_grade_all_students', 'sorted', 'sorted_grouped', 'comment_all',
-                        'psychomotors', 'effective_areas', 'learnining_accademics', 'mgb_total_term_grade', 'mgb_total_term_grade_sorted', 'pluck_mgb_total_term_grade_sorted'));
+                //dd($join_grade_activities);
 
+                $pdf = PDF::loadView('admin.reportcards.printall', 
+                    compact('schoolyear', 'term', 'next_term', 'student_users', 'grade_grade_activities', 'overall_position', 'grade_grade_activities_ranking', 'join_grade_activities','courses', 'health_records', 'attendances',
+                        'attendance_code', 'attendance_present', 'attendance_absent', 'attendance_late',
+                        'comment_all', 'psychomotors', 'effective_areas', 'learnining_accademics' ));
                 return $pdf->inline('allreportcard.pdf');
             }
 }

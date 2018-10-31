@@ -754,49 +754,6 @@
 </div>{{--END OF PAGE2--}}
 
 
-<div class="page3">
-
-   
-    
-    <div class="row">
-
-      @foreach($grade_grade_activities_test as $key=>$grade_bd)
-
-       <div class="col-xs-4 ">
-                  
-          <ul class="list-group">
-            <li class="list-group-item justify-content-between">
-              <h5>Course</h5>
-          
-            </li>
-           
-      
-            @foreach($courses as $course)
-
-              
-
-              @if($course->id == $grade_bd->course_id)
-              
-            <li class="list-group-item justify-content-between">
-              {{$grade_bd->grade_activity_name}}:
-              <span class="label label-primary pull-right">{{@$grade_bd->activity_grade}}/{{ @$grade_bd->max_point }}</span>
-            </li>
-            @endif
-           @endforeach 
-         
-    
-          </ul>
-        
-       </div>{{-- biodata-1 --}}
-       
-     @endforeach           
-             
-    </div>{{-- row-ATT RECORED CLASS AGV HEALTH RECORD --}}
-    
-
-
-        
-</div>{{--END OF PAGE3--}} 
 
 
 </body>
