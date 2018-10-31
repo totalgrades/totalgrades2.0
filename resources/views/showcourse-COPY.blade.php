@@ -7,7 +7,7 @@
                 <div class="row">
                     @include('layouts.includes.headdashboardtop')
                 </div>
-                @if($grade === null || $class_highest === null || $class_lowest === null || $class_average === null)
+                @if($grade === null || $chart_ca === null || $class_highest === null || $class_lowest === null || $class_average === null)
 
                 <div class="row">
                   <div class="col-md-12">
@@ -29,22 +29,36 @@
                             <div class="content">
                                 
                                 <ul class="list-group">
-                                @foreach($student_grades_course as $student_grade_course)
                                   <li class="list-group-item justify-content-between">
-                                    {{ @@$student_grade_course->grade_activity_name }}
-                                    <span class="label label-primary pull-right">{{ @@$student_grade_course->activity_grade }}&#32;&#47;&#32;{{ @@$student_grade_course->max_point }}</span>
+                                    1st CA
+                                    <span class="label label-primary pull-right">{{ @@$grade->first_ca }}&#32;&#47;&#32;10</span>
                                   </li>
-                                @endforeach 
-                                <li class="list-group-item justify-content-between">
-                                    Your Total in the Course
-                                    <span class="label label-primary pull-right">{{ @@$grade->total }}&#32;&#47;&#32;100 %</span>
+                                  <li class="list-group-item justify-content-between">
+                                    2nd CA
+                                    <span class="label label-primary pull-right">{{ @@$grade->second_ca }}&#32;&#47;&#32;10</span>
+                                  </li>
+                                  <li class="list-group-item justify-content-between">
+                                    3rd CA
+                                    <span class="label label-primary pull-right">{{ @@$grade->third_ca }}&#32;&#47;&#32;10</span>
+                                  </li>
+                                  <li class="list-group-item justify-content-between">
+                                    4th CA
+                                    <span class="label label-primary pull-right">{{ @@$grade->fourth_ca }}&#32;&#47;&#32;10</span>
+                                  </li>
+                                  <li class="list-group-item justify-content-between">
+                                    Final
+                                    <span class="label label-primary pull-right">{{ @@$grade->exam }}&#32;&#47;&#32;60</span>
+                                  </li>
+                                  <li class="list-group-item justify-content-between">
+                                    <strong>Total</strong>
+                                    <span class="label label-success pull-right">{{ @@$grade->total}}&#32;&#47;&#32;100</span>
                                   </li>
                                 </ul>
                                 <div class="footer">
                                     <hr>
                                     <div class="stats">
                                         <i class="fa fa-circle text-primary"></i> <strong>
-                                        @if (@$grade->total >= 50) 
+                                        @if (@@$grade->total >= 50) 
                                         You did a very good Job. Please keep it up!
                                         @else
                                         Please see Your teacher
@@ -63,7 +77,7 @@
                             </div>
                             <div class="content">
                          
-                                 
+                                 {!! $chart_ca->render() !!}
                                 
                             
 
