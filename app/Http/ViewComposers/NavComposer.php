@@ -46,12 +46,12 @@ Class NavComposer {
         
     }
 
-	
-	
-	public function compose(View $view)
+    
+    
+    public function compose(View $view)
     {
         
-    	//initialize number for irregular table numbering
+        //initialize number for irregular table numbering
         $number_init = 1;
 
         //get current date
@@ -108,7 +108,7 @@ Class NavComposer {
 
         $attendance_records = Attendance::with('student')->with('term')->get();
 
-        $school_max = Grade::max('total');
+        /*$school_max = Grade::max('total');
         $school_min = Grade::min('total');
         $school_total = Grade::sum('total');
         $school_count = Grade::count('total');
@@ -133,10 +133,10 @@ Class NavComposer {
 
         $student_class_avg_current = @Course::join('grades', 'courses.id', '=', 'grades.course_id')
                 ->where('courses.group_id', '=', StudentRegistration::where('school_year_id', '=', $current_school_year->id)->where('term_id', '=', $current_term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id)
-                ->avg('total');        
+                ->avg('total');   */     
                
 
-        //School-Student-Class Statistics- school year
+        /*//School-Student-Class Statistics- school year
         $school_class_student_chart_current = Charts::multi('bar', 'material')
                 // Setup the chart settings
                 ->title("School-Student-Class Year Statistics")
@@ -152,7 +152,7 @@ Class NavComposer {
                 ->dataset('Student', [$student_min,$student_max,$student_avg])
                 ->dataset('Class', [$student_class_min_current,$student_class_max_current,$student_class_avg_current])
                 // Setup what the values mean
-                ->labels(['Minimum', 'Maximum', 'Average']); 
+                ->labels(['Minimum', 'Maximum', 'Average']); */
 
 
         $current_courses = @Course::where('term_id', $current_term->id)->where('group_id', '=', StudentRegistration::where('school_year_id', '=', $current_school_year->id)->where('term_id', '=', $current_term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id)->get();
@@ -187,7 +187,7 @@ Class NavComposer {
         ->with('attendance_today', $attendance_today)
         ->with('att_code', $att_code)
         ->with('attendance_records', $attendance_records)
-        ->with('school_max', $school_max)
+        /*->with('school_max', $school_max)
         ->with('school_min', $school_min)
         ->with('school_total', $school_total)
         ->with('school_count', $school_count)
@@ -200,13 +200,12 @@ Class NavComposer {
         ->with('student_class_max_current', $student_class_max_current)
         ->with('student_class_min_current', $student_class_min_current)
         ->with('student_class_avg_current', $student_class_avg_current)
-        ->with('school_class_student_chart_current', $school_class_student_chart_current)
+        ->with('school_class_student_chart_current', $school_class_student_chart_current)*/
         ->with('current_courses', $current_courses)
         ->with('staffers', $staffers);
         
 
     }
 }
-
 
 

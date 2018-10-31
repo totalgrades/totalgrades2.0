@@ -19,6 +19,7 @@ use App\Group;
 use Charts;
 use \Crypt;
 use App\StudentRegistration;
+use DB;
 
 
 
@@ -65,24 +66,61 @@ class CourseController extends Controller
         $student = Student::where('registration_code', '=', Auth::user()->registration_code)->first();
 
         $class_members = @StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', $term->id)->where('group_id', '=', StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id)->get();
- 
-        $student_grades= Student::join('grades', 'students.id', '=', 'grades.student_id')->where('grades.course_id', '=', $course->id)->orderBy('total', 'desc')->get();
-      
-        $positions= Student::join('grades', 'students.id', '=', 'grades.student_id')->where('grades.course_id', '=', $course->id)->orderBy('total', 'desc')->pluck('student_id')->toArray();
 
+             
+        $positions= DB::table('grades')
+            ->join('grade_activities', 'grade_activities.id', '=', 'grades.grade_activity_id')
+            ->where('grade_activities.school_year_id', $schoolyear->id)
+            ->where('grade_activities.term_id', $term->id)
+            ->where('grade_activities.course_id', $course->id)
+            ->where('grade_activities.group_id', StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id )
+            ->groupBy('course_id')->groupBy('student_id')->get(['student_id', 'school_year_id', 'group_id','term_id', 'course_id', DB::raw('SUM(activity_grade) as total')])->sortByDesc('total')->pluck('student_id')->toArray();
 
+        // Total Grades for all the students in the class for this course
+        $class_grades= DB::table('grades')
+            ->join('grade_activities', 'grade_activities.id', '=', 'grades.grade_activity_id')
+            ->where('grade_activities.school_year_id', $schoolyear->id)
+            ->where('grade_activities.term_id', $term->id)
+            ->where('grade_activities.course_id', $course->id)
+            ->where('grade_activities.group_id', StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id )
+            ->groupBy('course_id')->groupBy('student_id')->get(['student_id', 'school_year_id', 'group_id','term_id', 'course_id', DB::raw('SUM(activity_grade) as total')]);
         
-        $class_highest = Grade::where('course_id', '=', $course->id)->max('total');
-        $class_lowest = Grade::where('course_id', '=', $course->id)->min('total');
-        $class_average = Grade::where('course_id', '=', $course->id)->avg('total');
+               
+        $class_highest = $class_grades->max('total');
+        $class_lowest = $class_grades->min('total');
+        $class_average = $class_grades->avg('total');
 
+        //Student grades for this course
+        $student_grades_course= DB::table('grades')
+            ->join('grade_activities', 'grade_activities.id', '=', 'grades.grade_activity_id')
+            ->where('grades.student_id', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)
+            ->where('grade_activities.school_year_id', $schoolyear->id)
+            ->where('grade_activities.term_id', $term->id)
+            ->where('grade_activities.course_id', $course->id)
+            ->where('grade_activities.group_id', StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id )
+            ->get();
 
-        $grade = Grade::where('student_id', '=', $student->id)->where('course_id', '=', $course->id)->first();
+        $student_grades_course_total= DB::table('grades')
+            ->join('grade_activities', 'grade_activities.id', '=', 'grades.grade_activity_id')
+            ->where('grades.student_id', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)
+            ->where('grade_activities.school_year_id', $schoolyear->id)
+            ->where('grade_activities.term_id', $term->id)
+            ->where('grade_activities.course_id', $course->id)
+            ->where('grade_activities.group_id', StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id )
+            ->get(['student_id', 'school_year_id', 'group_id','term_id', 'course_id', DB::raw('SUM(activity_grade) as total')]);
+
+      dd($student_grades_course_total);
 
         $chart_ca = Charts::create('pie', 'highcharts')
                 ->title('Course Statistics _ % of total Score')
                 ->labels(['1st CA', '2nd CA', '3rd CA', '4th CA', 'Final Exam'])
-                ->values([ @$grade->first_ca, @$grade->second_ca, @$grade->third_ca, @$grade->fourth_ca, @$grade->exam ])
+                ->values([ 
+                    /*foreach ($student_grades_course as $key => $grade) {
+
+                        $grade->activity_grade,
+                    }*/
+                    
+                ])
                 ->dimensions(0,260);
 
         $chart_class_stats = Charts::create('bar', 'highcharts')

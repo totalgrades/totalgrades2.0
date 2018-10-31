@@ -30,14 +30,11 @@ Auth::routes();
 
 //Route::get('/home', 'HomeController@selectTerm')->name('selectTerm');
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/selectYearModal', 'HomeController@selectYearModal')->name('studentSelectYearModal');
 Route::get('/home/{schoolyear}', 'HomeController@homeSchoolYear')->name('homeSchoolYear');
-
+Route::get('/selectYearModal', 'HomeController@selectYearModal')->name('studentSelectYearModal');
 
 //for user profile avatar
-
 Route::get('/profile/{schoolyear}', 'UserController@profile')->name('userprofile');
-
 Route::post('/profile/{schoolyear}', 'UserController@update_avatar');
 
 //route for courses - students

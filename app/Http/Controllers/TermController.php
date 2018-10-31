@@ -17,6 +17,7 @@ use App\Group;
 use \Crypt;
 use Charts;
 use App\StudentRegistration;
+use DB;
 
 class TermController extends Controller
 {
@@ -33,28 +34,37 @@ class TermController extends Controller
 
         $term = Term::find(Crypt::decrypt($term));
         
-
+        //get all term courses student is registered in 
         $term_courses = Course::where('term_id', '=', $term->id)
-                            ->where('group_id', '=', StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id)
+                            ->where('group_id', '=', StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id)
                             ->get();
 
-
-    
-        //Start of School statistics - current term
-      
+        //Start of School statistics - current term     
         //class statistics - current term
-        $class_term_max = Grade::where('school_year_id', $schoolyear->id)->where('term_id', $term->id)->where('group_id',StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id)->max('total');                 
-       
-        $class_term_min = Grade::where('school_year_id', $schoolyear->id)->where('term_id', $term->id)->where('group_id',StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id)->min('total'); 
+        $grade_grade_activities_class_term = DB::table('grades')
+            ->join('grade_activities', 'grade_activities.id', '=', 'grades.grade_activity_id')
+            ->where('grade_activities.school_year_id', $schoolyear->id)
+            ->where('grade_activities.term_id', $term->id)
+            ->where('grade_activities.group_id', StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id )
+            ->groupBy('student_id')->get(['student_id', 'school_year_id', 'group_id','term_id', DB::raw('SUM(activity_grade) as total')]);
 
-        $class_term_avg = Grade::where('school_year_id', $schoolyear->id)->where('term_id', $term->id)->where('group_id',StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id)->avg('total');        
+        $class_term_max = $grade_grade_activities_class_term->max('total');                    
+        $class_term_min = $grade_grade_activities_class_term->min('total'); 
+        $class_term_avg = $grade_grade_activities_class_term->avg('total');
                
         //student statistics - current term
-        $student_term_max = Grade::where('school_year_id', $schoolyear->id)->where('term_id', $term->id)->where('group_id',StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id)->where('student_id', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->max('total');
+        $grade_grade_activities_student_term = DB::table('grades')
+            ->join('grade_activities', 'grade_activities.id', '=', 'grades.grade_activity_id')
+            ->where('grades.student_id', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)
+            ->where('grade_activities.school_year_id', $schoolyear->id)
+            ->where('grade_activities.term_id', $term->id)
+            ->where('grade_activities.group_id', StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id )
+            ->groupBy('term_id')->get(['student_id', 'school_year_id', 'group_id','term_id', DB::raw('SUM(activity_grade) as total')]);
 
-        $student_term_min = Grade::where('school_year_id', $schoolyear->id)->where('term_id', $term->id)->where('group_id',StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id)->where('student_id', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->min('total'); 
 
-        $student_term_avg = Grade::where('school_year_id', $schoolyear->id)->where('term_id', $term->id)->where('group_id',StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id)->where('student_id', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->avg('total'); 
+        $student_term_max = $grade_grade_activities_student_term->max('total');
+        $student_term_min = $grade_grade_activities_student_term->min('total'); 
+        $student_term_avg = $grade_grade_activities_student_term->avg('total'); 
 
         //School-Student-Class Statistics- current term
         $class_student_term_chart = Charts::multi('bar', 'material')

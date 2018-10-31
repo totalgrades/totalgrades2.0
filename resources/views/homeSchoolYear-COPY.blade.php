@@ -169,7 +169,7 @@
                         </div>
                     </div>
                     
-                   <div class="col-md-6">
+                    <div class="col-md-6">
                         <div class="card">
                             <div class="header">
                                 <h4 class="title"><strong>Year Statistics</strong></h4>
@@ -201,12 +201,13 @@
                                             This School Year has Ended
                                         @endif 
                                        
-                                    <p>Above bar charts show your curent term statistics(Minimum, Maximum, and Average) so far for the {{@$school_year->school_year}} School Year. It gives an indication of how you are doing compared to the rest of the school. The graph is dynamic - it will change from time to time as new grades are entered and as some grades are edited or deleted.</p>
+                                    <p>Above bar charts show your curent term statistics(Minimum, Maximum, and Average) so far for the {{@$school_year->school_year}} School Year. It gives an indication on how you are doing compared to the rest of your class and the school as a whole. The graph is dynamic - it will change from time to time as new grades are entered and as some grades are edited or deleted.</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                     
                    
                     </div>
                     @if($schoolyear->id == $current_school_year->id)
