@@ -64,7 +64,7 @@
 							<li class="list-group-item justify-content-between">
 							    <h5>PASSED
 											    
-									@if( @$course_grade->count() > 0 && (@$course_grade->sum('total')/@$course_grade->count() ) >= 50 )
+									@if( @$course_grades->count() > 0 && (@$course_grades->sum('total')/@$course_grades->count() ) >= 50 )
 
 									<span class="label label-primary pull-right"> YES </span>
 											    
@@ -82,7 +82,7 @@
 							<li class="list-group-item justify-content-between">
 							    <h5>NEXT CLASS
 											    
-									@if( @$course_grade->count() > 0 && (@$course_grade->sum('total')/@$course_grade->count()) >=50 && $term_id == 3  )
+									@if( @$course_grades->count() > 0 && (@$course_grades->sum('total')/@$course_grades->count()) >=50 && $term_id == 3  )
 
 									<span class="label label-primary pull-right"> {{ @$next_group->name}} </span>
 											    

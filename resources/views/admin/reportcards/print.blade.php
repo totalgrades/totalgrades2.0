@@ -386,6 +386,7 @@
                           </td>
 
                           <td class="text-center">
+                            
                             @foreach($grade_grade_activities_ranking as $grouped_for_ranking)
 
                               @foreach($grouped_for_ranking as $k1 => $grouped)

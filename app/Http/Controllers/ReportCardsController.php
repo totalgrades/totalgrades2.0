@@ -81,29 +81,19 @@ class ReportCardsController extends Controller
         //get term
         $terms = Term::get();
 
+        $courses = Course::where('term_id', $term->id)
+                    ->where('group_id', StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id )->get();
+
         // student's grades for all the courses in this term
-        $course_grade = DB::table('grades')
+        $course_grades = DB::table('grades')
             ->join('grade_activities', 'grade_activities.id', '=', 'grades.grade_activity_id')
             ->where('grades.student_id', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)
             ->where('grade_activities.school_year_id', $schoolyear->id)
             ->where('grade_activities.term_id', $term->id)
             ->where('grade_activities.group_id', StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id )
-            ->groupBy('course_id')->get(['student_id', 'school_year_id', 'group_id','term_id','course_id', DB::raw('SUM(activity_grade) as total')]);
+            ->groupBy('course_id')->groupBy('student_id')->get(['student_id', 'school_year_id', 'group_id','term_id','course_id', DB::raw('SUM(activity_grade) as total')]);
 
-              
-        $mgb = $course_grade->max('total');
-
-        $mgb_lowest = $course_grade->min('total');
-  
-        $mgb_avg = $course_grade->avg('total');
         
-       
-        $pluck_course_id = $mgb->pluck('course_id')->toArray(); 
-
-        $pluck_course_id_min = $mgb_lowest->pluck('course_id')->toArray();
-        
-        $pluck_course_id_avg = $mgb_avg->pluck('course_id')->toArray(); 
-
         $course_grade_all = DB::table('grades')
             ->join('grade_activities', 'grade_activities.id', '=', 'grades.grade_activity_id')
             ->where('grades.student_id', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)
@@ -111,24 +101,20 @@ class ReportCardsController extends Controller
             ->where('grade_activities.term_id', $term->id)
             ->where('grade_activities.group_id', StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id )
             ->groupBy('course_id')->get(['student_id', 'school_year_id', 'group_id','term_id','course_id', DB::raw('SUM(activity_grade) as total')]);
-dd($course_grade_all);
-        $course_grade_all_students = Course::join('grades', 'courses.id', '=', 'grades.course_id')
-        ->where('courses.group_id', '=', StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id)->where('courses.term_id', '=', $term->id)
-        ->get();
 
 
-
-        //$mgb_rank = DB::table('grades')->groupBy('course_id')->select('course_id', DB::raw('sum(total) as sum'), DB::raw('@r:=@r+1 as rank'),DB::raw('@l:=total'))->get();
-        
+        $course_grade_all_students = DB::table('grades')
+            ->join('grade_activities', 'grade_activities.id', '=', 'grades.grade_activity_id')
+            ->where('grade_activities.school_year_id', $schoolyear->id)
+            ->where('grade_activities.term_id', $term->id)
+            ->where('grade_activities.group_id', StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id )
+            ->groupBy('course_id')->get(['student_id', 'school_year_id', 'group_id','term_id','course_id', DB::raw('SUM(activity_grade) as total')]);
+               
     
         $sorted = $course_grade_all_students->sortByDesc('total');
 
 
-
         $sorted_grouped = $course_grade_all_students->sortByDesc('total')->groupBy('course_id');
-
-        //dd($sorted_grouped);
-
         
 
         //addd comments
@@ -157,11 +143,11 @@ dd($course_grade_all);
         $attendance_late = $attendance_code->where('code_name', '=', 'Late')->count();
 
         
-                  
+         //dd($courses);         
         
         return view('showtermreportcard', 
         	compact( 'schoolyear', 'today', 'term','terms','term_id', 'student_group',
-        			'student', 'grade', 'course', 'course_grade',
+        			'student', 'grade', 'course', 'course_grades', 'courses',
                     'mgb', 'mgb_lowest', 'mgb_avg', 
                     'pluck_course_id', 'pluck_course_id_min', 'pluck_course_id_avg',
                     'comment_all', 'student_teacher', 'students_all', 'next_group',
