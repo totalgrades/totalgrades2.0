@@ -51,7 +51,7 @@
 						  @if($course_grades->count() != null)
 						  <li class="list-group-item justify-content-between">
 						    Overall &#37;: 
-						    <span class="label label-primary pull-right">{{$course_grades->sum('total')/$course_grades->count()}} &#37;</span>
+						    <span class="label label-primary pull-right">{{ number_format($course_grades->sum('total')/$course_grades->count()),2 }} &#37;</span>
 						  </li>
 						  @else
 						  <li class="list-group-item justify-content-between">

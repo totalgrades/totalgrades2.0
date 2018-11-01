@@ -31,33 +31,75 @@
 
                                       <tr>
                                         
-
-                                        
+                                       
                                         <td class="text-center">{{$course->name}}-{{$course->course_code}}</td>
                                           
                                         <td class="text-center">{{$grade->total}} %</td>
                                                         
                                         <td class="text-center">
-
-                                        
-
-
+                                            {{$course_grade_all_students->where('course_id', $course->id)->max('total')}}
                                         </td>
-                                       
                                         <td class="text-center">
-
-                                       
+                                            {{$course_grade_all_students->where('course_id', $course->id)->min('total')}}
+                                        </td>
+                                        <td class="text-center">
+                                            {{$course_grade_all_students->where('course_id', $course->id)->avg('total')}}
                                         </td>
 
                                         <td class="text-center">
+                                     
+                                            @foreach($grade_grade_activities_ranking as $grouped_for_ranking)
 
-                                        
-                                        </td>
+                                              @foreach($grouped_for_ranking as $k1 => $grouped)
 
-                                        <td class="text-center">
+                                                @if($course->id == $grouped->course_id & $student->id == $grouped->student_id)
 
-                                       
+                                                    @if ($k1+1 == 1)
 
+                                                        {{ $k1+1 }}st
+
+                                                    @elseif( $k1+1 == 2 )
+
+                                                        {{ $k1+1 }}nd
+
+                                                    @elseif( $k1+1 == 3 )
+
+                                                        {{ $k1+1 }}rd
+
+                                                    @elseif( $k1+1 == 21 )
+
+                                                        {{ $k1+1 }}st
+
+                                                    @elseif( $k1+1 == 22 )
+
+                                                        {{ $k1+1 }}nd
+
+                                                    @elseif( $k1+1 == 23 )
+
+                                                        {{ $k1+1 }}rd
+                                                    @elseif( $k1+1 == 31 )
+
+                                                        {{ $k1+1 }}st
+
+                                                    @elseif( $k1+1 == 32 )
+
+                                                        {{ $k1+1 }}nd
+
+                                                    @elseif( $k1+1 == 33 )
+
+                                                        {{ $k1+1 }}rd
+
+                                                    @else
+
+                                                        {{ $k1+1 }}th
+                                                        
+                                                    @endif
+
+                                                @endif
+
+                                              @endforeach
+
+                                            @endforeach
 
                                         </td>
 

@@ -108,9 +108,18 @@ class ReportCardsController extends Controller
             ->where('grade_activities.school_year_id', $schoolyear->id)
             ->where('grade_activities.term_id', $term->id)
             ->where('grade_activities.group_id', StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id )
-            ->groupBy('course_id')->get(['student_id', 'school_year_id', 'group_id','term_id','course_id', DB::raw('SUM(activity_grade) as total')]);
+            ->groupBy('course_id')->groupBy('student_id')->get(['student_id', 'school_year_id', 'group_id','term_id','course_id', DB::raw('SUM(activity_grade) as total')]);
+
+        $grade_grade_activities_ranking = DB::table('grades')
+                    ->join('grade_activities', 'grade_activities.id', '=', 'grades.grade_activity_id')
+                    //->where('grades.student_id', $student->id)
+                    ->where('grade_activities.school_year_id', $schoolyear->id)
+                    ->where('grade_activities.term_id', $term->id)
+                    ->where('grade_activities.group_id', StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id )
+                    ->groupBy('course_id')->groupBy('student_id')->get(['student_id', 'course_id', DB::raw('SUM(activity_grade) as sum')])->sortByDesc('sum')->groupBy('course_id');
                
-    
+        //dd($course_grades);
+
         $sorted = $course_grade_all_students->sortByDesc('total');
 
 
@@ -148,11 +157,9 @@ class ReportCardsController extends Controller
         return view('showtermreportcard', 
         	compact( 'schoolyear', 'today', 'term','terms','term_id', 'student_group',
         			'student', 'grade', 'course', 'course_grades', 'courses',
-                    'mgb', 'mgb_lowest', 'mgb_avg', 
-                    'pluck_course_id', 'pluck_course_id_min', 'pluck_course_id_avg',
-                    'comment_all', 'student_teacher', 'students_all', 'next_group',
+                    'course_grade_all_students', 'comment_all', 'student_teacher', 'students_all', 'next_group',
                     'sorted_grouped', 'next_term', 'health_record', 'attendance_present',
-                    'attendance_absent', 'attendance_late', 'attendance'
+                    'attendance_absent', 'attendance_late', 'attendance', 'grade_grade_activities_ranking'
                     ));
 
         }
