@@ -15,8 +15,11 @@
                 	<div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                 <h4 class="title"> 
+                              
                                  
+                              
+                                 <h4 class="title"> 
+                                 <div class="alert alert-warning"><strong><h3>Grade Activity:&nbsp; {{ $gradeactivity->grade_activity_name }}</h3></strong></div>
                                  <a><i class="fa fa-book fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Course:&nbsp; {{ $gradeactivity->course->course_code }}: {{ $gradeactivity->course->name }} </a> <div class="pull-right"><a href="{{asset('/admincourses/'.$schoolyear->id) }}/{{$term->id}}"><button type="button" class="btn btn-primary">Back To {{@$term->term}} Courses</button></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 
                                     
