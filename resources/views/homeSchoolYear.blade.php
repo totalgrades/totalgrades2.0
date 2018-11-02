@@ -182,9 +182,6 @@
                             {!! $school_class_student_chart->render() !!}
                                 
                                 
-
-
-
                                 <div class="footer">
                                    <div class="chart-legend">
                                         <i class="fa fa-circle text-primary"></i> Minimum: {{@$school_min}}

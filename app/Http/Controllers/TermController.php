@@ -36,7 +36,7 @@ class TermController extends Controller
         
         //get all term courses student is registered in 
         $term_courses = Course::where('term_id', '=', $term->id)
-                            ->where('group_id', '=', StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id)
+                            ->where('group_id', '=', @StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id)
                             ->get();
 
         //Start of School statistics - current term     
@@ -45,7 +45,7 @@ class TermController extends Controller
             ->join('grade_activities', 'grade_activities.id', '=', 'grades.grade_activity_id')
             ->where('grade_activities.school_year_id', $schoolyear->id)
             ->where('grade_activities.term_id', $term->id)
-            ->where('grade_activities.group_id', StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id )
+            ->where('grade_activities.group_id', @StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id )
             ->groupBy('student_id')->get(['student_id', 'school_year_id', 'group_id','term_id', DB::raw('SUM(activity_grade) as total')]);
 
         $class_term_max = $grade_grade_activities_class_term->max('total');                    
@@ -58,7 +58,7 @@ class TermController extends Controller
             ->where('grades.student_id', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)
             ->where('grade_activities.school_year_id', $schoolyear->id)
             ->where('grade_activities.term_id', $term->id)
-            ->where('grade_activities.group_id', StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id )
+            ->where('grade_activities.group_id', @StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id )
             ->groupBy('term_id')->get(['student_id', 'school_year_id', 'group_id','term_id', DB::raw('SUM(activity_grade) as total')]);
 
 
