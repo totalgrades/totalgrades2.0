@@ -27,21 +27,32 @@ class GradeActivityController extends Controller
 {
     public function showStudents(GradeActivity $gradeactivity, School_year $schoolyear, Term $term ){
 
-    	
+    	$term_courses = Course::where('term_id', '=', $term->id)->where('group_id', '=', @\App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('staffer_id', \App\Staffer::where('registration_code', '=', Auth::guard('web_admin')->user()->registration_code)->first()->id)->first()->group_id)->get();
+        
+        //$grade_activities_all = GradeActivity::get();
+
+      //dd($grade_activities_all);
+
 		$grade_activities = GradeActivity::where('id', $gradeactivity->id)->get();
+        $grade_activities_course = GradeActivity::where('course_id', $gradeactivity->course->id)->get();
+
 		$student_grades = Grade::where('grade_activity_id', $gradeactivity->id)->get();
 
-    	return view('admin.grades.gradeactivity.students', compact('schoolyear', 'term','gradeactivity', 'grade_activities_grades', 'grade_activities', 'student_grades'));
+    	return view('admin.grades.gradeactivity.students', compact('term_courses', 'schoolyear', 'term','gradeactivity', 'grade_activities_course', 'grade_activities', 'student_grades'));
     }
 
-    public function addStudentGrade(Request $r){
+    public function addStudentGrade(Request $r, GradeActivity $gradeactivity){
 
-    	$this->validate(request(), [
+    	$max_point = GradeActivity::where('id', $gradeactivity->id)->first();
+
+        $max_value = $max_point->max_point;
+
+        $this->validate(request(), [
 
             'grade_activity_id' => 'required',
             'student_id' => 'required',
-            'activity_grade' => 'required|numeric|min:0',
-            'activity_comment' => 'required',        
+            'activity_grade' => "required|numeric|min:0|max:$max_value",
+            //'activity_comment' => 'required',        
 
     		]);
 
@@ -60,12 +71,16 @@ class GradeActivityController extends Controller
     	return back();
     }
 
-    public function editStudentGrade(Request $r, Grade $grade){
+    public function editStudentGrade(Request $r, GradeActivity $gradeactivity, Grade $grade){
+
+        $max_point = GradeActivity::where('id', $gradeactivity->id)->first();
+
+        $max_value = $max_point->max_point;
 
     	$this->validate(request(), [
 
-            'activity_grade'=> 'required|numeric|min:0',
-            'activity_comment'=> 'required',
+            'activity_grade' => "required|numeric|min:0|max:$max_value",
+            //'activity_comment'=> 'required',
             
     		]);
 

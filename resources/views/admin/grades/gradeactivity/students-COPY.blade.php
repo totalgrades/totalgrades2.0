@@ -17,20 +17,7 @@
                             <div class="header">
                                  <h4 class="title"> 
                                  
-                                 <a><i class="fa fa-book fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Course:&nbsp; {{ $gradeactivity->course->course_code }}: {{ $gradeactivity->course->name }} </a> <div class="pull-right"><a href="{{asset('/admincourses/'.$schoolyear->id) }}/{{$term->id}}"><button type="button" class="btn btn-primary">Back To {{@$term->term}} Courses</button></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                
-                                    
-                                     <button type="button" class="btn btn-danger" id="selectGradeActivityCourse-{{$gradeactivity->course->id}}">Select Another Grade Activity</button>        
-                                     @include('admin.selectGradeActivityCourseModal')
-                                      <script type="text/javascript">
-                                        $('#selectGradeActivityCourse-{{$gradeactivity->course->id}}').on('click', function(){
-                                          $('#gradeActivitySelectionCourseModal-{{$gradeactivity->course->id}}').modal('show');
-                                        })
-                                      </script>
-
-                               
-
-                                 </div>
+                                 <a><i class="fa fa-book fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Course:&nbsp; {{ $gradeactivity->course->course_code }}: {{ $gradeactivity->course->name }} </a> <div class="pull-right"><a href="{{asset('/admincourses/'.$schoolyear->id) }}/{{$term->id}}"><button type="button" class="btn btn-primary">Back To {{@$term->term}} Courses</button></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger">Select Another Grade Activity</button></div>
                                  <strong><p>{{ strtoupper($schoolyear->school_year) }} School Year</p></strong>
                                  </h4>
                                 <p class="category"><strong>{{strtoupper($gradeactivity->group->name)}} - {{ strtoupper($term->term) }}</strong></p>
