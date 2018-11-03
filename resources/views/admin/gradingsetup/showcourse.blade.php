@@ -69,10 +69,12 @@
                         
                         <div class="card">
                             <div class="header">
-                                <h4 class="title"><strong>Grading Activities For {{ strtoupper($course->course_code) }} {{ strtoupper($course->name) }}</strong>
-                                    <p><strong>School Year: {{ strtoupper($schoolyear->school_year) }} </strong></p>
-                                    <p><strong>Group(My Assigned Class): {{ strtoupper($course->group->name) }} </strong></p>
-                                </h4>
+                                <div class="alert alert-warning">
+                                    <h4 class="title"><strong>Grading Activities For {{ strtoupper($course->course_code) }} {{ strtoupper($course->name) }}</strong>
+                                        <p><strong>School Year: {{ strtoupper($schoolyear->school_year) }} </strong></p>
+                                        <p><strong>Group(My Assigned Class): {{ strtoupper($course->group->name) }} </strong></p>
+                                    </h4>
+                                </div>
                                 <p class="category"> <i class="fa fa-circle text-danger"></i> <strong>My Assigned Class:</strong> 
                                     {{ @\App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('staffer_id', '=', $teacher->id)->first()->group->name }}
                                 </p>

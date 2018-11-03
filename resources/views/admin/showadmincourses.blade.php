@@ -13,7 +13,9 @@
                     <div class="col-md-5">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title"><strong>{{ strtoupper($term->term) }} COURSES</strong><strong><p>{{ strtoupper($schoolyear->school_year) }} School Year</p></strong></h4>
+                                <div class="alert alert-warning">
+                                    <h4 class="title"><strong>{{ strtoupper($term->term) }} COURSES</strong><strong><p>{{ strtoupper($schoolyear->school_year) }} School Year</p></strong></h4>
+                                </div>
                                 <p class="category"> <i class="fa fa-circle text-danger"></i> <strong>My Assigned Class:</strong> {{ @\App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('staffer_id', '=', $teacher->id)->first()->group->name }}</p>
                             </div>
 
@@ -78,7 +80,9 @@
                         <div class="col-md-7">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title"><strong> {{ strtoupper($term->term) }} COURSE</strong><strong><p>{{ strtoupper($schoolyear->school_year) }} School Year</strong></p></h4>
+                                <div class="alert alert-success">
+                                    <h4 class="title"><strong> {{ strtoupper($term->term) }} COURSE</strong><strong><p>{{ strtoupper($schoolyear->school_year) }} School Year</p></strong></h4>
+                                </div>
                                 <p class="category"> <i class="fa fa-circle text-success"></i> <strong>Course am teaching this term.</strong></p>
                             </div>
 
@@ -105,16 +109,22 @@
                                                 <td class="success">{{$course->group->name}}</td>
                                                 @if($schoolyear->id == $current_school_year->id && $term->id == $current_term->id)
                                                     <td>
-                                                        <strong>
-                                                            <a href="{{asset('/showstudentcoursesgrades/'.Crypt::encrypt($course->id)) }}/{{$schoolyear->id}}/{{$term->id}}"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;Add/Edit Grades</a>
-                                                        </strong>
+                                                        <button type="button" class="btn btn-primary" id="selectGradeActivity-{{$course->id}}">Add/Edit Grades</button>
+                                                        @include('admin.selectGradeActivityModal')
+
+                                                          <script type="text/javascript">
+                                                            $('#selectGradeActivity-{{$course->id}}').on('click', function(){
+                                                              $('#gradeActivitySelectionModal-{{$course->id}}').modal('show');
+                                                            })
+                                                          </script>
                                                     </td>
                                                 @else
+
                                                     <td>
                                                         <strong>
                                                             <a href="{{asset('/showstudentcoursesgrades/'.Crypt::encrypt($course->id)) }}/{{$schoolyear->id}}/{{$term->id}}"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;View Grades</a>
                                                         </strong>
-                                                    </td>
+                                                    </td> 
                                                 @endif 
                                                
                                             </tr>

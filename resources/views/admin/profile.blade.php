@@ -3,10 +3,10 @@
 @section('content')
         <div class="content">
             <div class="container-fluid">
-            <div class="row">
+
+                <div class="row">
                     @include('admin.includes.headdashboardtop')
                 </div> 
-
 
                 <div class="row">
 
@@ -38,7 +38,7 @@
                         
                     </div>
 
-                                        <div class="col-lg-8 col-md-7">
+                    <div class="col-lg-8 col-md-7">
                         <div class="card">
                             <div class="header">
                                 <h4 class="title">{{$teacher->first_name}}&nbsp;{{$teacher->last_name}} Profile</h4>
@@ -118,17 +118,9 @@
                             </div>
                         </div>
                     </div>
-
-                    
-
-
                 </div>
+
             </div>
         </div>
-                    
-
-
-                </div>
-            </div>
-        </div>
+ 
 @endsection
