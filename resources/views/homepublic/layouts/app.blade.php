@@ -120,11 +120,11 @@
 			<header class="header fixed clearfix">
 				<div class="container">
 					<div class="row">
-						<div class="col-md-3">
+						<div class="col-md-12 text-center">
 
 							<!-- header-left start -->
 							<!-- ================ -->
-							<div class="header-left clearfix">
+							<div class="clearfix">
 
 								<!-- logo -->
 								<div class="logo">
@@ -135,73 +135,7 @@
 							<!-- header-left end -->
 
 						</div>
-						<div class="col-md-9">
-
-							<!-- header-right start -->
-							<!-- ================ -->
-							<div class="header-right clearfix">
-
-								<!-- main-navigation start -->
-								<!-- ================ -->
-								<div class="main-navigation animated">
-
-									<!-- navbar start -->
-									<!-- ================ -->
-									<nav class="navbar navbar-default" role="navigation">
-										<div class="container-fluid">
-
-											<!-- Toggle get grouped for better mobile display -->
-											<div class="navbar-header">
-												<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
-													<span class="sr-only">Toggle navigation</span>
-					 								<span class="icon-bar"></span>
-													<span class="icon-bar"></span>
-													<span class="icon-bar"></span>
-												</button>
-											</div>
-
-											<!-- Collect the nav links, forms, and other content for toggling -->
-											<div class="collapse navbar-collapse" id="navbar-collapse-1">
-												<ul class="nav navbar-nav navbar-right">
-													<li class="active">
-														<a href="{{url('/')}}">Home</a>
-													</li>
-													<li class="">
-														<a href="{{url('/features')}}">Core Features</a>
-													</li>
-													<li class="">
-														<a href="{{url('/videos')}}">Tutorial Videos </a>
-													</li>
-													<li class="">
-														<a href="{{url('/videos')}}">Register </a>
-													</li>
-												
-													<li class="dropdown">
-														<a href="#" class="dropdown-toggle" data-toggle="dropdown">Login</a>
-														<ul class="dropdown-menu">
-															<li><a href="{{ url('/login') }}">Parents/Students login </a></li>
-															<li><a href="{{ url('/admin_login') }}">Staffers/Teachers Login</a></li>
-															<li><a href="https://totalgrades.com/webmail" target="_blank">Webmail</a></li>
-														</ul>
-													</li>
-													<li class="">
-														<a href="{{url('/contact')}}">Contact Us</a>
-													</li>
-													
-												</ul>
-											</div>
-
-										</div>
-									</nav>
-									<!-- navbar end -->
-
-								</div>
-								<!-- main-navigation end -->
-
-							</div>
-							<!-- header-right end -->
-
-						</div>
+						
 					</div>
 				</div>
 			</header>
