@@ -30,7 +30,7 @@
                                         <th class="text-center"><strong>Course Code</strong></th>
                                         <th class="text-center danger"><strong>Course Name</strong></th>
                                         @if($schoolyear->id == $current_school_year->id && $term->id == $current_term->id)
-                                            <th class="text-center"><strong>Add/Edit Grading Activities</strong></th>
+                                            <th class="text-center"><strong>Setup Grading</strong></th>
                                         @else
                                             <th class="text-center"><strong>View Grades</strong></th>
                                         @endif
@@ -45,7 +45,7 @@
                                             @if($schoolyear->id == $current_school_year->id && $term->id == $current_term->id)
                                                 <td>
                                                     <strong>
-                                                        <a href="{{asset('/admin/gradingsetup/showcourse/'.$schoolyear->id) }}/{{$term->id}}/{{$course->id}}"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;Add/Edit Grading Activities</a>
+                                                        <a href="{{asset('/admin/gradingsetup/showcourse/'.$schoolyear->id) }}/{{$term->id}}/{{$course->id}}"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;Setup Grading</a>
                                                     </strong>
                                                 </td>
                                             @else
@@ -98,7 +98,7 @@
                                             <th class="text-center success"><strong>Course Name</strong></th>
                                             <th class="text-center success"><strong>Class Name</strong></th>
                                             @if($schoolyear->id == $current_school_year->id && $term->id == $current_term->id)
-                                                <th class="text-center"><strong>Add/Edit Grades</strong></th>
+                                                <th class="text-center"><strong>Setup Grading</strong></th>
                                             @else
                                                 <th class="text-center"><strong>View Grades</strong></th>
                                             @endif
@@ -116,7 +116,7 @@
                                                 @if($schoolyear->id == $current_school_year->id && $term->id == $current_term->id)
                                                 <td>
                                                     <strong>
-                                                        <a href="{{asset('/admin/gradingsetup/showcourse/'.$schoolyear->id) }}/{{$term->id}}/{{$course->id}}"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;Add/Edit Grading Activities</a>
+                                                        <a href="{{asset('/admin/gradingsetup/showcourse/'.$schoolyear->id) }}/{{$term->id}}/{{$course->id}}"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;Setup Grading</a>
                                                     </strong>
                                                 </td>
                                                 @else

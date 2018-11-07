@@ -39,7 +39,7 @@ class CrudeController extends Controller
             
             'course_id' => 'required',
             'grade_activity_category_name'=> 'required',
-            'grade_activity_category_weight'=> 'required|numeric|min:0',
+            'grade_activity_category_weight'=> 'required|numeric|min:0|max:100',
             //'grade_activity_category_description'=> 'required',
             
 
@@ -57,6 +57,29 @@ class CrudeController extends Controller
         ]);
 
         flash('Grade Activity Category Added!')->success();
+        return back();
+    }
+
+    public function editGradeActivityCategory(Request $r, GradeActivityCategory $gradeactivitycategory){
+
+        $this->validate(request(), [
+
+            'course_id' => 'required',
+            'grade_activity_category_name'=> 'required',
+            'grade_activity_category_weight'=> 'required|numeric|min:0|max:100',
+
+            ]);
+
+        $edit_grade_activity_category = GradeActivityCategory::where('id', '=', $gradeactivitycategory->id)->first();
+         
+        $edit_grade_activity_category->grade_activity_category_name = $r->grade_activity_category_name;
+        $edit_grade_activity_category->grade_activity_category_weight = $r->grade_activity_category_weight;
+        $edit_grade_activity_category->grade_activity_category_description = $r->grade_activity_category_description;
+      
+        $edit_grade_activity_category->save();
+        
+        flash('Category Updated!')->info();
+
         return back();
     }
 

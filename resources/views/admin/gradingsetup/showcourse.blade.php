@@ -45,7 +45,7 @@
                                                 <input type="text" class="form-control" id="grade_activity_category_description" name="grade_activity_category_description" placeholder="Short Description">
                                               </div>                                
                                              
-                                              <button type="submit" class="btn btn-success">Add Activity</button>
+                                              <button type="submit" class="btn btn-success">Add Category</button>
                                               <button type="button" class="btn btn-danger" id="closeGradeActivityCategoryForm">Close Form</button>
                                             </form>
                                         </div>
@@ -106,21 +106,21 @@
                                             <td>{{ $activitycategory->grade_activity_category_description }}</td>
                                             <td>{{ $activitycategory->created_at->toFormattedDateString()}}</td>                                       
                                             <td>
-                                                <button type="button" class="btn btn-primary" id="editGradeActivityCategoryModal-{{$activitycategory->id}}">Edit</button>
-                                                
+                                                <button type="button" class="btn btn-primary" id="editGradeActivityCategoryModal-{{$activitycategory->id}}">Edit Category</button>
+                                                @include('admin.gradingsetup.updategradeactivitycategory')
 
                                                   <script type="text/javascript">
                                                     $('#editGradeActivityCategoryModal-{{$activitycategory->id}}').on('click', function(){
-                                                      $('#showGradeActivityModal-{{$activitycategory->id}}').modal('show');
+                                                      $('#showGradeActivityCategoryModal-{{$activitycategory->id}}').modal('show');
                                                     })
                                                   </script>
                                             </td>
                                             <td>
-                                                <button type="button" class="btn btn-info" id="editGradeActivityCategoryModal-{{$activitycategory->id}}">Add Grade Activity</button>
+                                                <button type="button" class="btn btn-info" id="addGradeActivityModal-{{$activitycategory->id}}">Add Grade Activity</button>
                                                 
 
                                                   <script type="text/javascript">
-                                                    $('#editGradeActivityCategoryModal-{{$activitycategory->id}}').on('click', function(){
+                                                    $('#addGradeActivityCategoryModal-{{$activitycategory->id}}').on('click', function(){
                                                       $('#showGradeActivityModal-{{$activitycategory->id}}').modal('show');
                                                     })
                                                   </script>
