@@ -30,4 +30,6 @@ class GradeActivity extends Model
     {
         return $this->hasMany('App\Grade');
     }
+
+    
 }

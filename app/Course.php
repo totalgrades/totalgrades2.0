@@ -35,4 +35,9 @@ class Course extends Model
     {
         return $this->hasMany('App\GradeActivity');
     }
+
+    public function grade_activity_categories()
+    {
+        return $this->hasMany('App\GradeActivityCategory');
+    }
 }

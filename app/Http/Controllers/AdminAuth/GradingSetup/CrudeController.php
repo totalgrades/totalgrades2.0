@@ -9,6 +9,7 @@ use App\Term;
 use Carbon\Carbon;
 use App\Course;
 use App\GradeActivity;
+use App\GradeActivityCategory;
 
 class CrudeController extends Controller
 {
@@ -24,15 +25,45 @@ class CrudeController extends Controller
     	$grade_activities = GradeActivity::where('school_year_id', $schoolyear->id)
     									   ->where('term_id', $term->id)
     									   ->where('course_id', $course->id)->get();
-    	//dd($grade_activities);
-    	
-    	return view('admin.gradingsetup.showcourse', compact('schoolyear', 'term','course', 'grade_activities'));
+
+        $gradeactivitycategories =  GradeActivityCategory::where('course_id', $course->id)->get();
+
+        //dd($gradeactivitycategories->sum('grade_activity_category_weight'));
+    	    	
+    	return view('admin.gradingsetup.showcourse', compact('schoolyear', 'term','course', 'grade_activities', 'gradeactivitycategories'));
+    }
+
+    public function addNewGradeActivityCategory(Request $r){
+
+        $this->validate(request(), [
+            
+            'course_id' => 'required',
+            'grade_activity_category_name'=> 'required',
+            'grade_activity_category_weight'=> 'required|numeric|min:0',
+            //'grade_activity_category_description'=> 'required',
+            
+
+            ]);
+
+        GradeActivityCategory::insert([
+            
+            'course_id'=>$r->course_id,
+            'grade_activity_category_name'=>$r->grade_activity_category_name,
+            'grade_activity_category_weight'=>$r->grade_activity_category_weight,
+            'grade_activity_category_description'=>$r->grade_activity_category_description,
+            //'total'=>$r->first_ca+$r->second_ca+$r->third_ca+$r->fourth_ca+$r->exam,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),    
+        ]);
+
+        flash('Grade Activity Category Added!')->success();
+        return back();
     }
 
     public function addNewGradeActivity(Request $r){
 
     	$this->validate(request(), [
-
+            
             'school_year_id' => 'required',
             'term_id' => 'required',
             'group_id' => 'required',
@@ -45,7 +76,7 @@ class CrudeController extends Controller
     		]);
 
     	GradeActivity::insert([
-
+            
             'school_year_id' => $r->school_year_id,
             'term_id' => $r->term_id,
             'group_id' => $r->group_id,

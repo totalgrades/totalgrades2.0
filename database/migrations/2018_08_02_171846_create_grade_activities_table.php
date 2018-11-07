@@ -25,7 +25,7 @@ class CreateGradeActivitiesTable extends Migration
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
             $table->string('grade_activity_name');
             $table->string('grade_activity_description');
-            $table->decimal('max_point', 3, 0);
+            $table->decimal('grade_activity_weight', 3, 0);
             $table->timestamps();
         });
     }
