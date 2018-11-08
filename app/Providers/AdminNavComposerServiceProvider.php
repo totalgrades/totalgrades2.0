@@ -63,6 +63,7 @@
             'admin.students.messages.showstudents',
             'admin.students.messages.sendmessagetostudent',
             'admin.gradingsetup.courses',
+            'admin.gradingsetup.categories',
             'admin.gradingsetup.showcourse',
             'admin.grades.gradeactivity.students',
             ], 

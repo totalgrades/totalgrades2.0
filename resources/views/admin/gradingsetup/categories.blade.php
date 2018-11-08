@@ -88,7 +88,7 @@
                             <div class="content">
                                 <table class="table table-striped text-center">
                                     <thead>
-                                        <th class="text-center"><strong>Category</strong></th>
+                                        <th rowspan="2" class="text-center"><strong>Category</strong></th>
                                         <th class="text-center info"><strong>Weight</strong></th>
                                         <th class="text-center"><strong>Description</strong></th>
                                         <th class="text-center info"><strong>Date Added</strong></th>
@@ -101,9 +101,9 @@
 
                                         <tr>
                                             
-                                            <td>
-                                                {{ $activitycategory->grade_activity_category_name }}<br>
-                                                <button type="button" class="btn btn-sm btn-danger" id="addGradeActivityModal-{{$activitycategory->id}}">Add Grade Activity</button>
+                                            <td >
+                                               
+                                                <button type="button" class="btn btn-danger" id="addGradeActivityModal-{{$activitycategory->id}}">{{ $activitycategory->grade_activity_category_name }}<i class="fa fa fa-pencil-square-o" aria-hidden="true"></i></button>
                                             </td>
                                             <td>{{ $activitycategory->grade_activity_category_weight }} %</td>
                                             <td>{{ $activitycategory->grade_activity_category_description }}</td>

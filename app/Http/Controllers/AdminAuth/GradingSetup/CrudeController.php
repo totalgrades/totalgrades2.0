@@ -20,17 +20,17 @@ class CrudeController extends Controller
     	return view('admin.gradingsetup.courses', compact('schoolyear', 'term','term_courses'));
     }
 
-    public function showCourse(School_year $schoolyear, Term $term, Course $course){
+    public function categories(School_year $schoolyear, Term $term, Course $course){
 
-    	$grade_activities = GradeActivity::where('school_year_id', $schoolyear->id)
-    									   ->where('term_id', $term->id)
-    									   ->where('course_id', $course->id)->get();
+        $grade_activities = GradeActivity::where('school_year_id', $schoolyear->id)
+                                           ->where('term_id', $term->id)
+                                           ->where('course_id', $course->id)->get();
 
         $gradeactivitycategories =  GradeActivityCategory::where('course_id', $course->id)->get();
 
         //dd($gradeactivitycategories->sum('grade_activity_category_weight'));
-    	    	
-    	return view('admin.gradingsetup.showcourse', compact('schoolyear', 'term','course', 'grade_activities', 'gradeactivitycategories'));
+                
+        return view('admin.gradingsetup.categories', compact('schoolyear', 'term','course', 'grade_activities', 'gradeactivitycategories'));
     }
 
     public function addNewGradeActivityCategory(Request $r){
@@ -81,6 +81,28 @@ class CrudeController extends Controller
         flash('Category Updated!')->info();
 
         return back();
+    }
+
+    public function deleteGradeActivityCategory(GradeActivityCategory $gradeactivitycategory){
+
+        GradeActivityCategory::where('id', $gradeactivitycategory->id)->delete();
+
+        flash('Grade Activity Category Deleted!')->warning();
+            
+        return back();
+    }
+
+    public function showCourse(School_year $schoolyear, Term $term, Course $course){
+
+        $grade_activities = GradeActivity::where('school_year_id', $schoolyear->id)
+                                           ->where('term_id', $term->id)
+                                           ->where('course_id', $course->id)->get();
+
+        $gradeactivitycategories =  GradeActivityCategory::where('course_id', $course->id)->get();
+
+        //dd($gradeactivitycategories->sum('grade_activity_category_weight'));
+                
+        return view('admin.gradingsetup.showcourse', compact('schoolyear', 'term','course', 'grade_activities', 'gradeactivitycategories'));
     }
 
     public function addNewGradeActivity(Request $r){

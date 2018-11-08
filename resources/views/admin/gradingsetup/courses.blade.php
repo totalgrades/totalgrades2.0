@@ -45,7 +45,7 @@
                                             @if($schoolyear->id == $current_school_year->id && $term->id == $current_term->id)
                                                 <td>
                                                     <strong>
-                                                        <a href="{{asset('/admin/gradingsetup/showcourse/'.$schoolyear->id) }}/{{$term->id}}/{{$course->id}}"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;Setup Grading</a>
+                                                        <a href="{{asset('/admin/gradingsetup/categories/'.$schoolyear->id) }}/{{$term->id}}/{{$course->id}}"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;Setup Grading</a>
                                                     </strong>
                                                 </td>
                                             @else
@@ -116,7 +116,7 @@
                                                 @if($schoolyear->id == $current_school_year->id && $term->id == $current_term->id)
                                                 <td>
                                                     <strong>
-                                                        <a href="{{asset('/admin/gradingsetup/showcourse/'.$schoolyear->id) }}/{{$term->id}}/{{$course->id}}"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;Setup Grading</a>
+                                                        <a href="{{asset('/admin/gradingsetup/categories/'.$schoolyear->id) }}/{{$term->id}}/{{$course->id}}"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;Setup Grading</a>
                                                     </strong>
                                                 </td>
                                                 @else

@@ -26,6 +26,11 @@ class GradeActivity extends Model
         return $this->belongsTo('App\Course');
     }
 
+    public function grade_activity_category()
+    {
+        return $this->belongsTo(GradeActivityCategory::class);
+    }
+
     public function grades()
     {
         return $this->hasMany('App\Grade');
