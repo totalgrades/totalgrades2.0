@@ -15,9 +15,9 @@ class CrudeController extends Controller
 {
     public function courses(School_year $schoolyear, Term $term){
 
-    	$term_courses = Course::where('term_id', '=', $term->id)->get();
+        $term_courses = Course::where('term_id', '=', $term->id)->get();
 
-    	return view('admin.gradingsetup.courses', compact('schoolyear', 'term','term_courses'));
+        return view('admin.gradingsetup.courses', compact('schoolyear', 'term','term_courses'));
     }
 
     public function categories(School_year $schoolyear, Term $term, Course $course){
@@ -28,8 +28,7 @@ class CrudeController extends Controller
 
         $gradeactivitycategories =  GradeActivityCategory::where('course_id', $course->id)->get();
 
-        //dd($gradeactivitycategories->sum('grade_activity_category_weight'));
-                
+                        
         return view('admin.gradingsetup.categories', compact('schoolyear', 'term','course', 'grade_activities', 'gradeactivitycategories'));
     }
 
@@ -100,14 +99,13 @@ class CrudeController extends Controller
 
         $gradeactivitycategories =  GradeActivityCategory::where('course_id', $course->id)->get();
 
-        //dd($gradeactivitycategories->sum('grade_activity_category_weight'));
-                
+                        
         return view('admin.gradingsetup.showcourse', compact('schoolyear', 'term','course', 'grade_activities', 'gradeactivitycategories'));
     }
 
     public function addNewGradeActivity(Request $r){
 
-    	$this->validate(request(), [
+        $this->validate(request(), [
             
             'school_year_id' => 'required',
             'term_id' => 'required',
@@ -118,56 +116,56 @@ class CrudeController extends Controller
             'grade_activity_description'=> 'required',
             
 
-    		]);
+            ]);
 
-    	GradeActivity::insert([
+        GradeActivity::insert([
             
             'school_year_id' => $r->school_year_id,
             'term_id' => $r->term_id,
             'group_id' => $r->group_id,
-    		'course_id'=>$r->course_id,
-    		'grade_activity_name'=>$r->grade_activity_name,
-    		'max_point'=>$r->max_point,
-    		'grade_activity_description'=>$r->grade_activity_description,
+            'course_id'=>$r->course_id,
+            'grade_activity_name'=>$r->grade_activity_name,
+            'max_point'=>$r->max_point,
+            'grade_activity_description'=>$r->grade_activity_description,
             //'total'=>$r->first_ca+$r->second_ca+$r->third_ca+$r->fourth_ca+$r->exam,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),    
-    	]);
+        ]);
 
-    	flash('Grade Activity Added!')->success();
-    	return back();
+        flash('Grade Activity Added!')->success();
+        return back();
     }
 
    
     public function editGradeActivity(Request $r, GradeActivity $gradeactivity){
 
-    	$this->validate(request(), [
+        $this->validate(request(), [
 
             'grade_activity_name'=> 'required',
             'max_point'=> 'required|numeric|min:0',
             'grade_activity_description'=> 'required', 
 
-    		]);
+            ]);
 
-    	$edit_grade_activity = GradeActivity::where('id', '=', $gradeactivity->id)->first();
+        $edit_grade_activity = GradeActivity::where('id', '=', $gradeactivity->id)->first();
          
         $edit_grade_activity->grade_activity_name = $r->grade_activity_name;
         $edit_grade_activity->max_point = $r->max_point;
         $edit_grade_activity->grade_activity_description = $r->grade_activity_description;
       
         $edit_grade_activity->save();
-    	
-    	flash('Grade Activity Updated!')->info();
+        
+        flash('Grade Activity Updated!')->info();
 
-    	return back();
+        return back();
     }
 
     public function deleteGradeActivity(GradeActivity $gradeactivity){
 
-    	GradeActivity::where('id', $gradeactivity->id)->delete();
+        GradeActivity::where('id', $gradeactivity->id)->delete();
 
         flash('Grade Activity Deleted!')->warning();
-        	
-    	return back();
+            
+        return back();
     }
 }

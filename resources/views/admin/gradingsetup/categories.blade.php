@@ -71,29 +71,32 @@
 
                         <div class="card">
                             <div class="header">
-                                <div class="alert alert-info">
-                                    <h4 class="title">
-                                        <strong>Grading Activity Categories</strong>
-                                        <p><strong>Course: <span style="color: red">{{ strtoupper($course->course_code) }} {{ strtoupper($course->name) }} </span></strong></p>
-                                        <p><strong>School Year: <span style="color: red">{{ strtoupper($schoolyear->school_year) }} </span></strong></p>
-                                        <p><strong>Group(Class): <span style="color: red">{{ strtoupper($course->group->name) }}</span> </strong></p>
-                                        <p><strong>Term: <span style="color: red">{{ strtoupper($term->term) }}</span> </strong></p>
-                                    </h4>
+                                <div class="alert alert-success">
+                                    <h5 class="title">
+                                        Grading Activity Categories
+                                    </h5>
                                 </div>
-                                <p class="category"> <i class="fa fa-circle text-danger"></i> <strong>My Assigned Class:</strong> 
-                                    {{ @\App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('staffer_id', '=', $teacher->id)->first()->group->name }}
+                                <p class="category"> 
+                                    <ul class="list-inline">
+                                      <li><i class="fa fa-circle text-info"></i> <strong>Course: <span style="color: rgb(48, 145, 178)">{{ strtoupper($course->course_code) }} {{ strtoupper($course->name) }} </span></strong></li>
+                                      <li><i class="fa fa-circle" style="color: #FF5733"></i> <strong>School Year: <span style="color: #FF5733">{{ strtoupper($schoolyear->school_year) }} </span></strong></li>
+                                      <li><i class="fa fa-circle" style="color: orange"></i> <strong>Group(Class): <span style="color: orange">{{ strtoupper($course->group->name) }}</span> </strong></li>
+                                      <li><i class="fa fa-circle " style="color: #800000"></i> <strong>Term: <span style="color: #800000">{{ strtoupper($term->term) }}</span> </strong></li>
+                                    </ul>
+                                   
                                 </p>
+                                
                             </div>
 
                             <div class="content">
-                                <table class="table table-striped text-center">
+                                <table class="table table-bordered table-hover text-center">
                                     <thead>
-                                        <th rowspan="2" class="text-center"><strong>Category</strong></th>
-                                        <th class="text-center info"><strong>Weight</strong></th>
-                                        <th class="text-center"><strong>Description</strong></th>
-                                        <th class="text-center info"><strong>Date Added</strong></th>
-                                        <th class="text-center"><strong>Edit</strong></th>
-                                        <th class="text-center"><strong>Delete</strong></th>
+                                        <th class="text-center">Category</strong></th>
+                                        <th class="text-center info">Weight</strong></th>
+                                        <th class="text-center">Description</strong></th>
+                                        <th class="text-center">Date Added</strong></th>
+                                        <th class="text-center">Edit</strong></th>
+                                        <th class="text-center">Delete</strong></th>
                                         
                                     </thead>
                                     <tbody>
@@ -102,8 +105,20 @@
                                         <tr>
                                             
                                             <td >
-                                               
-                                                <button type="button" class="btn btn-danger" id="addGradeActivityModal-{{$activitycategory->id}}">{{ $activitycategory->grade_activity_category_name }}<i class="fa fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                                <button type="button" class="btn btn-link" id="addGradeActivity-{{$activitycategory->id}}">
+                                                    {{ $activitycategory->grade_activity_category_name }} <i class="fa fa-pencil"></i>
+                                                </button>
+
+                                                    @include('admin.grades.gradeactivity.addgradeactivity')
+
+                                                      <script type="text/javascript">
+                                                        $('#addGradeActivity-{{$activitycategory->id}}').on('click', function(){
+                                                          $('#showAddGradeActivityModal-{{$activitycategory->id}}').modal('show');
+                                                        })
+                                                      </script>
+
+                                                
+
                                             </td>
                                             <td>{{ $activitycategory->grade_activity_category_weight }} %</td>
                                             <td>{{ $activitycategory->grade_activity_category_description }}</td>
