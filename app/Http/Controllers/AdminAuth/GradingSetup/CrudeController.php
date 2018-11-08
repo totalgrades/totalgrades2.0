@@ -36,29 +36,40 @@ class CrudeController extends Controller
 
     public function addNewGradeActivityCategory(Request $r){
 
-        $this->validate(request(), [
-            
-            'course_id' => 'required',
-            'grade_activity_category_name'=> 'required',
-            'grade_activity_category_weight'=> 'required|numeric|min:0|max:100',
-            //'grade_activity_category_description'=> 'required',
-            
+        $grade_activity_category_sum = GradeActivityCategory::where('course_id', $r->course_id)->sum('grade_activity_category_weight');
+        $supplied_weight = $r->grade_activity_category_weight;
+        $grade_activities_category_plus_supplied = $grade_activity_category_sum + $supplied_weight;
 
+        if ($grade_activities_category_plus_supplied < 100) {
+
+            $this->validate(request(), [
+                
+                'course_id' => 'required',
+                'grade_activity_category_name'=> 'required',
+                'grade_activity_category_weight'=> 'required|numeric|min:0|max:100',
+                //'grade_activity_category_description'=> 'required',
+                
+
+                ]);
+
+            GradeActivityCategory::insert([
+                
+                'course_id'=>$r->course_id,
+                'grade_activity_category_name'=>$r->grade_activity_category_name,
+                'grade_activity_category_weight'=>$r->grade_activity_category_weight,
+                'grade_activity_category_description'=>$r->grade_activity_category_description,
+                //'total'=>$r->first_ca+$r->second_ca+$r->third_ca+$r->fourth_ca+$r->exam,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),    
             ]);
 
-        GradeActivityCategory::insert([
-            
-            'course_id'=>$r->course_id,
-            'grade_activity_category_name'=>$r->grade_activity_category_name,
-            'grade_activity_category_weight'=>$r->grade_activity_category_weight,
-            'grade_activity_category_description'=>$r->grade_activity_category_description,
-            //'total'=>$r->first_ca+$r->second_ca+$r->third_ca+$r->fourth_ca+$r->exam,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),    
-        ]);
+            flash('Grade Activity Category Added!')->success();
+            return back();
+        }else{
 
-        flash('Grade Activity Category Added!')->success();
-        return back();
+           flash("Total weight of all the categories for this course must not be more than 100%")->warning();
+            return back(); 
+        }
     }
 
     public function editGradeActivityCategory(Request $r, GradeActivityCategory $gradeactivitycategory){
