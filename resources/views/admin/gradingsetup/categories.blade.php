@@ -89,6 +89,7 @@
                             </div>
 
                             <div class="content">
+                                <div class="table-responsive">
                                 <table class="table table-bordered table-hover text-center">
                                     <thead>
                                         <th class="text-center">Category</strong></th>
@@ -105,8 +106,12 @@
                                         <tr>
                                             
                                             <td >
-                                                <button type="button" class="btn btn-link" id="addGradeActivity-{{$activitycategory->id}}">
-                                                    {{ $activitycategory->grade_activity_category_name }} <i class="fa fa-pencil"></i>
+                                                
+                                                    {{ $activitycategory->grade_activity_category_name }} - ({{$grade_activities->where('grade_activity_category_id', $activitycategory->id)->count()}} Activities)<br>
+                                              
+                                                <button type="button" class="btn btn-sm btn-danger" id="addGradeActivity-{{$activitycategory->id}}"><i class="fa fa-cog"></i>Add Activity
+                                                </button>
+                                                <button type="button" class="btn btn-sm btn-success" id="addGrade-{{$activitycategory->id}}"><i class="fa fa-check-square-o"></i>Add Grades
                                                 </button>
 
                                                     @include('admin.grades.gradeactivity.addgradeactivity')
@@ -146,7 +151,7 @@
                                         
                                     </tbody>
                                 </table>
-
+                            </div>
                                 <div class="footer">
                                    
                                     <hr>

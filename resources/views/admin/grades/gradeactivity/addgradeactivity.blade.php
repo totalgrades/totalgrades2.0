@@ -20,12 +20,15 @@
                        <div class="content">
                             <form class="form-group" action="{{ url('/admin/gradingsetup/addNewGradeActivity/') }}" method="POST">
                               {{ csrf_field() }}
-                              
-                              <input type="hidden" name="grade_activity_category_id" value="{{$activitycategory->id}}">  
-                              <input type="hidden" name="school_year_id" value="{{$schoolyear->id}}">
-                              <input type="hidden" name="term_id" value="{{$term->id}}">
-                              <input type="hidden" name="group_id" value="{{$course->group_id}}">
-                              <input type="hidden" name="course_id" value="{{$course->id}}">
+
+                                <input type="hidden" name="grade_activity_category_weight" value="{{ $activitycategory->grade_activity_category_weight }}"> 
+                                
+
+                                <input type="hidden" name="grade_activity_category_id" value="{{$activitycategory->id}}">  
+                                <input type="hidden" name="school_year_id" value="{{$schoolyear->id}}">
+                                <input type="hidden" name="term_id" value="{{$term->id}}">
+                                <input type="hidden" name="group_id" value="{{$course->group_id}}">
+                                <input type="hidden" name="course_id" value="{{$course->id}}">
 
                               
                                 <div class="form-group col-md-12">
@@ -39,7 +42,7 @@
 
                                 <div class="form-group col-md-12">
                                   <div class="form-group col-md-6">
-                                      <label for="max_point"><strong>Weight of this activity in this category</strong></label>
+                                      <label for="grade_activity_weight"><strong>Weight of this activity in this category</strong></label>
                                       <input type="number" step=".01" class="form-control" id="grade_activity_weight" name="grade_activity_weight" placeholder="Weight of this activity in this category" required="">
                                   </div>
                                 </div>
@@ -51,11 +54,10 @@
                                   </div>
                                 </div>                                
                                
-                               <div class="form-group col-md-12">
-                                <div class="form-group col-md-12">
+                               <div class="form-row">
                                  <button type="submit" class="btn btn-success">Add Activity</button>
                                 </div>
-                              </div>
+                              
                             
                             </form>
                        </div>

@@ -26,6 +26,8 @@ class CrudeController extends Controller
                                            ->where('term_id', $term->id)
                                            ->where('course_id', $course->id)->get();
 
+        //dd($grade_activities);
+
         $gradeactivitycategories =  GradeActivityCategory::where('course_id', $course->id)->get();
 
                         
@@ -91,49 +93,51 @@ class CrudeController extends Controller
         return back();
     }
 
-    public function showCourse(School_year $schoolyear, Term $term, Course $course){
-
-        $grade_activities = GradeActivity::where('school_year_id', $schoolyear->id)
-                                           ->where('term_id', $term->id)
-                                           ->where('course_id', $course->id)->get();
-
-        $gradeactivitycategories =  GradeActivityCategory::where('course_id', $course->id)->get();
-
-                        
-        return view('admin.gradingsetup.showcourse', compact('schoolyear', 'term','course', 'grade_activities', 'gradeactivitycategories'));
-    }
+    
 
     public function addNewGradeActivity(Request $r){
 
-        $this->validate(request(), [
-            
-            'school_year_id' => 'required',
-            'term_id' => 'required',
-            'group_id' => 'required',
-            'course_id' => 'required',
-            'grade_activity_name'=> 'required',
-            'max_point'=> 'required|numeric|min:0',
-            'grade_activity_description'=> 'required',
-            
+        $grade_activities_category = GradeActivity::where('grade_activity_category_id', $r->grade_activity_category_id)->sum('grade_activity_weight');
+        $supplied_weight = $r->grade_activity_weight;
+        $grade_activities_category_sum = $grade_activities_category + $supplied_weight;
 
+        if ($grade_activities_category_sum < $r->grade_activity_category_weight) {
+            $this->validate(request(), [
+                'grade_activity_category_id' => 'required',
+                'school_year_id' => 'required',
+                'term_id' => 'required',
+                'group_id' => 'required',
+                'course_id' => 'required',
+                'grade_activity_name'=> 'required',
+                'grade_activity_weight'=> "required|numeric|min:0|max:$r->grade_activity_category_weight",
+                'grade_activity_description'=> 'required',
+                
+
+                ]);
+
+            GradeActivity::insert([
+                'grade_activity_category_id' => $r->grade_activity_category_id,
+                'school_year_id' => $r->school_year_id,
+                'term_id' => $r->term_id,
+                'group_id' => $r->group_id,
+                'course_id'=>$r->course_id,
+                'grade_activity_name'=>$r->grade_activity_name,
+                'grade_activity_weight'=>$r->grade_activity_weight,
+                'grade_activity_description'=>$r->grade_activity_description,
+                //'total'=>$r->first_ca+$r->second_ca+$r->third_ca+$r->fourth_ca+$r->exam,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),    
             ]);
 
-        GradeActivity::insert([
-            
-            'school_year_id' => $r->school_year_id,
-            'term_id' => $r->term_id,
-            'group_id' => $r->group_id,
-            'course_id'=>$r->course_id,
-            'grade_activity_name'=>$r->grade_activity_name,
-            'max_point'=>$r->max_point,
-            'grade_activity_description'=>$r->grade_activity_description,
-            //'total'=>$r->first_ca+$r->second_ca+$r->third_ca+$r->fourth_ca+$r->exam,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),    
-        ]);
+            flash('Grade Activity Added!')->success();
+            return back();
+        }else{
 
-        flash('Grade Activity Added!')->success();
-        return back();
+            flash("Weights of all grade activities in this category must not be more than $r->grade_activity_category_weight%")->warning();
+            return back();
+        }
+        
+       
     }
 
    
@@ -167,5 +171,17 @@ class CrudeController extends Controller
         flash('Grade Activity Deleted!')->warning();
             
         return back();
+    }
+
+    public function showCourse(School_year $schoolyear, Term $term, Course $course){
+
+        $grade_activities = GradeActivity::where('school_year_id', $schoolyear->id)
+                                           ->where('term_id', $term->id)
+                                           ->where('course_id', $course->id)->get();
+
+        $gradeactivitycategories =  GradeActivityCategory::where('course_id', $course->id)->get();
+
+                        
+        return view('admin.gradingsetup.showcourse', compact('schoolyear', 'term','course', 'grade_activities', 'gradeactivitycategories'));
     }
 }
