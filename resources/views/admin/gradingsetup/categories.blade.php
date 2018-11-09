@@ -107,7 +107,7 @@
                                             
                                             <td >
                                                 
-                                                {{ $activitycategory->grade_activity_category_name }} - ({{$grade_activities->where('grade_activity_category_id', $activitycategory->id)->count()}} Activities)<br>
+                                                {{ $activitycategory->grade_activity_category_name }} ({{$grade_activities->where('grade_activity_category_id', $activitycategory->id)->count()}} Activities - {{$grade_activities->where('grade_activity_category_id', $activitycategory->id)->sum('grade_activity_weight')}}%)<br>
 
                                                 <a class="btn btn-sm btn-primary" href="{{asset('/grades/gradeactivity/studentscategorygrades/'.$activitycategory->id) }}/{{$schoolyear->id}}/{{$term->id}}/{{$course->id}}" role="button"><i class="fa fa-check-square-o"></i>Add Grades</a>
                                             

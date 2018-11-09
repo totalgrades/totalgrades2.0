@@ -40,7 +40,7 @@ class CrudeController extends Controller
         $supplied_weight = $r->grade_activity_category_weight;
         $grade_activities_category_plus_supplied = $grade_activity_category_sum + $supplied_weight;
 
-        if ($grade_activities_category_plus_supplied < 100) {
+        if ($grade_activities_category_plus_supplied <= 100) {
 
             $this->validate(request(), [
                 
@@ -112,7 +112,7 @@ class CrudeController extends Controller
         $supplied_weight = $r->grade_activity_weight;
         $grade_activities_category_sum = $grade_activities_category + $supplied_weight;
 
-        if ($grade_activities_category_sum < $r->grade_activity_category_weight) {
+        if ($grade_activities_category_sum <= $r->grade_activity_category_weight) {
             $this->validate(request(), [
                 'grade_activity_category_id' => 'required',
                 'school_year_id' => 'required',
