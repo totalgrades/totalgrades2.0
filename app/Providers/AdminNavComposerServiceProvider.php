@@ -66,6 +66,7 @@
             'admin.gradingsetup.categories',
             'admin.gradingsetup.showcourse',
             'admin.grades.gradeactivity.students',
+            'admin.grades.gradeactivity.studentscategorygrades',
             ], 
             
             'App\Http\ViewComposers\AdminNavComposer'

@@ -20,6 +20,7 @@ use App\Course;
 use App\Admin;
 use \Crypt;
 use App\GradeActivity;
+use App\GradeActivityCategory;
 use DB;
 use App\Grade;
 
@@ -28,11 +29,7 @@ class GradeActivityController extends Controller
     public function showStudents(GradeActivity $gradeactivity, School_year $schoolyear, Term $term ){
 
     	$term_courses = Course::where('term_id', '=', $term->id)->where('group_id', '=', @\App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('staffer_id', \App\Staffer::where('registration_code', '=', Auth::guard('web_admin')->user()->registration_code)->first()->id)->first()->group_id)->get();
-        
-        //$grade_activities_all = GradeActivity::get();
-
-      //dd($grade_activities_all);
-
+    
 		$grade_activities = GradeActivity::where('id', $gradeactivity->id)->get();
         $grade_activities_course = GradeActivity::where('course_id', $gradeactivity->course->id)->get();
 
@@ -103,5 +100,19 @@ class GradeActivityController extends Controller
         flash('Grade Deleted!')->warning();
         	
     	return back();
+    }
+
+    // Add edit Student Grades from the Grades set up page
+
+    public function studentsCategoryGrades(GradeActivityCategory $gradeactivitycategory, GradeActivity $gradeactivity, School_year $schoolyear, Term $term ){
+
+        $term_courses = Course::where('term_id', '=', $term->id)->where('group_id', '=', @\App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('staffer_id', \App\Staffer::where('registration_code', '=', Auth::guard('web_admin')->user()->registration_code)->first()->id)->first()->group_id)->get();
+    
+        $grade_activities = GradeActivity::where('id', $gradeactivity->id)->get();
+        $grade_activities_course = GradeActivity::where('course_id', $gradeactivity->course->id)->get();
+
+        $student_grades = Grade::where('grade_activity_id', $gradeactivity->id)->get();
+
+        return view('admin.grades.gradeactivity.studentscategorygrades', compact('term_courses', 'schoolyear', 'term','gradeactivity', 'grade_activities_course', 'grade_activities', 'student_grades'));
     }
 }

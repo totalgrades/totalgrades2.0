@@ -107,13 +107,13 @@
                                             
                                             <td >
                                                 
-                                                    {{ $activitycategory->grade_activity_category_name }} - ({{$grade_activities->where('grade_activity_category_id', $activitycategory->id)->count()}} Activities)<br>
-                                              
+                                                {{ $activitycategory->grade_activity_category_name }} - ({{$grade_activities->where('grade_activity_category_id', $activitycategory->id)->count()}} Activities)<br>
+
+                                                <a class="btn btn-sm btn-primary" href="{{asset('/grades/gradeactivity/studentscategorygrades/'.$activitycategory->id) }}/{{$schoolyear->id}}/{{$term->id}}/{{$course->id}}" role="button"><i class="fa fa-check-square-o"></i>Add Grades</a>
+                                            
                                                 <button type="button" class="btn btn-sm btn-danger" id="addGradeActivity-{{$activitycategory->id}}"><i class="fa fa-cog"></i>Add Activity
                                                 </button>
-                                                <button type="button" class="btn btn-sm btn-success" id="addGrade-{{$activitycategory->id}}"><i class="fa fa-check-square-o"></i>Add Grades
-                                                </button>
-
+                                                
                                                     @include('admin.grades.gradeactivity.addgradeactivity')
 
                                                       <script type="text/javascript">
