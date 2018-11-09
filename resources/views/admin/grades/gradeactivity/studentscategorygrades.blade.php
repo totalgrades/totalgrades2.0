@@ -11,7 +11,7 @@ th.rotate > div {
     /* Magic Numbers */
     translate(25px, 51px)
     /* 45 is really 360 - 45 */
-    rotate(315deg);
+    rotate(290deg);
   width: 30px;
 }
 th.rotate > div > span {
@@ -50,8 +50,16 @@ th.rotate > div > span {
                                   <th  class="text-center">#</th>
                                   <th  class="text-center">Face</th>
                                   <th  class="text-center">Last Name</th>
+
                                   @foreach($grade_activities as $key=>$grade_activity)
-  	                                <th class="rotate"><div><span>{{$grade_activity->grade_activity_name}}-({{$grade_activity->grade_activity_weight}}%)</span></div></th>
+
+  	                                <th class="rotate" >
+                                      <div>
+                                        <span style="font-size: 17px">
+                                          {{$grade_activity->grade_activity_name}}-({{$grade_activity->grade_activity_weight}}%)
+                                        </span>
+                                      </div>
+                                  </th>
 
                                   @endforeach
   	                                                              
