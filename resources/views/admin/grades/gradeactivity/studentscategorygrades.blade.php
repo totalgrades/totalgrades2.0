@@ -19,6 +19,7 @@ th.rotate > div > span {
   padding: 5px 10px;
 }
 
+
 </style>
 @section('content')
 
@@ -43,7 +44,7 @@ th.rotate > div > span {
                             
                         <div class="content">
                         <div class="table-responsive">
-                          <table class="table table-hover" style="font-size: 12px;">
+                          <table class="table table-hover">
                             <thead>
                               <tr>
                                   <th  class="text-center">#</th>
@@ -82,14 +83,61 @@ th.rotate > div > span {
                                         @foreach($grade_activities as $key=>$grade_activity)
                                         <td class="text-center">
                                         
-                                        @foreach ($student_grades->where('grade_activity_id', $grade_activity->id) as $student_grade)
-                                            @if($student_grade->student_id == $reg_students->student->id)
-                                              {{$student_grade->activity_grade}} % <i class="fa fa-edit"></i><i class="fa fa-trash"></i>
-                                            @endif
-                                        @endforeach
-                                        <i class="fa fa-pencil"></i>
-                                      </td>
+                                          @foreach ($student_grades->where('grade_activity_id', $grade_activity->id) as $student_grade)
+                                              @if($student_grade->student_id == $reg_students->student->id)
+                                                {{$student_grade->activity_grade}} % <i class="fa fa-edit"></i><i class="fa fa-trash"></i>
+                                              @endif
+                                          @endforeach
+                                            <button type="button" class="btn btn-light" style="color: red" id="addGradeIcon-{{$grade_activity->id}}{{$reg_students->student->id}}"><i class="fa fa-pencil"></i></button>
 
+                                             <!-- Add grade form-->
+                                            <form method="post" action="{{ url('/grades/gradeactivity/student/addgrade', [$grade_activity->id]) }}" id="addGradeForm-{{$grade_activity->id}}{{$reg_students->student->id}}" style="display: none;">
+                                            {{ csrf_field() }}
+
+                                            
+                                            <input type="hidden" name="grade_activity_id" value="{{$grade_activity->id}}" required="">
+                                            <input type="hidden" name="student_id" value="{{$reg_students->student->id}}" required="">
+
+                                            <div class="row">
+                                              <div class="col-md-3">
+                                                  <label>Grade</label>
+                                                  <input type="number" step=".01" class="form-control" id="activity_grade" name="activity_grade" required="">
+                                              </div>
+                                              <div class="col-md-4">
+                                                <label>Comment</label>
+                                                <input type="text" class="form-control" id="activity_comment" name="activity_comment">
+                                              </div>
+                                            
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-md-2">
+                                                <button type="submit" class="btn btn-success" id="addGradeSubmit-{{$grade_activity->id}}{{$reg_students->student->id}}">Submit</button>
+                                              </div>
+                                              <div class="col-md-2">
+                                                <button type="button" class="btn btn-danger" id="closeGradeForm-{{$grade_activity->id}}{{$reg_students->student->id}}">Close</button>
+                                              </div>
+                                            </div>
+                                            
+                                          </form>
+                                          <!-- End General Controls -->
+                                      
+                                       
+                                          <script type="text/javascript">
+                                              jQuery(document).ready(function(){
+                                       
+                                                 
+                                                 $("#addGradeIcon-{{$grade_activity->id}}{{$reg_students->student->id}}").click(function(){
+                                                    $("#addGradeForm-{{$grade_activity->id}}{{$reg_students->student->id}}").show(1000);
+                                                 });
+                                                 $("#closeGradeForm-{{$grade_activity->id}}{{$reg_students->student->id}}").click(function(){
+                                                    $("#addGradeForm-{{$grade_activity->id}}{{$reg_students->student->id}}").hide(1000);
+                                                 });
+                                              });
+
+                                          </script>
+                                          <!-- Add grade form Ends-->
+
+                                        </td>
                                         @endforeach
                                         
                                       
