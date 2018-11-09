@@ -72,7 +72,7 @@ class GradeActivityController extends Controller
 
         $max_point = GradeActivity::where('id', $gradeactivity->id)->first();
 
-        $max_value = $max_point->max_point;
+        $max_value = $max_point->grade_activity_weight;
 
     	$this->validate(request(), [
 

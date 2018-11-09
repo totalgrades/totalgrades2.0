@@ -160,8 +160,8 @@ Route::group(['middleware' => 'admin_auth'], function(){
     
     //Routes for adding and editing grades-grade activity
     Route::get('/grades/gradeactivity/students/{gradeactivity}/{schoolyear}/{term}', 'AdminAuth\Grades\GradeActivityController@showStudents');
-    Route::post('/grades/gradeactivity/student/addgrade/{gradeactivity}', 'AdminAuth\Grades\GradeActivityController@addStudentGrade');
-    Route::post('/grades/gradeactivity/student/editgrade/{gradeactivity}/{grade}', 'AdminAuth\Grades\GradeActivityController@editStudentGrade');
+     Route::post('/grades/gradeactivity/student/addgrade/{gradeactivity}', 'AdminAuth\Grades\GradeActivityController@addStudentGrade');
+     Route::post('/grades/gradeactivity/student/editgrade/{gradeactivity}/{grade}', 'AdminAuth\Grades\GradeActivityController@editStudentGrade');
     Route::get('/grades/gradeactivity/student/deletegrade/{grade}', 'AdminAuth\Grades\GradeActivityController@deleteStudentGrade');
 
         /*Route::get('/addGrades/{student}/{course}/{schoolyear}/{term}', 'AdminAuth\GradesCrudController@addGrades');
