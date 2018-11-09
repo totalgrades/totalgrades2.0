@@ -106,14 +106,16 @@ class GradeActivityController extends Controller
 
     public function studentsCategoryGrades(GradeActivityCategory $gradeactivitycategory, School_year $schoolyear, Term $term , Course $course){
 
-        $term_courses = Course::where('term_id', '=', $term->id)->where('group_id', '=', @\App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('staffer_id', \App\Staffer::where('registration_code', '=', Auth::guard('web_admin')->user()->registration_code)->first()->id)->first()->group_id)->get();
+        //$term_courses = Course::where('term_id', '=', $term->id)->where('group_id', '=', @\App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('staffer_id', \App\Staffer::where('registration_code', '=', Auth::guard('web_admin')->user()->registration_code)->first()->id)->first()->group_id)->get();
     
         $grade_activities = GradeActivity::where('grade_activity_category_id', $gradeactivitycategory->id)->get();
 
 
         //$grade_activities_course = GradeActivity::where('course_id', $gradeactivity->course->id)->get();
 
-        //$student_grades = Grade::where('grade_activity_id', $gradeactivity->id)->get();
+        $student_grades = Grade::get();
+
+        //dd($student_grades);
 
         return view('admin.grades.gradeactivity.studentscategorygrades', compact('term_courses', 'schoolyear', 'term','gradeactivity', 'grade_activities_course', 'grade_activities', 'student_grades'));
     }
