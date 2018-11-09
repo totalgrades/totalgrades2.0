@@ -13,10 +13,10 @@
               
                 <div class="row">
                     
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <div class="row">           
 
-                            <div class="col-md-12">
+                            <div class="col-md-6 pull-right">
                                 <button type="button" class="btn btn-danger pull-right" id="newGradeActivityCategory">New Grade Activity Category</button>
                                 <hr>
                                 <div class="col-md-12 pull-right" id="newGradeActivityCategoryForm" style="display: none;">
@@ -113,6 +113,8 @@
                                             
                                                 <button type="button" class="btn btn-sm btn-danger" id="addGradeActivity-{{$activitycategory->id}}"><i class="fa fa-cog"></i>Add Activity
                                                 </button>
+
+                                                <a class="btn btn-sm btn-info" href="{{asset('/grades/gradeactivity/studentscategorygrades/'.$activitycategory->id) }}/{{$schoolyear->id}}/{{$term->id}}/{{$course->id}}" role="button"><i class="fa fa-check-square-o"></i>Edit Activity</a>
                                                 
                                                     @include('admin.grades.gradeactivity.addgradeactivity')
 
@@ -158,11 +160,16 @@
                                     
                                     <div class="stats">
                                         @if($gradeactivitycategories->sum('grade_activity_category_weight') < 100 )
-                                            <button type="button" class="btn btn-warning"><strong>Total Weight so far: {{ $gradeactivitycategories->sum('grade_activity_category_weight') }} <span>&#37;</span></strong> <mark>must be equal to 100 <span>&#37;</mark></span></button>
+                                            <div class="alert alert-success">
+                                              <strong>Total Weight so far: {{ $gradeactivitycategories->sum('grade_activity_category_weight') }} <span>&#37;</span></strong> <mark>must be equal to 100</mark>
+                                            </div>
                                         @elseif($gradeactivitycategories->sum('grade_activity_category_weight') > 100)
-                                            <button type="button" class="btn btn-danger"><strong>Total Weight: {{ $gradeactivitycategories->sum('grade_activity_category_weight') }} <span>&#37;</span></strong><mark>must be equal to 100 <span>&#37;</mark></button>
+                                            <div class="alert alert-danger">
+                                              <strong>Total Weight: {{ $gradeactivitycategories->sum('grade_activity_category_weight') }} <span>&#37;</span></strong><mark>must be equal to 100 <span>&#37;</span></mark>
+                                            </div>
+
                                         @elseif($gradeactivitycategories->sum('grade_activity_category_weight') == 100)
-                                            <button type="button" class="btn btn-info"><strong>Total Weight: {{ $gradeactivitycategories->sum('grade_activity_category_weight') }} <span>&#37;</span></strong></button>
+                                            <div class="alert alert-danger"><strong>Total Weight: {{ $gradeactivitycategories->sum('grade_activity_category_weight') }} <span>&#37;</span></strong></div>
                                         @endif
                                         
                                     </div>
