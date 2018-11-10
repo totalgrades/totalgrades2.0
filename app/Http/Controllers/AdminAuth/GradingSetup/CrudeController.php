@@ -151,6 +151,13 @@ class CrudeController extends Controller
        
     }
 
+    public function showGradeActivities(GradeActivityCategory $gradeactivitycategory, School_year $schoolyear, Term $term, Course $course){
+
+        $grade_activities = GradeActivity::where('grade_activity_category_id', $gradeactivitycategory->id)->get();
+
+                                
+        return view('admin.gradingsetup.showgradeactivities', compact('gradeactivitycategory', 'schoolyear', 'term','course', 'grade_activities'));
+    }
    
     public function editGradeActivity(Request $r, GradeActivity $gradeactivity){
 

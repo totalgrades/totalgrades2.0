@@ -145,6 +145,7 @@ Route::group(['middleware' => 'admin_auth'], function(){
 
     Route::get('/admin/gradingsetup/showcourse/{schoolyear}/{term}/{course}', 'AdminAuth\GradingSetup\CrudeController@showCourse')->name('showCourseGA');
     
+    Route::get('/admin/gradingsetup/showgradeactivities/{gradeactivitycategory}/{schoolyear}/{term}/{course}', 'AdminAuth\GradingSetup\CrudeController@showGradeActivities');
     Route::post('/admin/gradingsetup/addNewGradeActivity', 'AdminAuth\GradingSetup\CrudeController@addNewGradeActivity');
     Route::post('/admin/gradingsetup/editGradeActivity/{gradeactivity}', 'AdminAuth\GradingSetup\CrudeController@editGradeActivity');
     Route::get('/admin/gradingsetup/deleteGradeActivity/{gradeactivity}', 'AdminAuth\GradingSetup\CrudeController@deleteGradeActivity');

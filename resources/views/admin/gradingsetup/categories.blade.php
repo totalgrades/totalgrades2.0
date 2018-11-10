@@ -114,7 +114,7 @@
                                                 <button type="button" class="btn btn-sm btn-danger" id="addGradeActivity-{{$activitycategory->id}}"><i class="fa fa-cog"></i>Add Activity
                                                 </button>
 
-                                                <a class="btn btn-sm btn-info" href="{{asset('/grades/gradeactivity/studentscategorygrades/'.$activitycategory->id) }}/{{$schoolyear->id}}/{{$term->id}}/{{$course->id}}" role="button"><i class="fa fa-check-square-o"></i>Edit Activity</a>
+                                                <a class="btn btn-sm btn-info" href="{{asset('/admin/gradingsetup/showgradeactivities/'.$activitycategory->id) }}/{{$schoolyear->id}}/{{$term->id}}/{{$course->id}}" role="button"><i class="fa fa-check-square-o"></i>Edit Activity</a>
                                                 
                                                     @include('admin.grades.gradeactivity.addgradeactivity')
 
