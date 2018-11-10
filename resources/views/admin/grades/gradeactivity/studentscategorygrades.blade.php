@@ -64,16 +64,16 @@ th.rotate > div > span {
                           <table class="table table-hover">
                             <thead>
                               <tr >
-                                  <th  class="text-center">#</th>
-                                  <th  class="text-center">Face</th>
-                                  <th  class="text-center">Last Name</th>
+                                  <th  class="text-center" style="font-size: 15px"><strong>#</strong></th>
+                                  <th  class="text-center" style="font-size: 15px"><strong>Face</strong></th>
+                                  <th  class="text-center" style="font-size: 15px"><strong>Last Name</strong></th>
 
                                   @foreach($grade_activities as $key=>$grade_activity)
 
   	                                <th class="rotate" style="padding-left: 8%;">
                                       <div>
                                         <span style="font-size: 15px">
-                                          {{$grade_activity->grade_activity_name}}-({{$grade_activity->grade_activity_weight}}%)
+                                          <strong>{{$grade_activity->grade_activity_name}}-({{$grade_activity->grade_activity_weight}}%)</strong>
                                         </span>
                                       </div>
                                   </th>
