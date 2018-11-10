@@ -96,12 +96,8 @@ th.rotate > div > span {
                                               @if ($st_user->registration_code == $reg_students->student->registration_code)                         
 
                                               <img class="avatar border-white" src="{{asset('/assets/img/students/'.$st_user->avatar) }}" alt="..."/>
-                                                @foreach($grade_activities as $key=>$grade_activity)
-                                                  
-                                                   
-                                                      {{ $student_grades->where('grade_activity_id', $grade_activity->id)->where('student_id', $reg_students->student->id)->sum('activity_grade') }}%
-                                                   
-                                                @endforeach
+                                              <button type="button" class="btn btn-sm"><strong><span style="font-size: 22px; color: #FF5733;">{{ $grades_and_activities->where('student_id', $reg_students->student->id)->sum('activity_grade') }}%</span></strong></button>
+                                               
 
                                              @endif
                                               

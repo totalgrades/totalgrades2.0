@@ -112,14 +112,13 @@ class GradeActivityController extends Controller
 
         $grades_and_activities = DB::table('grades')
                     ->join('grade_activities', 'grade_activities.id', '=', 'grades.grade_activity_id')
-                    ->where('grades.student_id', $student->id)
                     ->where('grade_activities.school_year_id', $schoolyear->id)
                     ->where('grade_activities.term_id', $term->id)
-                    ->where('grade_activities.group_id', \App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('staffer_id', \App\Staffer::where('registration_code', '=', Auth::guard('web_admin')->user()->registration_code)->first()->id)->first()->group_id )
-                    ->get()->groupBy('course_id');
+                    ->where('grade_activities.grade_activity_category_id', $gradeactivitycategory->id)
+                    ->get();
 
-        dd($grades_and_activities);
+        //dd($grades_and_activities);
 
-        return view('admin.grades.gradeactivity.studentscategorygrades', compact( 'gradeactivitycategory', 'schoolyear', 'term', 'course', 'grade_activities', 'student_grades'));
+        return view('admin.grades.gradeactivity.studentscategorygrades', compact( 'gradeactivitycategory', 'schoolyear', 'term', 'course', 'grade_activities', 'student_grades', 'grades_and_activities'));
     }
 }
