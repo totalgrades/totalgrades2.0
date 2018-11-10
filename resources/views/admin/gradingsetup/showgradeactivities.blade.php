@@ -15,11 +15,21 @@
                 	<div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                 <h4 class="title"> 
-                                 
-                                 <a><i class="fa fa-book fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Course:&nbsp; {{ $gradeactivitycategory->course->course_code }}: {{ $gradeactivitycategory->course->name }} </a> <div class="pull-right"><a href="{{asset('/admincourses/'.$schoolyear->id) }}/{{$term->id}}"><button type="button" class="btn btn-primary">Back To {{@$term->term}} Courses</button></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger">Select Another Grade Activity</button></div>
-                                 <strong><p>{{ strtoupper($schoolyear->school_year) }} School Year</p></strong>
-                                 </h4>
+                                 <div class="alert alert-success">
+                                    <h5 class="title">
+                                        <strong>{{$gradeactivitycategory->grade_activity_category_name}}({{$gradeactivitycategory->grade_activity_category_weight}}%)
+                                        </strong>
+                                    </h5>
+                                </div>
+                                <p class="category"> 
+                                    <ul class="list-inline">
+                                      <li><i class="fa fa-circle text-info"></i> <strong>Course: <span style="color: rgb(48, 145, 178)">{{ strtoupper($course->course_code) }} {{ strtoupper($course->name) }} </span></strong></li>
+                                      <li><i class="fa fa-circle" style="color: #FF5733"></i> <strong>School Year: <span style="color: #FF5733">{{ strtoupper($schoolyear->school_year) }} </span></strong></li>
+                                      <li><i class="fa fa-circle" style="color: orange"></i> <strong>Group(Class): <span style="color: orange">{{ strtoupper($course->group->name) }}</span> </strong></li>
+                                      <li><i class="fa fa-circle " style="color: #800000"></i> <strong>Term: <span style="color: #800000">{{ strtoupper($term->term) }}</span> </strong></li>
+                                    </ul>
+                                   
+                                </p>
                                 
                                 
                             </div>
@@ -29,12 +39,12 @@
                           <table class="table table-bordered table-hover" style="font-size: 12px;">
                             <thead>
                                 <tr>
-	                                <th  class="text-center">#</th>
-	                                <th  class="text-center">Activity Name</th>
-	                                <th  class="text-center">Weight</th>
-                                  <th  class="text-center">Description</th>
+	                                <th  class="text-center"><strong>#</strong></th>
+	                                <th  class="text-center"><strong>Activity Name</strong></th>
+	                                <th  class="text-center"><strong>Weight</strong></th>
+                                  <th  class="text-center"><strong>Description</strong></th>
 	                                @if($schoolyear->id == $current_school_year->id && $term->id == $current_term->id)
-	                                    <th colspan="3" class="text-center">Action</th>
+	                                    <th colspan="2" class="text-center"><strong>Action</strong></th>
 	                                @endif
                               </tr>
                           </thead>
@@ -46,11 +56,11 @@
                                       <tr>
                                         <td class="text-center">{{$number_init++}}</td>
                                         <td class="text-center">{{$grade_activity->grade_activity_name}}</td>
-                                        <td class="text-center">{{$grade_activity->grade_activity_weight}}</td>
+                                        <td class="text-center">{{$grade_activity->grade_activity_weight}}%</td>
                                         <td class="text-center">{{$grade_activity->grade_activity_description}}</td>
                                         
                                         <td class="text-center">
-                                          <button type="button" class="btn btn-primary">Edit</button>
+                                          <button type="button" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</button>
                                             <!-- Edit grade activity form-->
                                             <form class="form-group" action="{{ url('/admin/gradingsetup/editGradeActivity/') }}" method="POST" id="editGradeActivityForm-{{$grade_activity->id}}" style="display: none">
                                                 {{ csrf_field() }}
@@ -92,14 +102,12 @@
 
         				                          </script>
                                   		   <!-- Edit grade activity form Ends-->
+
+                                         <a href="{{ url('/grades/gradeactivity/student/deletegrade/'.$grade_activity->id) }}" onclick="return confirm('Are you sure you want to Delete this record?')" class="btn btn-danger" role="button"> <i class="fa fa-trash"></i> Delete
+                                            </a>
                               		      </td>
 
-                                        <td class="text-center">
-                                                                                 		
-	                                        	<a href="{{ url('/grades/gradeactivity/student/deletegrade/'.$grade_activity->id) }}" onclick="return confirm('Are you sure you want to Delete this record?')"> <i class="fa fa-trash fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;Delete
-		                                        </a>
-			                                  
-                                      </td>
+                                        
                                       </tr>
                                    
                                  

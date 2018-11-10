@@ -96,7 +96,7 @@ th.rotate > div > span {
                                               @if ($st_user->registration_code == $reg_students->student->registration_code)                         
 
                                               <img class="avatar border-white" src="{{asset('/assets/img/students/'.$st_user->avatar) }}" alt="..."/>
-                                              <button type="button" class="btn btn-sm"><strong><span style="font-size: 22px; color: #FF5733;">{{ $grades_and_activities->where('student_id', $reg_students->student->id)->sum('activity_grade') }}%</span></strong></button>
+                                              <button type="button" class="btn btn-sm"><strong><span style="font-size: 20px; color: #EB5E28;">{{ $grades_and_activities->where('student_id', $reg_students->student->id)->sum('activity_grade') }}%</span></strong></button>
                                                
 
                                              @endif
