@@ -32,13 +32,30 @@ th.rotate > div > span {
                 @include('flash::message')
                 @include('formerror')
                 <div class="row">
+                  <div class="col-md-12">
+                    <a class="btn btn-danger pull-right" href="{{asset('/admin/gradingsetup/categories/'.$schoolyear->id) }}/{{$term->id}}/{{$course->id}}" role="button">Back to Activities Categories</a>
+                  </div>
+                  
 
                 	<div class="col-md-12">
+
                         <div class="card">
+                            
                             <div class="header">
-                              
-                                 
-                              
+                                <div class="alert alert-success">
+                                    <h4 class="title">
+                                        {{$gradeactivitycategory->grade_activity_category_name}}({{$gradeactivitycategory->grade_activity_category_weight}}%)
+                                    </h4>
+                                </div>
+                                <p class="category"> 
+                                    <ul class="list-inline">
+                                      <li><i class="fa fa-circle text-info"></i> <strong>Course: <span style="color: rgb(48, 145, 178)">{{ strtoupper($course->course_code) }} {{ strtoupper($course->name) }} </span></strong></li>
+                                      <li><i class="fa fa-circle" style="color: #FF5733"></i> <strong>School Year: <span style="color: #FF5733">{{ strtoupper($schoolyear->school_year) }} </span></strong></li>
+                                      <li><i class="fa fa-circle" style="color: orange"></i> <strong>Group(Class): <span style="color: orange">{{ strtoupper($course->group->name) }}</span> </strong></li>
+                                      <li><i class="fa fa-circle " style="color: #800000"></i> <strong>Term: <span style="color: #800000">{{ strtoupper($term->term) }}</span> </strong></li>
+                                    </ul>
+                                   
+                                </p>
                                 
                             </div>
                             
@@ -79,6 +96,12 @@ th.rotate > div > span {
                                               @if ($st_user->registration_code == $reg_students->student->registration_code)                         
 
                                               <img class="avatar border-white" src="{{asset('/assets/img/students/'.$st_user->avatar) }}" alt="..."/>
+                                                @foreach($grade_activities as $key=>$grade_activity)
+                                                  
+                                                   
+                                                      {{ $student_grades->where('grade_activity_id', $grade_activity->id)->where('student_id', $reg_students->student->id)->sum('activity_grade') }}%
+                                                   
+                                                @endforeach
 
                                              @endif
                                               
