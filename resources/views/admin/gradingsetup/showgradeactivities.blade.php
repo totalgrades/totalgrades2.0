@@ -121,7 +121,7 @@
                                             
                               		      </td>
                                         <td>
-                                          <a href="{{ url('/grades/gradeactivity/student/deletegrade/'.$grade_activity->id) }}" onclick="return confirm('Are you sure you want to Delete this record?')" class="btn btn-danger" role="button"> <i class="fa fa-trash"></i> Delete
+                                          <a href="{{ url('/admin/gradingsetup/deleteGradeActivity/'.$grade_activity->id) }}" onclick="return confirm('Are you sure you want to Delete this record?')" class="btn btn-danger" role="button"> <i class="fa fa-trash"></i> Delete
                                             </a>
                                         </td>
                                         
