@@ -60,30 +60,43 @@
                                         <td class="text-center">{{$grade_activity->grade_activity_description}}</td>
                                         
                                         <td class="text-center">
-                                          <button type="button" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</button>
+                                          <button type="button" class="btn btn-primary" id="editGradeActivity-{{$grade_activity->id}}"><i class="fa fa-edit"></i> Edit</button>
                                             <!-- Edit grade activity form-->
-                                            <form class="form-group" action="{{ url('/admin/gradingsetup/editGradeActivity/') }}" method="POST" id="editGradeActivityForm-{{$grade_activity->id}}" style="display: none">
+                                            <form class="form-horizontal" action="{{ url('/admin/gradingsetup/editGradeActivity', [$grade_activity->id]) }}" method="POST" id="editGradeActivityForm-{{$grade_activity->id}}" style="display: none">
                                                 {{ csrf_field() }}
-                                                  
-              
-                                                  <div class="form-row">
 
-                                                    <div class="form-group col-md-6">
+
+                                                <input type="hidden" name="grade_activity_category_id" value="{{$gradeactivitycategory->id}}">
+                                                <input type="hidden" name="grade_activity_category_weight" value="{{$gradeactivitycategory->grade_activity_category_weight}}">
+
+                                                  <div class="form-group">
+
+                                                    <div class="col-md-3">
                                                       <label for="grade_activity_name"><strong>Activity Name</strong></label>
-                                                      <input type="text" class="form-control" id="grade_activity_name" name="grade_activity_name" placeholder="Activity name" required="">
+                                                      <input type="text" class="form-control" id="grade_activity_name" name="grade_activity_name" value="{{$grade_activity->grade_activity_name}}" required="">
                                                     </div>
-                                                    <div class="form-group col-md-6">
-                                                      <label for="max_point"><strong>Weight of this activity in this category</strong></label>
-                                                      <input type="number" step=".01" class="form-control" id="grade_activity_weight" name="grade_activity_weight" placeholder="Weight of this activity in this category" required="">
+
+                                                    <div class="col-md-2">
+                                                      <label for="max_point"><strong>Weight(%)</strong></label>
+                                                      <input type="number" step=".01" class="form-control" id="grade_activity_weight" name="grade_activity_weight" value="{{$grade_activity->grade_activity_weight}}" required="">
                                                     </div>
                                                   </div>
-                                                  <div class="form-group col-md-12">
-                                                    <label for="grade_activity_description"><strong>Short Description</strong></label>
-                                                    <input type="text" class="form-control" id="grade_activity_description" name="grade_activity_description" placeholder="Short Description" required="">
-                                                  </div>                                
-                                                 
-                                                  <button type="submit" class="btn btn-success">Add Activity</button>
-                                                  <button type="button" class="btn btn-danger" id="closeGradeActivityForm">Close Form</button>
+
+                                                  <div class="form-group">
+                                                    <div class="col-md-4">
+                                                      <label for="grade_activity_description"><strong>Short Description</strong></label>
+                                                      <input type="text" class="form-control" id="grade_activity_description" name="grade_activity_description" value="{{$grade_activity->grade_activity_description}}" required="">
+                                                    </div>                                
+                                                 </div>
+                                                 <div class="form-group">
+
+                                                    <div class="col-md-3">
+                                                      <button type="submit" class="btn btn-success">Update Activity</button>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                      <button type="button" class="btn btn-danger" id="closeEditGradeActivityForm-{{$grade_activity->id}}">Close Form</button>
+                                                    </div>
+                                                  </div> 
                                                 </form>
                                   		    <!-- End General Controls -->
                                   		  
@@ -92,21 +105,25 @@
         				                            jQuery(document).ready(function(){
         				                     
         				                               
-        				                               $("#showAddGradeForm").click(function(){
-        				                                  $("#addGradeForm").show(1000);
+        				                               $("#editGradeActivity-{{$grade_activity->id}}").click(function(){
+        				                                  $("#editGradeActivityForm-{{$grade_activity->id}}").show(1000);
+                                                  $("#editGradeActivity-{{$grade_activity->id}}").hide(1000);
         				                               });
-        				                               $("#closeGradeForm").click(function(){
-        				                                  $("#addGradeForm").hide(1000);
+        				                               $("#closeEditGradeActivityForm-{{$grade_activity->id}}").click(function(){
+        				                                  $("#editGradeActivityForm-{{$grade_activity->id}}").hide(1000);
+                                                  $("#editGradeActivity-{{$grade_activity->id}}").show(1000);
         				                               });
         				                            });
 
         				                          </script>
                                   		   <!-- Edit grade activity form Ends-->
 
-                                         <a href="{{ url('/grades/gradeactivity/student/deletegrade/'.$grade_activity->id) }}" onclick="return confirm('Are you sure you want to Delete this record?')" class="btn btn-danger" role="button"> <i class="fa fa-trash"></i> Delete
-                                            </a>
+                                            
                               		      </td>
-
+                                        <td>
+                                          <a href="{{ url('/grades/gradeactivity/student/deletegrade/'.$grade_activity->id) }}" onclick="return confirm('Are you sure you want to Delete this record?')" class="btn btn-danger" role="button"> <i class="fa fa-trash"></i> Delete
+                                            </a>
+                                        </td>
                                         
                                       </tr>
                                    
@@ -120,15 +137,26 @@
 
                                
                                 <div class="footer">
-                                    <!-- <div class="chart-legend">
-                                        <i class="fa fa-circle text-info"></i> Open
-                                        <i class="fa fa-circle text-danger"></i> Click
-                                        <i class="fa fa-circle text-warning"></i> Click Second Time
-                                    </div> -->
+                                   
                                     <hr>
-                                    <!-- <div class="stats">
-                                        <i class="ti-reload"></i> Updated 3 minutes ago
-                                    </div> -->
+                                    
+                                    <div class="stats">
+                                       
+                                          @if($grade_activities->sum('grade_activity_weight') < $gradeactivitycategory->grade_activity_category_weight)
+                                              <div class="alert alert-warning">
+                                                <strong>Total Weight so far: {{ $grade_activities->sum('grade_activity_weight') }} <span>&#37;</span></strong> <mark>must be equal to {{ $gradeactivitycategory->grade_activity_category_weight }}</mark>
+                                              </div>
+                                          @elseif($grade_activities->sum('grade_activity_weight') > $gradeactivitycategory->grade_activity_category_weight)
+                                              <div class="alert alert-danger">
+                                                <strong>Total Weight: {{ $grade_activities->sum('grade_activity_weight') }} <span>&#37;</span></strong><mark>must be equal to {{ $gradeactivitycategory->grade_activity_category_weight }} <span>&#37;</span></mark>
+                                              </div>
+
+                                          @elseif($grade_activities->sum('grade_activity_weight') == $gradeactivitycategory->grade_activity_category_weight)
+                                              <div class="alert alert-success"><strong>Total Weight: {{ $grade_activities->sum('grade_activity_weight') }} <span>&#37;</span></strong> <mark>Awesome! You have reached the maximum weight allowed for this category</mark></div>
+                                          @endif
+                                                                              
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>

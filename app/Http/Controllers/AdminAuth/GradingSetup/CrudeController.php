@@ -161,25 +161,37 @@ class CrudeController extends Controller
    
     public function editGradeActivity(Request $r, GradeActivity $gradeactivity){
 
-        $this->validate(request(), [
+        $grade_activities_category = GradeActivity::where('grade_activity_category_id', $r->grade_activity_category_id)->sum('grade_activity_weight');
+        $supplied_weight = $r->grade_activity_weight;
+        $grade_activities_category_sum = $grade_activities_category + $supplied_weight - $gradeactivity->grade_activity_weight;
 
-            'grade_activity_name'=> 'required',
-            'max_point'=> 'required|numeric|min:0',
-            'grade_activity_description'=> 'required', 
+        if ($grade_activities_category_sum <= $r->grade_activity_category_weight) {
 
-            ]);
+            $this->validate(request(), [
 
-        $edit_grade_activity = GradeActivity::where('id', '=', $gradeactivity->id)->first();
-         
-        $edit_grade_activity->grade_activity_name = $r->grade_activity_name;
-        $edit_grade_activity->max_point = $r->max_point;
-        $edit_grade_activity->grade_activity_description = $r->grade_activity_description;
-      
-        $edit_grade_activity->save();
-        
-        flash('Grade Activity Updated!')->info();
+                'grade_activity_name'=> 'required',
+                'grade_activity_weight'=> "required|numeric|min:0|max:$r->grade_activity_category_weight",
+                'grade_activity_description'=> 'required', 
 
-        return back();
+                ]);
+
+            $edit_grade_activity = GradeActivity::where('id', '=', $gradeactivity->id)->first();
+             
+            $edit_grade_activity->grade_activity_name = $r->grade_activity_name;
+            $edit_grade_activity->grade_activity_weight = $r->grade_activity_weight;
+            $edit_grade_activity->grade_activity_description = $r->grade_activity_description;
+          
+            $edit_grade_activity->save();
+            
+            flash('Grade Activity Updated!')->success();
+
+            return back();
+
+        }else{
+
+            flash("Weights of all grade activities in this category must not be more than $r->grade_activity_category_weight%")->warning();
+            return back();
+        }
     }
 
     public function deleteGradeActivity(GradeActivity $gradeactivity){
