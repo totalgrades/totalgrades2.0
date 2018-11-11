@@ -10,8 +10,17 @@
 
                 @include('flash::message')
                 @include('formerror')
-                <div class="row">
 
+                <div class="row">
+                  <div class="col-md-12">
+                    <a class="btn btn-primary pull-left" href="{{asset('/admin/gradingsetup/categories/'.$schoolyear->id) }}/{{$term->id}}/{{$course->id}}" role="button"><i class="fa fa-reply"></i> Back to Categories</a>
+                    <button type="button" class="btn btn-success pull-right" id="newGradeActivity-{{$gradeactivitycategory->id}}"><i class="fa fa-plus"></i>New Activity
+                    </button>
+                 </div>
+                </div>
+
+                <div class="row">
+                                    
                 	<div class="col-md-12">
                         <div class="card">
                             <div class="header">
@@ -19,6 +28,10 @@
                                     <h5 class="title">
                                         <strong>{{$gradeactivitycategory->grade_activity_category_name}}({{$gradeactivitycategory->grade_activity_category_weight}}%)
                                         </strong>
+                                        
+                                          <button type="button" class="btn btn-danger" id="selectAnotherActivity-{{$gradeactivitycategory->id}}"><i class="fa fa-cog"></i>Select Another Activity
+                                          </button>
+                                        
                                     </h5>
                                 </div>
                                 <p class="category"> 
