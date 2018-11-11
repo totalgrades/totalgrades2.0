@@ -109,12 +109,12 @@
                                                 
                                                 {{ $activitycategory->grade_activity_category_name }} ({{$grade_activities->where('grade_activity_category_id', $activitycategory->id)->count()}} Activities - {{$grade_activities->where('grade_activity_category_id', $activitycategory->id)->sum('grade_activity_weight')}}%)<br>
 
-                                                <a class="btn btn-sm btn-primary" href="{{asset('/grades/gradeactivity/studentscategorygrades/'.$activitycategory->id) }}/{{$schoolyear->id}}/{{$term->id}}/{{$course->id}}" role="button"><i class="fa fa-check-square-o"></i>Add Grades</a>
+                                                <a class="btn btn-sm btn-primary" href="{{asset('/grades/gradeactivity/studentscategorygrades/'.$activitycategory->id) }}/{{$schoolyear->id}}/{{$term->id}}/{{$course->id}}" role="button"><i class="fa fa-plus"></i>Add Grades</a>
                                             
-                                                <button type="button" class="btn btn-sm btn-danger" id="addGradeActivity-{{$activitycategory->id}}"><i class="fa fa-cog"></i>Add Activity
+                                                <button type="button" class="btn btn-sm btn-success" id="addGradeActivity-{{$activitycategory->id}}"><i class="fa fa-plus"></i>Add Activity
                                                 </button>
 
-                                                <a class="btn btn-sm btn-info" href="{{asset('/admin/gradingsetup/showgradeactivities/'.$activitycategory->id) }}/{{$schoolyear->id}}/{{$term->id}}/{{$course->id}}" role="button"><i class="fa fa-check-square-o"></i>Edit Activity</a>
+                                                <a class="btn btn-sm btn-danger" href="{{asset('/admin/gradingsetup/showgradeactivities/'.$activitycategory->id) }}/{{$schoolyear->id}}/{{$term->id}}/{{$course->id}}" role="button"><i class="fa fa-pencil-square-o"></i>View/Edit Activity</a>
                                                 
                                                     @include('admin.grades.gradeactivity.addgradeactivity')
 
