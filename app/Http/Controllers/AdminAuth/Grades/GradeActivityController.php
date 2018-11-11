@@ -28,24 +28,18 @@ class GradeActivityController extends Controller
 {
     public function showStudents(School_year $schoolyear, Term $term , Course $course){
 
-    	$categories_activities = DB::table('grade_activities')
-                    ->join('grade_activity_categories', 'grade_activity_categories.id', '=', 'grade_activities.grade_activity_category_id')
-                    ->where('grade_activity_categories.course_id', $course->id)
-                    ->get();
+    	$grade_activity_categories = GradeActivityCategory::where('course_id', $course->id)->get();
+
+        $grade_activities = GradeActivity::where('course_id', $course->id)->orderBy('grade_activity_name')->get();
 
         $student_grades = Grade::get();
 
 
-        $grade_activities = DB::table('grades')
-                    ->join('grade_activities', 'grade_activities.id', '=', 'grades.grade_activity_id')
-                    ->where('grade_activities.school_year_id', $schoolyear->id)
-                    ->where('grade_activities.term_id', $term->id)
-                    ->where('grade_activities.course_id', $course->id)
-                    ->get();
+       
 
-        dd($categories_activities);
+        //dd($grade_activities);
         
-    	return view('admin.grades.gradeactivity.students', compact('schoolyear', 'term', 'course', 'categories_activities', 'grade_activities'));
+    	return view('admin.grades.gradeactivity.students', compact('schoolyear', 'term', 'course', 'grade_activity_categories', 'grade_activities', 'student_grades'));
     }
 
     public function addStudentGrade(Request $r, GradeActivity $gradeactivity){
