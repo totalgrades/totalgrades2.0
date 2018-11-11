@@ -71,7 +71,7 @@
                     <li {{{ (Request::is('admincourses/*') ? 'class=active' : '') }}}>
                         <a href="{{ url('/admincourses/'.$schoolyear->id) }}/{{$term->id}}">
                             <i class="fa fa-font"></i>
-                            <p>Enter Grades</p>
+                            <p>Students - Grades</p>
                         </a>
                     </li>
 

@@ -127,7 +127,7 @@ th.rotate > div > span {
 
                                                 
                                                 <div class="row">
-                                                  <div class="col-md-2">
+                                                  <div class="col-md-3">
                                                       <label>Grade</label>
                                                       <input type="number" step=".01" class="form-control" id="activity_grade" name="activity_grade" value="{{$student_grade->activity_grade}}" required="">
                                                   </div>
@@ -179,7 +179,7 @@ th.rotate > div > span {
                                             <input type="hidden" name="student_id" value="{{$reg_students->student->id}}" required="">
 
                                             <div class="row">
-                                              <div class="col-md-2">
+                                              <div class="col-md-3">
                                                   <label>Grade</label>
                                                   <input type="number" step=".01" class="form-control" id="activity_grade" name="activity_grade" required="">
                                               </div>
