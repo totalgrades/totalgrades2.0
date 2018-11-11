@@ -25,7 +25,13 @@
                     </script>
                     <button type="button" class="btn btn-success pull-right" id="newGradeActivity-{{$gradeactivitycategory->id}}"><i class="fa fa-plus"></i>New Activity
                     </button>
+                    @include('admin.grades.gradeactivity.newgradeactivity')
 
+                    <script type="text/javascript">
+                      $('#newGradeActivity-{{$gradeactivitycategory->id}}').on('click', function(){
+                        $('#showNewGradeActivityModal-{{$gradeactivitycategory->id}}').modal('show');
+                      })
+                    </script>
                  </div>
                 </div>
 
