@@ -31,7 +31,10 @@ class GradeActivityController extends Controller
     	$categories_activities = DB::table('grade_activities')
                     ->join('grade_activity_categories', 'grade_activity_categories.id', '=', 'grade_activities.grade_activity_category_id')
                     ->where('grade_activity_categories.course_id', $course->id)
-                    ->get();
+                    ->orderBy('grade_activity_category_id')->get();
+
+        $student_grades = Grade::get();
+
 
         $activities_grades = DB::table('grades')
                     ->join('grade_activities', 'grade_activities.id', '=', 'grades.grade_activity_id')
@@ -40,7 +43,7 @@ class GradeActivityController extends Controller
                     ->where('grade_activities.course_id', $course->id)
                     ->get();
 
-        //dd($activities_grades);
+        //dd($categories_activities);
         
     	return view('admin.grades.gradeactivity.students', compact('schoolyear', 'term', 'course', 'categories_activities', 'activities_grades'));
     }
