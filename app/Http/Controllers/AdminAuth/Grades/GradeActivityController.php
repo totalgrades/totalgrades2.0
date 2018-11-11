@@ -34,12 +34,17 @@ class GradeActivityController extends Controller
 
         $student_grades = Grade::get();
 
-
+        $grades_and_activities = DB::table('grades')
+                    ->join('grade_activities', 'grade_activities.id', '=', 'grades.grade_activity_id')
+                    ->where('grade_activities.school_year_id', $schoolyear->id)
+                    ->where('grade_activities.term_id', $term->id)
+                    ->where('grade_activities.course_id', $course->id)
+                    ->get();
        
 
         //dd($grade_activities);
         
-    	return view('admin.grades.gradeactivity.students', compact('schoolyear', 'term', 'course', 'grade_activity_categories', 'grade_activities', 'student_grades'));
+    	return view('admin.grades.gradeactivity.students', compact('schoolyear', 'term', 'course', 'grade_activity_categories', 'grade_activities', 'student_grades', 'grades_and_activities'));
     }
 
     public function addStudentGrade(Request $r, GradeActivity $gradeactivity){

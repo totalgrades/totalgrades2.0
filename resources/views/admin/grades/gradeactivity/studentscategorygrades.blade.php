@@ -61,7 +61,7 @@ th.rotate > div > span {
                             
                         <div class="content">
                         <div class="table-responsive">
-                          <table class="table table-hover">
+                          <table class="table table-hover table-bordered">
                             <thead>
                               <tr >
                                   <th  class="text-center" style="font-size: 15px"><strong>#</strong></th>
