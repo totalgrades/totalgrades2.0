@@ -39,14 +39,8 @@
                                                 <td class="danger">{{ $course->name }}</td>
                                                 @if($schoolyear->id == $current_school_year->id && $term->id == $current_term->id)
                                                     <td>
-                                                        <button type="button" class="btn btn-primary" id="selectGradeActivity-{{$course->id}}">Add/Edit Grades</button>
-                                                        @include('admin.selectGradeActivityModal')
-
-                                                          <script type="text/javascript">
-                                                            $('#selectGradeActivity-{{$course->id}}').on('click', function(){
-                                                              $('#gradeActivitySelectionModal-{{$course->id}}').modal('show');
-                                                            })
-                                                          </script>
+                                                        <a type="button" class="btn btn-success" href="{{ asset('/grades/gradeactivity/students/'.$schoolyear->id) }}/{{$term->id}}/{{$course->id}}">Add/Edit Grades</a>
+                                                        
                                                     </td>
                                                 @else
 
@@ -109,14 +103,7 @@
                                                 <td class="success">{{$course->group->name}}</td>
                                                 @if($schoolyear->id == $current_school_year->id && $term->id == $current_term->id)
                                                     <td>
-                                                        <button type="button" class="btn btn-primary" id="selectGradeActivity-{{$course->id}}">Add/Edit Grades</button>
-                                                        @include('admin.selectGradeActivityModal')
-
-                                                          <script type="text/javascript">
-                                                            $('#selectGradeActivity-{{$course->id}}').on('click', function(){
-                                                              $('#gradeActivitySelectionModal-{{$course->id}}').modal('show');
-                                                            })
-                                                          </script>
+                                                        <a type="button" class="btn btn-success" href="{{ asset('/grades/gradeactivity/students/'.$schoolyear->id) }}/{{$term->id}}/{{$course->id}}">Add/Edit Grades</a>
                                                     </td>
                                                 @else
 

@@ -33,7 +33,7 @@ th.rotate > div > span {
                 @include('formerror')
                 <div class="row">
                   <div class="col-md-12">
-                    <a class="btn btn-danger pull-right" href="{{asset('/admincourses/'.$schoolyear->id) }}/{{$term->id}}" role="button">Back to Courses</a>
+                    <a class="btn btn-danger pull-right" href="{{asset('/admin/admincourses//'.$schoolyear->id) }}/{{$term->id}}" role="button">Back to Courses</a>
                   </div>
                   
 
@@ -70,10 +70,10 @@ th.rotate > div > span {
 
                                   @foreach($categories_activities as $key=>$category_activity)
 
-                                    <th class="rotate" >
+                                    <th class="rotate" style="padding-left: 8%;">
                                       <div>
-                                        <span>
-                                          <strong>{{$category_activity->grade_activity_category_name}}-({{$category_activity->grade_activity_category_weight}}%)</strong><br>
+                                        <span style="font-size: 15px">
+                                          <strong>{{$category_activity->grade_activity_category_name}}-({{$category_activity->grade_activity_category_weight}}%)</strong>
                                           {{$category_activity->grade_activity_name}}-({{$category_activity->grade_activity_weight}}%)
                                         </span>
                                       </div>
@@ -94,10 +94,10 @@ th.rotate > div > span {
                                         <td class="text-center"> 
                                           @foreach ($all_users as $st_user)
 
-                                              @if ($st_user->registration_code ==  $reg_students->student->registration_code)                         
+                                              @if ($st_user->registration_code == $reg_students->student->registration_code)                         
 
                                               <img class="avatar border-white" src="{{asset('/assets/img/students/'.$st_user->avatar) }}" alt="..."/>
-                                              <button type="button" class="btn btn-sm"><strong><span style="font-size: 20px; color: #EB5E28;">{{ $activities_grades->where('student_id', $reg_students->student->id)->sum('activity_grade') }}%</span></strong></button>
+                                              <button type="button" class="btn btn-sm"><strong><span style="font-size: 20px; color: #EB5E28;">{{ $grades_and_activities->where('student_id', $reg_students->student->id)->sum('activity_grade') }}%</span></strong></button>
                                                
 
                                              @endif
@@ -107,16 +107,17 @@ th.rotate > div > span {
 
                                         <td class="text-center">{{$reg_students->student->last_name}} {{$reg_students->student->first_name}}</td>
 
-                                        @foreach($activities_grades as $key=>$grade_activity)
+                                       
+                                        @foreach($grade_activities as $key=>$grade_activity)
                                         <td class="text-center">
                                         
-                                          
-                                              @if($grade_activity->student_id == $reg_students->student->id)
-                                                {{$grade_activity->activity_grade}} % 
-                                                <i class="fa fa-edit" id="editGradeIcon-{{$grade_activity->id}}{{$reg_students->student->id}}"></i>
-                                                <a href="{{asset('/grades/gradeactivity/student/deletegrade/'.$reg_students->student->id) }}" onclick="return confirm('Are you sure you want to Delete this record?')"><i class="fa fa-trash"></i></a>
+                                          @foreach ($student_grades->where('grade_activity_id', $grade_activity->id) as $student_grade)
+                                              @if($student_grade->student_id == $reg_students->student->id)
+                                                {{$student_grade->activity_grade}} % 
+                                                <i class="fa fa-edit" id="editGradeIcon-{{$grade_activity->id}}{{$student_grade->id}}"></i>
+                                                <a href="{{asset('/grades/gradeactivity/student/deletegrade/'.$student_grade->id) }}" onclick="return confirm('Are you sure you want to Delete this record?')"><i class="fa fa-trash"></i></a>
                                                 <!-- Add grade form-->
-                                                <form method="post" action="{{ url('/grades/gradeactivity/student/editgrade', [$grade_activity->id, $reg_students->student->id]) }}" id="editGradeForm-{{$grade_activity->id}}{{$reg_students->student->id}}" style="display: none;">
+                                                <form method="post" action="{{ url('/grades/gradeactivity/student/editgrade', [$grade_activity->id, $student_grade->id]) }}" id="editGradeForm-{{$grade_activity->id}}{{$student_grade->id}}" style="display: none;">
                                                 {{ csrf_field() }}
 
                                                 
@@ -134,10 +135,10 @@ th.rotate > div > span {
                                                 </div>
                                                 <div class="row">
                                                   <div class="col-md-2">
-                                                    <button type="submit" class="btn btn-sm btn-success" id="editGradeSubmit-{{$grade_activity->id}}{{$reg_students->student->id}}">Submit</button>
+                                                    <button type="submit" class="btn btn-sm btn-success" id="editGradeSubmit-{{$grade_activity->id}}{{$student_grade->id}}">Submit</button>
                                                   </div>
                                                   <div class="col-md-2">
-                                                    <button type="button" class="btn btn-sm btn-danger" id="closeEditGradeForm-{{$grade_activity->id}}{{$reg_students->student->id}}">Close</button>
+                                                    <button type="button" class="btn btn-sm btn-danger" id="closeEditGradeForm-{{$grade_activity->id}}{{$student_grade->id}}">Close</button>
                                                   </div>
                                                 </div>
                                                 
@@ -149,11 +150,11 @@ th.rotate > div > span {
                                                   jQuery(document).ready(function(){
                                            
                                                      
-                                                     $("#editGradeIcon-{{$grade_activity->id}}{{$reg_students->student->id}}").click(function(){
-                                                        $("#editGradeForm-{{$grade_activity->id}}{{$reg_students->student->id}}").show(1000);
+                                                     $("#editGradeIcon-{{$grade_activity->id}}{{$student_grade->id}}").click(function(){
+                                                        $("#editGradeForm-{{$grade_activity->id}}{{$student_grade->id}}").show(1000);
                                                      });
-                                                     $("#closeEditGradeForm-{{$grade_activity->id}}{{$reg_students->student->id}}").click(function(){
-                                                        $("#editGradeForm-{{$grade_activity->id}}{{$reg_students->student->id}}").hide(1000);
+                                                     $("#closeEditGradeForm-{{$grade_activity->id}}{{$student_grade->id}}").click(function(){
+                                                        $("#editGradeForm-{{$grade_activity->id}}{{$student_grade->id}}").hide(1000);
                                                      });
                                                   });
 
@@ -161,7 +162,7 @@ th.rotate > div > span {
                                               <!-- Add grade form Ends-->
                                                 
                                               @endif
-                                          
+                                          @endforeach
                                             <button type="button" class="btn btn-sm btn-light" style="color: red" id="addGradeIcon-{{$grade_activity->id}}{{$reg_students->student->id}}"><i class="fa fa-pencil"></i></button>
 
                                             <!-- Add grade form-->
@@ -214,7 +215,6 @@ th.rotate > div > span {
 
                                         </td>
                                         @endforeach
-                                        
                                         
                                       
                                       

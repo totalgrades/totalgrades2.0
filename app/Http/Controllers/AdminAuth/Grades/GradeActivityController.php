@@ -26,16 +26,23 @@ use App\Grade;
 
 class GradeActivityController extends Controller
 {
-    public function showStudents(GradeActivity $gradeactivity, School_year $schoolyear, Term $term ){
+    public function showStudents(School_year $schoolyear, Term $term , Course $course){
 
-    	$term_courses = Course::where('term_id', '=', $term->id)->where('group_id', '=', @\App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('staffer_id', \App\Staffer::where('registration_code', '=', Auth::guard('web_admin')->user()->registration_code)->first()->id)->first()->group_id)->get();
-    
-		$grade_activities = GradeActivity::where('id', $gradeactivity->id)->get();
-        $grade_activities_course = GradeActivity::where('course_id', $gradeactivity->course->id)->get();
+    	$categories_activities = DB::table('grade_activities')
+                    ->join('grade_activity_categories', 'grade_activity_categories.id', '=', 'grade_activities.grade_activity_category_id')
+                    ->where('grade_activity_categories.course_id', $course->id)
+                    ->get();
 
-		$student_grades = Grade::where('grade_activity_id', $gradeactivity->id)->get();
+        $activities_grades = DB::table('grades')
+                    ->join('grade_activities', 'grade_activities.id', '=', 'grades.grade_activity_id')
+                    ->where('grade_activities.school_year_id', $schoolyear->id)
+                    ->where('grade_activities.term_id', $term->id)
+                    ->where('grade_activities.course_id', $course->id)
+                    ->get();
 
-    	return view('admin.grades.gradeactivity.students', compact('term_courses', 'schoolyear', 'term','gradeactivity', 'grade_activities_course', 'grade_activities', 'student_grades'));
+        //dd($activities_grades);
+        
+    	return view('admin.grades.gradeactivity.students', compact('schoolyear', 'term', 'course', 'categories_activities', 'activities_grades'));
     }
 
     public function addStudentGrade(Request $r, GradeActivity $gradeactivity){
