@@ -44,7 +44,11 @@ th.rotate > div > span {
                             <div class="header">
                                 <div class="alert alert-success">
                                     <h4 class="title">
-                                        {{$course->name}}({{$course->course_code}}%)
+                                      @if($grade_activities->sum('grade_activity_weight') < 100)
+                                        {{$course->name}}-{{$course->course_code}}<mark>(Total weight so far for this course is {{$grade_activities->sum('grade_activity_weight')}}%). Please make sure this equals 100%</mark>
+                                      @else
+                                        {$course->name}}-{{$course->course_code}}<mark>(Total weight course is {{$grade_activities->sum('grade_activity_weight')}}%). Awesome!</mark>
+                                      @endif
                                     </h4>
                                 </div>
                                 <p class="category"> 

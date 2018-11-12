@@ -160,7 +160,7 @@
                                     
                                     <div class="stats">
                                         @if($gradeactivitycategories->sum('grade_activity_category_weight') < 100 )
-                                            <div class="alert alert-success">
+                                            <div class="alert alert-warning">
                                               <strong>Total Weight so far: {{ $gradeactivitycategories->sum('grade_activity_category_weight') }} <span>&#37;</span></strong> <mark>must be equal to 100</mark>
                                             </div>
                                         @elseif($gradeactivitycategories->sum('grade_activity_category_weight') > 100)
@@ -169,7 +169,7 @@
                                             </div>
 
                                         @elseif($gradeactivitycategories->sum('grade_activity_category_weight') == 100)
-                                            <div class="alert alert-danger"><strong>Total Weight: {{ $gradeactivitycategories->sum('grade_activity_category_weight') }} <span>&#37;</span></strong></div>
+                                            <div class="alert alert-success"><strong>Total Weight: {{ $gradeactivitycategories->sum('grade_activity_category_weight') }} <span>&#37;</span></strong></div>
                                         @endif
                                         
                                     </div>

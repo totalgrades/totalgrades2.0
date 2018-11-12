@@ -42,7 +42,7 @@ class GradeActivityController extends Controller
                     ->get();
        
 
-        //dd($grade_activities);
+        //dd($grade_activities->sum('grade_activity_weight'));
         
     	return view('admin.grades.gradeactivity.students', compact('schoolyear', 'term', 'course', 'grade_activity_categories', 'grade_activities', 'student_grades', 'grades_and_activities'));
     }
