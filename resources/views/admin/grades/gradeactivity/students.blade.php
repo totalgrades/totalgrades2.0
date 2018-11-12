@@ -131,22 +131,22 @@ th.rotate > div > span {
 
                                                 
                                                 <div class="row">
-                                                  <div class="col-md-3">
+                                                  <div class="col-md-6">
                                                       <label>Grade</label>
                                                       <input type="number" step=".01" class="form-control" id="activity_grade" name="activity_grade" value="{{$student_grade->activity_grade}}" required="">
                                                   </div>
 
-                                                  <div class="col-md-3">
+                                                  <div class="col-md-6">
                                                     <label>Comment</label>
                                                     <input type="text" class="form-control" id="activity_comment" name="activity_comment" value="{{$student_grade->activity_comment}}">
                                                   </div>
                                                 
                                                 </div>
                                                 <div class="row">
-                                                  <div class="col-md-2">
+                                                  <div class="col-md-6">
                                                     <button type="submit" class="btn btn-sm btn-success" id="editGradeSubmit-{{$grade_activity->id}}{{$student_grade->id}}">Submit</button>
                                                   </div>
-                                                  <div class="col-md-2">
+                                                  <div class="col-md-6">
                                                     <button type="button" class="btn btn-sm btn-danger" id="closeEditGradeForm-{{$grade_activity->id}}{{$student_grade->id}}">Close</button>
                                                   </div>
                                                 </div>
@@ -183,22 +183,22 @@ th.rotate > div > span {
                                             <input type="hidden" name="student_id" value="{{$reg_students->student->id}}" required="">
 
                                             <div class="row">
-                                              <div class="col-md-3">
+                                              <div class="col-md-6">
                                                   <label>Grade</label>
                                                   <input type="number" step=".01" class="form-control" id="activity_grade" name="activity_grade" required="">
                                               </div>
 
-                                              <div class="col-md-3">
+                                              <div class="col-md-6">
                                                 <label>Comment</label>
                                                 <input type="text" class="form-control" id="activity_comment" name="activity_comment">
                                               </div>
                                             
                                             </div>
                                             <div class="row">
-                                              <div class="col-md-2">
+                                              <div class="col-md-6">
                                                 <button type="submit" class="btn btn-sm btn-success" id="addGradeSubmit-{{$grade_activity->id}}{{$reg_students->student->id}}">Submit</button>
                                               </div>
-                                              <div class="col-md-2">
+                                              <div class="col-md-6">
                                                 <button type="button" class="btn btn-sm btn-danger" id="closeGradeForm-{{$grade_activity->id}}{{$reg_students->student->id}}">Close</button>
                                               </div>
                                             </div>
