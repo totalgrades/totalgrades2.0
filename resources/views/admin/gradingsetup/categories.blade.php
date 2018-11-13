@@ -93,7 +93,7 @@
                                 <table class="table table-bordered table-hover text-center">
                                     <thead>
                                         <th class="text-center">Category</strong></th>
-                                        <th class="text-center info">Weight</strong></th>
+                                        <th class="text-center info"><strong><span style="color: #FF5733;">Activities({{$grade_activities->sum('grade_activity_weight')}}%)</span> | <span style="color: #2874A6;">Categories({{$gradeactivitycategories->sum('grade_activity_category_weight') }}%)</span></strong></th>
                                         <th class="text-center">Description</strong></th>
                                         <th class="text-center">Date Added</strong></th>
                                         <th class="text-center">Edit</strong></th>
@@ -127,7 +127,11 @@
                                                 
 
                                             </td>
-                                            <td>{{ $activitycategory->grade_activity_category_weight }} %</td>
+                                            <td>
+                                              <strong>
+                                                <span style="color: #FF5733;">{{$grade_activities->where('grade_activity_category_id', $activitycategory->id)->sum('grade_activity_weight')}}%</span> | <span style="color: #2874A6;">{{ $activitycategory->grade_activity_category_weight }}%</span>
+                                              </strong>
+                                            </td>
                                             <td>{{ $activitycategory->grade_activity_category_description }}</td>
                                             <td>{{ $activitycategory->created_at->toFormattedDateString()}}</td>                                       
                                             <td>
@@ -161,15 +165,22 @@
                                     <div class="stats">
                                         @if($gradeactivitycategories->sum('grade_activity_category_weight') < 100 )
                                             <div class="alert alert-warning">
-                                              <strong>Total Weight so far: {{ $gradeactivitycategories->sum('grade_activity_category_weight') }} <span>&#37;</span></strong> <mark>must be equal to 100</mark>
+                                              <strong>Total Category Weight so far: {{ $gradeactivitycategories->sum('grade_activity_category_weight') }} <span>&#37;</span></strong> <mark>must be equal to 100</mark>
                                             </div>
                                         @elseif($gradeactivitycategories->sum('grade_activity_category_weight') > 100)
                                             <div class="alert alert-danger">
-                                              <strong>Total Weight: {{ $gradeactivitycategories->sum('grade_activity_category_weight') }} <span>&#37;</span></strong><mark>must be equal to 100 <span>&#37;</span></mark>
+                                              <strong>Total Category Weight: {{ $gradeactivitycategories->sum('grade_activity_category_weight') }} <span>&#37;</span></strong><mark>must be equal to 100 <span>&#37;</span></mark>
                                             </div>
 
                                         @elseif($gradeactivitycategories->sum('grade_activity_category_weight') == 100)
-                                            <div class="alert alert-success"><strong>Total Weight: {{ $gradeactivitycategories->sum('grade_activity_category_weight') }} <span>&#37;</span></strong></div>
+                                            <div class="alert">
+                                              <strong><span style="color: #FF5733;">Total Weight of all activities in this course is: {{$grade_activities->sum('grade_activity_weight')}} <span>&#37;</span></span></strong>
+                                            </div> 
+                                            <strong>|</strong>
+                                            <div class="alert">
+                                              <strong><span style="color: #2874A6;">Total Weight of all categories in this course is {{$gradeactivitycategories->sum('grade_activity_category_weight') }} <span>&#37;</span></span></strong>
+                                            </div>
+                                            
                                         @endif
                                         
                                     </div>

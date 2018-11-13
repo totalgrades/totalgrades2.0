@@ -30,7 +30,7 @@ class GradeActivityController extends Controller
 
     	$grade_activity_categories = GradeActivityCategory::where('course_id', $course->id)->get();
 
-        $grade_activities = GradeActivity::where('course_id', $course->id)->orderBy('grade_activity_name')->get();
+        $grade_activities = GradeActivity::where('course_id', $course->id)->orderBy('grade_activity_category_id')->get();
 
         $student_grades = Grade::get();
 

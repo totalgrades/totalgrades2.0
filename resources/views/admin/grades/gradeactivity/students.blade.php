@@ -47,7 +47,7 @@ th.rotate > div > span {
                                       @if($grade_activities->sum('grade_activity_weight') < 100)
                                         {{$course->name}}-{{$course->course_code}}<mark>(Total weight so far for this course is {{$grade_activities->sum('grade_activity_weight')}}%). Please make sure this equals 100%</mark>
                                       @else
-                                        {$course->name}}-{{$course->course_code}}<mark>(Total weight course is {{$grade_activities->sum('grade_activity_weight')}}%). Awesome!</mark>
+                                        {{$course->name}}-{{$course->course_code}}<mark>(Total weight course is {{$grade_activities->sum('grade_activity_weight')}}%). Awesome!</mark>
                                       @endif
                                     </h4>
                                 </div>
@@ -69,7 +69,10 @@ th.rotate > div > span {
                             <thead>
                               <tr >
                                   <th  class="text-center" style="font-size: 15px"><strong>#</strong></th>
-                                  <th  class="text-center" style="font-size: 15px"><strong>Face</strong></th>
+                                  <th  class="text-center" style="font-size: 15px">
+                                    <strong>Face</strong>
+                                    <button type="button" class="btn btn-sm"><strong><span style="font-size: 20px; color: #EB5E28;">{{$grade_activities->sum('grade_activity_weight')}}%</span></strong></button>
+                                    </th>
                                   <th  class="text-center" style="font-size: 15px"><strong>Last Name</strong></th>
 
                                   @foreach($grade_activities as $key=>$grade_activity)
