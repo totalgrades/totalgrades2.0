@@ -71,7 +71,7 @@ th.rotate > div > span {
                                   <th  class="text-center" style="font-size: 15px"><strong>#</strong></th>
                                   <th  class="text-center" style="font-size: 15px">
                                     <strong>Face</strong>
-                                    <button type="button" class="btn btn-sm"><strong><span style="font-size: 20px; color: #EB5E28;">{{$grade_activities->sum('grade_activity_weight')}}%</span></strong></button>
+                                    <button type="button" class="btn btn-sm btn-warning"><strong><span style="font-size: 15px; color: #C70039;">{{$grade_activities->sum('grade_activity_weight')}}% </span></strong></button>
                                     </th>
                                   <th  class="text-center" style="font-size: 15px"><strong>Last Name</strong></th>
 
