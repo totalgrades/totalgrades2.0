@@ -28,11 +28,6 @@
     <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
     <link href="{{asset('assets/css/themify-icons.css')}}" rel="stylesheet">
 
-    
-    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    
 
     
 
@@ -43,7 +38,7 @@
 
 
 
-    <div class="main-panel" style="float: none; width: calc(100%);">
+    <div class="main-panel" style="background-color: #fff; float: none; width: calc(100%);">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -125,7 +120,7 @@
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
                     <div class="table-responsive">
-                  
+                    <h4><strong>Please Select a term</strong></h4>
                         <table class="table table-bordered table-hover">
                                 <thead>
                                     <tr class="info">
@@ -133,7 +128,7 @@
                                         <th class="text-center"><strong>School Year</strong></th>
                                         <!-- <th class="text-center"><strong>Start Date</strong></th>
                                         <th class="text-center"><strong>End Date</strong></th> -->
-                                        <th class="text-center"><strong>Terms</strong></th>
+                                        <th class="text-center"><strong>Term: Class</strong></th>
                                     </tr>
                                 </thead>
                                 <tbody> 
@@ -157,12 +152,12 @@
                                                     <a href="{{asset('/admin_home/'. $schoolyear->id)}}/{{$term->id}}">
                                                         @if($schoolyear->id == $current_school_year->id)
                                                             @if($term->id == $current_term->id)
-                                                                <button type="button" class="btn btn-danger btn-sm"><i class="fa fa-circle text-success"></i>{{strtoupper($term->term)}}:  {{$regs_teacher->group->name}}</button>
+                                                                <button type="button" class="btn btn-info btn-sm"><i class="fa fa-circle text-danger"></i><strong>{{strtoupper($term->term)}}: {{$regs_teacher->group->name}}</strong></button>
                                                             @else
-                                                                <button type="button" class="btn btn-success btn-sm">{{strtoupper($term->term)}}:  {{$regs_teacher->group->name}}</button>
+                                                                <button type="button" class="btn btn-success btn-sm"><strong>{{strtoupper($term->term)}}: {{$regs_teacher->group->name}}</strong></button>
                                                             @endif
                                                         @else
-                                                                <button type="button" class="btn btn-primary btn-sm">{{strtoupper($term->term)}}:  {{$regs_teacher->group->name}}</button>
+                                                                <button type="button" class="btn btn-primary btn-sm"><strong>{{strtoupper($term->term)}}: {{$regs_teacher->group->name}}</strong></button>
                                                         @endif
                                                     </a>
                                                     <br>
@@ -212,8 +207,8 @@
 </body>
 
     <!--   Core JS Files   -->
-    <!-- <script src="{{asset('assets/js/jquery-1.10.2.js')}}" type="text/javascript"></script>
-    <script src="{{asset('assets/js/bootstrap.min.js')}}" type="text/javascript"></script> -->
+    <script src="{{asset('assets/js/jquery-1.10.2.js')}}" type="text/javascript"></script>
+    <script src="{{asset('assets/js/bootstrap.min.js')}}" type="text/javascript"></script>
 
     <!--  Checkbox, Radio & Switch Plugins -->
     <script src="{{asset('assets/js/bootstrap-checkbox-radio.js')}}"></script>
