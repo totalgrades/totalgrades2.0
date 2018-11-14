@@ -90,10 +90,7 @@
                 
                   <img src="{{ public_path('assets/img/students/'.@$student_user->avatar) }}" style="width: 120px; height: 120Spx; border-radius: 50%; margin-right: 5px;"> 
 
-                @else
-
-                  <img src="{{ public_path('assets/img/students/default.jpg') }}" style="width: 120px; height: 120Spx; border-radius: 50%; margin-right: 5px;">
-
+                
                 @endif
                     
               @endforeach
