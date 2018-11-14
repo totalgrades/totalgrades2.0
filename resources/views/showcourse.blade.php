@@ -18,77 +18,8 @@
                 </div>
 
                 @endif
+
                 <div class="row">
-
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title"><strong>{{ @$course->name }}</strong></h4>
-                                <p class="category">{{$term->term}}</p>
-                            </div>
-                            <div class="content">
-                                
-                                <ul class="list-group">
-                                @foreach($student_grades_course as $student_grade_course)
-                                  <li class="list-group-item justify-content-between">
-                                    <strong>{{ @$student_grade_course->grade_activity_name }}
-                                    <span class="label label-primary pull-right"><span style="color: #FADBD8;">{{ @$student_grade_course->activity_grade }}%</span>&#32;&#47;&#32;<span style="color: #DAF7A6;">{{ @$student_grade_course->grade_activity_weight }}%</span></span></strong>
-                                  </li>
-                                @endforeach 
-                                <li class="list-group-item justify-content-between">
-                                    <div class="alert alert-info">
-                                        <strong>
-                                        Your Total in the Course
-                                        <span class="label label-primary pull-right"><span style="color: #FADBD8;">{{ @$grade->total }}%</span>&#32;&#47;&#32; <span style="color: #DAF7A6;">{{$grade_activities_course->sum('grade_activity_weight')}} %</span></span></strong>
-                                    </div>
-                                  </li>
-                                </ul>
-                                <div class="footer">
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="fa fa-circle text-primary"></i> <strong>
-                                        @if (@$grade->total >= 50) 
-                                        You did a very good Job. Please keep it up!
-                                        @else
-                                        Please see Your teacher
-                                        @endif</strong>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title"><strong>{{ $course->name }}</strong></h4>
-                                <p class="category">{{$term->term}}</p>
-                            </div>
-                            <div class="content">
-                         
-                                 
-                                
-                            
-
-                                <div class="footer">
-                                    <!-- <div class="chart-legend">
-                                        
-                                        <i class="fa fa-circle text-warning"></i> Class Average: {{number_format($class_average, 1)}}
-                                        <i class="fa fa-circle text-primary"></i> Class Highest {{ $class_highest}}
-                                        <i class="fa fa-circle text-danger"></i> Class Lowest: {{ $class_lowest }}
-                                                                                
-                                    </div> -->
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="fa fa-circle text-info"></i><strong> Your Total Score: {{ @@$grade->total}} </strong>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                 <div class="row">
 
                     <div class="col-md-6">
                         <div class="card">
@@ -171,6 +102,77 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><strong>{{ @$course->name }}</strong></h4>
+                                <p class="category">{{$term->term}}</p>
+                            </div>
+                            <div class="content">
+                                
+                                <ul class="list-group">
+                                @foreach($student_grades_course as $student_grade_course)
+                                  <li class="list-group-item justify-content-between">
+                                    <strong>{{ @$student_grade_course->grade_activity_name }}
+                                    <span class="label label-primary pull-right"><span style="color: #FADBD8;">{{ @$student_grade_course->activity_grade }}%</span>&#32;&#47;&#32;<span style="color: #DAF7A6;">{{ @$student_grade_course->grade_activity_weight }}%</span></span></strong>
+                                  </li>
+                                @endforeach 
+                                <li class="list-group-item justify-content-between">
+                                    <div class="alert alert-info">
+                                        <strong>
+                                        Your Total in the Course
+                                        <span class="label label-primary pull-right"><span style="color: #FADBD8;">{{ @$grade->total }}%</span>&#32;&#47;&#32; <span style="color: #DAF7A6;">{{$grade_activities_course->sum('grade_activity_weight')}} %</span></span></strong>
+                                    </div>
+                                  </li>
+                                </ul>
+                                <div class="footer">
+                                    <hr>
+                                    <div class="stats">
+                                        <i class="fa fa-circle text-primary"></i> <strong>
+                                        @if (@$grade->total >= 50) 
+                                        You did a very good Job. Please keep it up!
+                                        @else
+                                        Please see Your teacher
+                                        @endif</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-md-6">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title"><strong>{{ $course->name }}</strong></h4>
+                                <p class="category">{{$term->term}}</p>
+                            </div>
+                            <div class="content">
+                         
+                                 
+                                
+                            
+
+                                <div class="footer">
+                                    <div class="chart-legend">
+                                        
+                                        <i class="fa fa-circle text-warning"></i> Class Average: {{number_format($class_average, 1)}}
+                                        <i class="fa fa-circle text-primary"></i> Class Highest {{ $class_highest}}
+                                        <i class="fa fa-circle text-danger"></i> Class Lowest: {{ $class_lowest }}
+                                                                                
+                                    </div>
+                                    <hr>
+                                    <div class="stats">
+                                        <i class="fa fa-circle text-info"></i><strong> Your Total Score: {{ @@$grade->total}} </strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+
+                 
 
              
                 </div>

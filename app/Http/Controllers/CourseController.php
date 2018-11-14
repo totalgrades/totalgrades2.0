@@ -118,8 +118,8 @@ class CourseController extends Controller
             ->where('grade_activities.group_id', StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id )
             ->first(['student_id', 'school_year_id', 'group_id','term_id', 'course_id', DB::raw('SUM(activity_grade) as total')]);
 
-        
-      //dd($student_grades_course);
+       $student_course_grade = $student_grades_course->sum('activity_grade');
+      //dd($student_grades_course->sum('activity_grade'));
 
        /* $chart_ca = Charts::create('pie', 'highcharts')
                 ->title('Course Statistics _ % of total Score')
@@ -135,8 +135,8 @@ class CourseController extends Controller
 
         $chart_class_stats = Charts::create('bar', 'highcharts')
                 ->title('Class Statistics')
-                ->labels(['Class Minimum', 'Class Maximum', 'Class Average'])
-                ->values([ $class_lowest, $class_highest, $class_average])
+                ->labels(['Class Minimum', 'Your Grade', 'Class Maximum', 'Class Average'])
+                ->values([ $class_lowest, $student_course_grade, $class_highest, $class_average])
                 ->dimensions(0,230);
 
         $chart_total_score = Charts::create('percentage', 'justgage')
@@ -151,7 +151,7 @@ class CourseController extends Controller
                 
 
         return view('showcourse', compact( 'schoolyear', 'term', 'grade', 'course', 'grade_activities_course', 'student_grades', 'positions','class_highest',
-            'class_lowest', 'class_average', 'chart_ca', 'chart_class_stats', 'chart_total_score', 'class_members', 'student_grades_course'));
+            'class_lowest', 'class_average', 'chart_ca', 'chart_class_stats', 'chart_total_score', 'class_members', 'student_grades_course', 'student_course_grade'));
 
     }
 
