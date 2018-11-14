@@ -58,7 +58,7 @@
                                 @endif
 
                                     <div class="well well-sm">
-                                      <a href="{{url('/attendances/'.$schoolyear->id)}}" class="btn btn-primary btn-lg">View  {{$schoolyear->school_year}} attendance records</a>
+                                      <a href="{{url('/attendances/'.$schoolyear->id)}}" class="btn btn-primary">View  {{$schoolyear->school_year}} attendance records</a>
                                       
                                     </div>
                                     
