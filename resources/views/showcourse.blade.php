@@ -107,7 +107,7 @@
                     <div class="col-md-6">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title"><strong>{{ @$course->name }}</strong></h4>
+                                <h4 class="title"><strong>{{ @$course->name }}<button type="button" class="btn btn-sm"><strong><span style="color: #FF5733; font-size: 25px;">{{ @$grade->total }}%</span></strong></button></strong></h4>
                                 <p class="category">{{$term->term}}</p>
                             </div>
                             <div class="content">
@@ -116,14 +116,14 @@
                                 @foreach($student_grades_course as $student_grade_course)
                                   <li class="list-group-item justify-content-between">
                                     <strong>{{ @$student_grade_course->grade_activity_name }}
-                                    <span class="label label-primary pull-right"><span style="color: #FADBD8;">{{ @$student_grade_course->activity_grade }}%</span>&#32;&#47;&#32;<span style="color: #DAF7A6;">{{ @$student_grade_course->grade_activity_weight }}%</span></span></strong>
+                                    <span class="label label-primary pull-right"><span style="color: #FADBD8; font-size: 15px;">{{ @$student_grade_course->activity_grade }}%&#32;&#47;&#32;</span><span style="color: #DAF7A6; font-size: 12px;">{{ @$student_grade_course->grade_activity_weight }}%</span></span></strong>
                                   </li>
                                 @endforeach 
                                 <li class="list-group-item justify-content-between">
-                                    <div class="alert alert-info">
+                                    <div class="alert alert-warning">
                                         <strong>
-                                        Your Total in the Course
-                                        <span class="label label-primary pull-right"><span style="color: #FADBD8;">{{ @$grade->total }}%</span>&#32;&#47;&#32; <span style="color: #DAF7A6;">{{$grade_activities_course->sum('grade_activity_weight')}} %</span></span></strong>
+                                        Your Total:
+                                        <span class="label label-primary pull-right"><span style="color: #FADBD8; font-size: 15px;">{{ @$grade->total }}%&#32;&#47;&#32;</span> <span style="color: #DAF7A6; font-size: 12px;">{{$grade_activities_course->sum('grade_activity_weight')}} %</span></span></strong>
                                     </div>
                                   </li>
                                 </ul>
