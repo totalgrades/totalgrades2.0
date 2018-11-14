@@ -36,8 +36,6 @@
 
 <div class="wrapper">
 
-
-
     <div class="main-panel" style="background-color: #fff; float: none; width: calc(100%);">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
