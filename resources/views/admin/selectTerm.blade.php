@@ -29,6 +29,10 @@
     <link href="{{asset('assets/css/themify-icons.css')}}" rel="stylesheet">
 
     
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
 
     
 
@@ -118,59 +122,80 @@
         </nav>
 
         <div class="content">
-            <div class="row" style="margin-left: 25%; margin-right: 25%;">
-                <div class="table-responsive">
-              
-                    <table class="table table-bordered table-hover" table-responsive>
-                            <thead>
-                                <tr class="info">
-                                    <th class="text-center"><strong>#</strong></th>
-                                    <th class="text-center"><strong>School Year</strong></th>
-                                    <th class="text-center"><strong>Start Date</strong></th>
-                                    <th class="text-center"><strong>End Date</strong></th>
-                                    <th class="text-center"><strong>Terms</strong></th>
-                                </tr>
-                            </thead>
-                            <tbody> 
-                                                              
-                                @foreach ($school_years as $key=>$schoolyear)                         
-                                                                             
-                                    <tr>
-                                        <td class="text-center">{{$number_init++}}</td>
-                                        <td class="text-center">
-                                            @if($schoolyear->id == $current_school_year->id)
-                                                {{$schoolyear->school_year}} - <p><strong><mark style="color: green;">Current Year</mark></strong></p>
-                                            @else
-                                                {{$schoolyear->school_year}} 
-                                            @endif
-                                        </td>
-                                        <td class="text-center">{{$schoolyear->start_date->toFormattedDateString()}}</td>
-                                        <td class="text-center">{{$schoolyear->end_date->toFormattedDateString()}}</td>
-                                        <td class="text-center">
-                                            @foreach ($terms as $term)
-                                                @foreach ($registrations_teacher->where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id) as $regs_teacher)
-                                                <a href="{{asset('/admin_home/'. $schoolyear->id)}}/{{$term->id}}">
-                                                    @if($schoolyear->id == $current_school_year->id)
-                                                        @if($term->id == $current_term->id)
-                                                            <button type="button" class="btn btn-info btn-sm">{{strtoupper($term->term)}} <span style="color: red">You are assigned to</span> {{$regs_teacher->group->name}}<br><span style="color: red">Current Term</span></button>
-                                                        @else
-                                                            <button type="button" class="btn btn-success btn-sm">{{strtoupper($term->term)}} <span style="color: red">You are assigned to</span> {{$regs_teacher->group->name}}</button>
-                                                        @endif
-                                                    @else
-                                                            <button type="button" class="btn btn-primary btn-sm">{{strtoupper($term->term)}} <span style="color: red">You are assigned to</span> {{$regs_teacher->group->name}}</button>
-                                                    @endif
-                                                </a>
-                                                <br>
-                                                <br>
-                                                @endforeach
-                                            @endforeach
-                                        </td>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="table-responsive">
+                  
+                        <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr class="info">
+                                        <th class="text-center"><strong>#</strong></th>
+                                        <th class="text-center"><strong>School Year</strong></th>
+                                        <!-- <th class="text-center"><strong>Start Date</strong></th>
+                                        <th class="text-center"><strong>End Date</strong></th> -->
+                                        <th class="text-center"><strong>Terms</strong></th>
                                     </tr>
+                                </thead>
+                                <tbody> 
+                                                                  
+                                    @foreach ($school_years as $key=>$schoolyear)                         
+                                                                                 
+                                        <tr>
+                                            <td class="text-center">{{$number_init++}}</td>
+                                            <td class="text-center">
+                                                @if($schoolyear->id == $current_school_year->id)
+                                                    {{$schoolyear->school_year}} - <p><strong><mark style="color: green;">Current Year</mark></strong></p>
+                                                @else
+                                                    {{$schoolyear->school_year}} 
+                                                @endif
+                                            </td>
+                                            <!-- <td class="text-center">{{$schoolyear->start_date->toFormattedDateString()}}</td>
+                                            <td class="text-center">{{$schoolyear->end_date->toFormattedDateString()}}</td> -->
+                                            <td class="text-center">
+                                                @foreach ($terms as $term)
+                                                    @foreach ($registrations_teacher->where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id) as $regs_teacher)
+                                                    <a href="{{asset('/admin_home/'. $schoolyear->id)}}/{{$term->id}}">
+                                                        @if($schoolyear->id == $current_school_year->id)
+                                                            @if($term->id == $current_term->id)
+                                                                <button type="button" class="btn btn-danger btn-sm"><i class="fa fa-circle text-success"></i>{{strtoupper($term->term)}}:  {{$regs_teacher->group->name}}</button>
+                                                            @else
+                                                                <button type="button" class="btn btn-success btn-sm">{{strtoupper($term->term)}}:  {{$regs_teacher->group->name}}</button>
+                                                            @endif
+                                                        @else
+                                                                <button type="button" class="btn btn-primary btn-sm">{{strtoupper($term->term)}}:  {{$regs_teacher->group->name}}</button>
+                                                        @endif
+                                                    </a>
+                                                    <br>
+                                                    <br>
+                                                    @endforeach
+                                                @endforeach
+                                            </td>
+                                            <!-- <td class="text-center">
+                                                @foreach ($terms as $term)
+                                                    @foreach ($registrations_teacher->where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id) as $regs_teacher)
+                                                    <a href="{{asset('/admin_home/'. $schoolyear->id)}}/{{$term->id}}">
+                                                        @if($schoolyear->id == $current_school_year->id)
+                                                            @if($term->id == $current_term->id)
+                                                                <button type="button" class="btn btn-info btn-sm">{{strtoupper($term->term)}} <span style="color: red">You are assigned to</span> {{$regs_teacher->group->name}}<br><span style="color: red">Current Term</span></button>
+                                                            @else
+                                                                <button type="button" class="btn btn-success btn-sm">{{strtoupper($term->term)}} <span style="color: red">You are assigned to</span> {{$regs_teacher->group->name}}</button>
+                                                            @endif
+                                                        @else
+                                                                <button type="button" class="btn btn-primary btn-sm">{{strtoupper($term->term)}} <span style="color: red">You are assigned to</span> {{$regs_teacher->group->name}}</button>
+                                                        @endif
+                                                    </a>
+                                                    <br>
+                                                    <br>
+                                                    @endforeach
+                                                @endforeach
+                                            </td> -->
+                                        </tr>
 
-                                @endforeach
-                            </tbody>
-                    </table>
+                                    @endforeach
+                                </tbody>
+                        </table>
 
+                    </div>
                 </div>
             </div>
         </div>
@@ -187,8 +212,8 @@
 </body>
 
     <!--   Core JS Files   -->
-    <script src="{{asset('assets/js/jquery-1.10.2.js')}}" type="text/javascript"></script>
-    <script src="{{asset('assets/js/bootstrap.min.js')}}" type="text/javascript"></script>
+    <!-- <script src="{{asset('assets/js/jquery-1.10.2.js')}}" type="text/javascript"></script>
+    <script src="{{asset('assets/js/bootstrap.min.js')}}" type="text/javascript"></script> -->
 
     <!--  Checkbox, Radio & Switch Plugins -->
     <script src="{{asset('assets/js/bootstrap-checkbox-radio.js')}}"></script>
