@@ -20,6 +20,7 @@ use Charts;
 use \Crypt;
 use App\StudentRegistration;
 use DB;
+use App\GradeActivity;
 
 
 
@@ -68,6 +69,9 @@ class CourseController extends Controller
 
         $course = Course::find(Crypt::decrypt($course));
 
+        //get all grade activities for this course
+        $grade_activities_course = GradeActivity::where('course_id', $course->id)->get();
+
         $student = Student::where('registration_code', '=', Auth::user()->registration_code)->first();
 
         $class_members = @StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', $term->id)->where('group_id', '=', StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id)->get();
@@ -89,8 +93,7 @@ class CourseController extends Controller
             ->where('grade_activities.course_id', $course->id)
             ->where('grade_activities.group_id', StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id )
             ->groupBy('course_id')->groupBy('student_id')->get(['student_id', 'school_year_id', 'group_id','term_id', 'course_id', DB::raw('SUM(activity_grade) as total')]);
-        
-               
+                       
         $class_highest = $class_grades->max('total');
         $class_lowest = $class_grades->min('total');
         $class_average = $class_grades->avg('total');
@@ -104,7 +107,7 @@ class CourseController extends Controller
             ->where('grade_activities.course_id', $course->id)
             ->where('grade_activities.group_id', StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id )
             ->orderBy('grade_activity_category_id')->get();
-        //dd($student_grades_course);
+        
 
         $grade= DB::table('grades')
             ->join('grade_activities', 'grade_activities.id', '=', 'grades.grade_activity_id')
@@ -147,7 +150,7 @@ class CourseController extends Controller
        
                 
 
-        return view('showcourse', compact( 'schoolyear', 'term', 'grade', 'course', 'student_grades', 'positions','class_highest',
+        return view('showcourse', compact( 'schoolyear', 'term', 'grade', 'course', 'grade_activities_course', 'student_grades', 'positions','class_highest',
             'class_lowest', 'class_average', 'chart_ca', 'chart_class_stats', 'chart_total_score', 'class_members', 'student_grades_course'));
 
     }

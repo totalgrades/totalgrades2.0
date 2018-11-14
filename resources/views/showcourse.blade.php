@@ -36,8 +36,11 @@
                                   </li>
                                 @endforeach 
                                 <li class="list-group-item justify-content-between">
-                                    Your Total in the Course
-                                    <span class="label label-primary pull-right">{{ @$grade->total }}&#32;&#47;&#32;100 %</span>
+                                    <div class="alert alert-info">
+                                        <strong>
+                                        Your Total in the Course
+                                        <span class="label label-primary pull-right"><span style="color: #FADBD8;">{{ @$grade->total }}%</span>&#32;&#47;&#32; <span style="color: #DAF7A6;">{{$grade_activities_course->sum('grade_activity_weight')}} %</span></span></strong>
+                                    </div>
                                   </li>
                                 </ul>
                                 <div class="footer">
