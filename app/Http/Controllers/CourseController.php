@@ -103,7 +103,8 @@ class CourseController extends Controller
             ->where('grade_activities.term_id', $term->id)
             ->where('grade_activities.course_id', $course->id)
             ->where('grade_activities.group_id', StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id )
-            ->get();
+            ->orderBy('grade_activity_category_id')->get();
+        //dd($student_grades_course);
 
         $grade= DB::table('grades')
             ->join('grade_activities', 'grade_activities.id', '=', 'grades.grade_activity_id')
@@ -114,15 +115,7 @@ class CourseController extends Controller
             ->where('grade_activities.group_id', StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id )
             ->first(['student_id', 'school_year_id', 'group_id','term_id', 'course_id', DB::raw('SUM(activity_grade) as total')]);
 
-        $student_grades_course = DB::table('grades')
-            ->join('grade_activities', 'grade_activities.id', '=', 'grades.grade_activity_id')
-            ->where('grades.student_id', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)
-            ->where('grade_activities.school_year_id', $schoolyear->id)
-            ->where('grade_activities.term_id', $term->id)
-            ->where('grade_activities.course_id', $course->id)
-            ->where('grade_activities.group_id', StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id )
-            ->get();
-
+        
       //dd($student_grades_course);
 
        /* $chart_ca = Charts::create('pie', 'highcharts')

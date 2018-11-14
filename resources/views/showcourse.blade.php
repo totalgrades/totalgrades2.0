@@ -31,13 +31,13 @@
                                 <ul class="list-group">
                                 @foreach($student_grades_course as $student_grade_course)
                                   <li class="list-group-item justify-content-between">
-                                    {{ @@$student_grade_course->grade_activity_name }}
-                                    <span class="label label-primary pull-right">{{ @@$student_grade_course->activity_grade }}&#32;&#47;&#32;{{ @@$student_grade_course->max_point }}</span>
+                                    <strong>{{ @$student_grade_course->grade_activity_name }}
+                                    <span class="label label-primary pull-right"><span style="color: #FADBD8;">{{ @$student_grade_course->activity_grade }}%</span>&#32;&#47;&#32;<span style="color: #DAF7A6;">{{ @$student_grade_course->grade_activity_weight }}%</span></span></strong>
                                   </li>
                                 @endforeach 
                                 <li class="list-group-item justify-content-between">
                                     Your Total in the Course
-                                    <span class="label label-primary pull-right">{{ @@$grade->total }}&#32;&#47;&#32;100 %</span>
+                                    <span class="label label-primary pull-right">{{ @$grade->total }}&#32;&#47;&#32;100 %</span>
                                   </li>
                                 </ul>
                                 <div class="footer">
