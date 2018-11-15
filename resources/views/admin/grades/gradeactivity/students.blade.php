@@ -178,8 +178,9 @@ th.rotate > div > span {
                                                 
                                               @endif
                                           @endforeach
+                                          
                                             <button type="button" class="btn btn-sm btn-light" style="color: red" id="addGradeIcon-{{$grade_activity->id}}{{$reg_students->student->id}}"><i class="fa fa-pencil"></i></button>
-
+                                         
                                             <!-- Add grade form-->
                                             <form method="post" action="{{ url('/grades/gradeactivity/student/addgrade', [$grade_activity->id]) }}" id="addGradeForm-{{$grade_activity->id}}{{$reg_students->student->id}}" style="display: none;">
                                             {{ csrf_field() }}
