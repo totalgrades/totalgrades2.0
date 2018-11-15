@@ -16,7 +16,7 @@ th.rotate > div {
 }
 th.rotate > div > span {
   /*border-bottom: 1px solid #ccc;*/
-  padding: 5px 10px;
+  padding: 10px 10px;
 }
 
 
