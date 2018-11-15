@@ -49,6 +49,34 @@ class CrudeController extends Controller
     	
     }
 
+    public function showStudentsMessages(School_year $schoolyear, Term $term)
+    {
+        $student_messages = Message::get();
+
+        dd($student_messages);
+
+        return view('admin.students.messages.showstudentsmessages', compact('schoolyear', 'term'));
+        
+    }
+
+    /*public function allStudentsMessages(School_year $schoolyear, Term $term)
+    {
+        $message = Message::find($message);
+      
+
+        return view('admin.students.messages.allstudentsmessages', compact('schoolyear', 'term'));
+        
+    }*/
+
+    /* public function viewStudentMessagesAll(School_year $schoolyear, Term $term, $message)
+    {
+        $message = Message::find($message);
+      
+
+        return view('admin.students.messages.viewstudentmessagesall', compact('schoolyear', 'term', 'message'));
+        
+    }*/
+
     public function postViewStudentMessage(Request $r, School_year $schoolyear, Term $term, $message)
     {
         $message = Message::find($message);

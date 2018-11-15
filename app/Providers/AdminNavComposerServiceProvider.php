@@ -58,6 +58,7 @@
             'admin.healthrecords.edithrecord',
             'admin/banstudents',
             'admin.students.messages.allstudents',
+            'admin.students.messages.showstudentsmessages',
             'admin.students.messages.viewstudentmessage',
             'admin.students.messages.replystudentmessage',
             'admin.students.messages.showstudents',

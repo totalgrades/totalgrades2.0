@@ -15,7 +15,7 @@
                       <div class="header">
                           <h4 class="title"><strong>Message Board</strong>
                               <div class="pull-right">
-                                  <a href="{{asset('/students/messages/showstudentsmessages/'.$schoolyear->id)}}/{{$term->id}}"><button type="button" class="btn btn-info">View Sent Messages</button></a>&nbsp;&nbsp;
+                                  <a href="{{asset('/students/messages/showstudents/'.$schoolyear->id)}}/{{$term->id}}"><button type="button" class="btn btn-info">View Sent Messages</button></a>&nbsp;&nbsp;
                                   <a href="{{asset('/students/messages/showstudents/'.$schoolyear->id)}}/{{$term->id}}"><button type="button" class="btn btn-success">Send Message To Students</button></a>
                               
                             </div>
