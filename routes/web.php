@@ -255,14 +255,15 @@ Route::group(['middleware' => 'admin_auth'], function(){
 
     //messages from students
     Route::get('/students/messages/allstudents/{schoolyear}/{term}', 'AdminAuth\Students\Messages\CrudeController@allStudents')->name('messages_allstudents');
-    
+    Route::get('/students/messages/allstudentmessages/{schoolyear}/{term}/{student_user}', 'AdminAuth\Students\Messages\CrudeController@allStudentMessages');
+
     Route::get('/students/messages/viewstudentmessage/{schoolyear}/{term}/{message}', 'AdminAuth\Students\Messages\CrudeController@viewStudentMessage')->name('viewMessage');
         
     Route::post('/students/messages/postviewstudentmessage/{schoolyear}/{term}/{message}', 'AdminAuth\Students\Messages\CrudeController@postViewStudentMessage');
     Route::post('/students/messages/deletemessageforstaffer/{schoolyear}/{term}/{message}', 'AdminAuth\Students\Messages\CrudeController@deleteMessageForStaffer');
 
     //show messages for all students
-    Route::get('/students/messages/showstudentsmessages/{schoolyear}/{term}', 'AdminAuth\Students\Messages\CrudeController@showStudentsMessages');
+    Route::get('/students/messages/showsentmessagesteacher/{schoolyear}/{term}', 'AdminAuth\Students\Messages\CrudeController@showSentMessagesTeacher');
 
     //messages and replies to students
     Route::get('/students/messages/showstudents/{schoolyear}/{term}', 'AdminAuth\Students\Messages\CrudeController@showStudents');

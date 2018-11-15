@@ -13,14 +13,14 @@
               <div class="col-md-12">
                   <div class="card">
                       <div class="header">
-                          <h4 class="title"><strong>Message Board</strong>
+                          <h4 class="title"><strong>Messages Sent To <mark></mark>{{$student_user->name}}</s</strong>
                               <div class="pull-right">
-                                  <a href="{{asset('/students/messages/showstudents/'.$schoolyear->id)}}/{{$term->id}}"><button type="button" class="btn btn-info">View Sent Messages</button></a>&nbsp;&nbsp;
-                                  <a href="{{asset('/students/messages/showstudents/'.$schoolyear->id)}}/{{$term->id}}"><button type="button" class="btn btn-success">Send Message To Students</button></a>
+                                  
+                                  <!-- <a href="{{asset('/students/messages/showstudents/'.$schoolyear->id)}}/{{$term->id}}"><button type="button" class="btn btn-success">Send Message To Students</button></a> -->
                               
                             </div>
                           </h4>
-                          <p class="category">Your Current Class Class: {{ @\App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('staffer_id', '=', $teacher->id)->first()->group->name}} </p>
+                          <p class="category">Your Current Class: {{ @\App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('staffer_id', '=', $teacher->id)->first()->group->name}} </p>
                       </div>
                       <div class="content">
                        
@@ -37,7 +37,7 @@
                          </thead>
                           <tbody>
 
-                            @foreach ($messages->where('sent_to_staffer', $teacher->id)->where('staffer_delete', 0)->where('sent_to_student', null) as $key=> $message)
+                            @foreach ($all_student_messages->where('staffer_id', $teacher->id)->where('staffer_delete', 0) as $key=> $message)
                             @if($message->status == 1)
                               <tr class="warning strikeout">
                             @else

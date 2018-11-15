@@ -21,7 +21,7 @@
                     <div class="col-md-8 col-md-offset-2">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Students in Your class
+                                <h4 class="title">Messages You Sent To Students in Your class
                                   <div class="pull-right"><a href="{{asset('/students/messages/allstudents/'.$schoolyear->id)}}/{{$term->id}}"><button type="button" class="btn btn-info">Back</button></a></div>
                                 </h4>
                                 <p class="category">You have 
@@ -77,7 +77,7 @@
 
                                           @if($st_user->registration_code == $reg_student->registration_code)
 
-                                              <a href="{{asset('/students/messages/sendmessagetostudent/'.$schoolyear->id)}}/{{$term->id}}/{{$st_user->id}}"><button type="button" class="btn btn-success">Send Message To {{$st_user->name}}</button></a>
+                                              <a href="{{asset('/students/messages/allstudentmessages/'.$schoolyear->id)}}/{{$term->id}}/{{$st_user->id}}"><button type="button" class="btn btn-success">{{$staffer_sent_messages->where('staffer_id', $teacher->id)->where('sent_to_student', $st_user->id)->count()}}</button></a>
 
                                           @endif
                                         

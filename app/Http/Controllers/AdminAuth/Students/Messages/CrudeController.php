@@ -49,13 +49,21 @@ class CrudeController extends Controller
     	
     }
 
-    public function showStudentsMessages(School_year $schoolyear, Term $term)
+    public function showSentMessagesTeacher(School_year $schoolyear, Term $term)
     {
-        $student_messages = Message::get();
+        $staffer_sent_messages = Message::get();
 
-        dd($student_messages);
+        
+        return view('admin.students.messages.showsentmessagesteacher', compact('schoolyear', 'term', 'staffer_sent_messages'));
+        
+    }
 
-        return view('admin.students.messages.showstudentsmessages', compact('schoolyear', 'term'));
+    public function allStudentMessages(School_year $schoolyear, Term $term, User $student_user)
+    {
+        $all_student_messages = Message::where('sent_to_student', $student_user->id)->get();
+        //dd($all_student_messages);
+
+        return view('admin.students.messages.allstudentmessages', compact('schoolyear', 'term', 'student_user', 'all_student_messages'));
         
     }
 
