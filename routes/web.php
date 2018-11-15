@@ -264,7 +264,7 @@ Route::group(['middleware' => 'admin_auth'], function(){
 
     //show messages for all students
     Route::get('/students/messages/showsentmessagesteacher/{schoolyear}/{term}', 'AdminAuth\Students\Messages\CrudeController@showSentMessagesTeacher');
-
+    Route::get('/students/messages/viewsentmessageteacher/{schoolyear}/{term}/{message}', 'AdminAuth\Students\Messages\CrudeController@viewSentMessageTeacher');
     //messages and replies to students
     Route::get('/students/messages/showstudents/{schoolyear}/{term}', 'AdminAuth\Students\Messages\CrudeController@showStudents');
     Route::get('/students/messages/sendmessagetostudent/{schoolyear}/{term}/{user}', 'AdminAuth\Students\Messages\CrudeController@sendMessageToStudent');

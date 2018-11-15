@@ -61,6 +61,7 @@
             'admin.students.messages.allstudentmessages',
             'admin.students.messages.showsentmessagesteacher',
             'admin.students.messages.viewstudentmessage',
+            'admin.students.messages.viewsentmessageteacher',
             'admin.students.messages.replystudentmessage',
             'admin.students.messages.showstudents',
             'admin.students.messages.sendmessagetostudent',

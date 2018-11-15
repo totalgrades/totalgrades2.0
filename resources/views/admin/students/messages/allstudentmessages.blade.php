@@ -16,7 +16,8 @@
                           <h4 class="title"><strong>Messages Sent To <mark></mark>{{$student_user->name}}</s</strong>
                               <div class="pull-right">
                                   
-                                  <!-- <a href="{{asset('/students/messages/showstudents/'.$schoolyear->id)}}/{{$term->id}}"><button type="button" class="btn btn-success">Send Message To Students</button></a> -->
+                                  <a href="{{asset('/students/messages/showstudents/'.$schoolyear->id)}}/{{$term->id}}"><button type="button" class="btn btn-success">Send Message To Students</button></a>
+                                  <a href="{{asset('/students/messages/allstudents/'.$schoolyear->id)}}/{{$term->id}}"><button type="button" class="btn btn-info">Back To message Board</button></a>
                               
                             </div>
                           </h4>
@@ -29,9 +30,9 @@
                           <thead>
                               <th><strong>#</strong></th>
                               <th><strong>Face</strong></th>
-                              <th><strong>From</strong></th>
+                              <th><strong>Sent To </strong></th>
                               <th><strong>Subject</strong></th>
-                              <th class="text-center"><strong>Date Received</strong></th>
+                              <th class="text-center"><strong>Date Sent/Replied</strong></th>
                               <th class="text-center"><strong>View Message</strong></th>
                               <th class="text-center"><strong>Delete Message</strong></th>
                          </thead>
@@ -48,7 +49,12 @@
                                 
                                 <td>{{$message->user->name}}</td>
                                 <td>{{str_limit($message->subject, 30)}}</td>
-                                <td class="text-center">{{$message->created_at->toFormattedDateString()}}</td>
+                                <td class="text-center">
+                                  {{$message->created_at->toFormattedDateString()}}
+                                  @if($message->message_replied == 1)
+                                    <i class="fa fa-reply" aria-hidden="true"></i>
+                                  @endif
+                                </td>
                                 <td class="text-center">
                                   @if($message->status == 1)
                                    
