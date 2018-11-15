@@ -88,7 +88,7 @@ th.rotate > div > span {
                                           <br>
                                           <strong>{{$grade_activity->grade_activity_name}}-({{$grade_activity->grade_activity_weight}}%)</strong>
                                           <br>
-                                          <button type="button" class="btn btn-sm btn-warning"><strong><span style="font-size: 15px; color: #C70039;">{{$grade_activity->grade_activity_weight}}%</span></strong></button>
+                                          <strong><span style="font-size: 15px; color: #C70039;">{{$grade_activity->grade_activity_weight}}%</span></strong>
                                         </span>
                                       </div>
 
