@@ -9,7 +9,7 @@
 th.rotate > div {
   transform: 
     /* Magic Numbers */
-    translate(25px, 51px)
+    translate(5px, 51px)
     /* 45 is really 360 - 45 */
     rotate(271deg);
   width: 30px;
