@@ -73,7 +73,7 @@ th.rotate > div > span {
                                     <strong>Face</strong>
                                     <button type="button" class="btn btn-sm btn-warning"><strong><span style="font-size: 15px; color: #C70039;">{{$grade_activities->sum('grade_activity_weight')}}% </span></strong></button>
                                     </th>
-                                  <th  class="text-center" style="font-size: 15px"><strong>Last Name</strong></th>
+                                  <th  class="text-center" style="font-size: 15px"><strong>Student's Name</strong></th>
 
                                   @foreach($grade_activities as $key=>$grade_activity)
 
@@ -111,17 +111,15 @@ th.rotate > div > span {
 
                                               @if ($st_user->registration_code ==  $reg_students->student->registration_code)                         
 
-                                              <img class="avatar border-white" src="{{asset('/assets/img/students/'.$st_user->avatar) }}" alt="..."/>
-                                              
+                                              <img class="avatar border-white" src="{{asset('/assets/img/students/'.$st_user->avatar) }}" alt="..."/>            
                                                
-
                                              @endif
                                               
                                           @endforeach
                                           <button type="button" class="btn btn-sm"><strong><span style="font-size: 20px; color: #EB5E28;">{{ $grades_and_activities->where('student_id', $reg_students->student->id)->sum('activity_grade') }}%</span></strong></button>
                                         </td>
 
-                                        <td class="text-center">{{$reg_students->student->last_name}} {{$reg_students->student->first_name}}</td>
+                                        <td class="text-center">{{$reg_students->student->first_name}} {{$reg_students->student->last_name}}</td>
 
                                         @foreach($grade_activities as $key=>$grade_activity)
                                         <td class="text-center">
