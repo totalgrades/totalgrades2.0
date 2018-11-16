@@ -1,4 +1,5 @@
 @extends('admin.dashboard')
+@include('admin.includes.tablesearch')
 <style type="text/css">
  th.rotate {
   /* Something you can count on */
@@ -65,9 +66,11 @@ th.rotate > div > span {
                             
                         <div class="content">
                         <div class="table-responsive">
-                          <table class="table table-hover table-bordered">
+
+                          
+                          <table id="example" class="table table-hover table-bordered results">
                             <thead>
-                              <tr >
+                              <tr>
                                   <th  class="text-center" style="font-size: 15px"><strong>#</strong></th>
                                   <th  class="text-center" style="font-size: 15px">
                                     <strong>Face</strong>
@@ -229,12 +232,7 @@ th.rotate > div > span {
 
                                         </td>
                                         @endforeach
-                                       
-                                        
-                                      
-                                      
-                                        
-                                       
+                                   
                                        
                                       </tr>
                                    
@@ -245,6 +243,7 @@ th.rotate > div > span {
                            
                             </tbody>
                           </table>
+                          @include('admin.includes.tablesearchjs')
                         </div>
 
 
