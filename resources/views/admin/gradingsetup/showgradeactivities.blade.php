@@ -62,7 +62,7 @@
                             
                         <div class="content">
                         <div class="table-responsive">
-                          <table class="table table-bordered table-hover" style="font-size: 12px;">
+                          <table id="showGradeActivities" class="table table-bordered table-hover" style="font-size: 12px;">
                             <thead>
                                 <tr>
 	                                <th  class="text-center"><strong>#</strong></th>
@@ -158,6 +158,14 @@
                            
                             </tbody>
                           </table>
+
+                          <!-- DataTable js starts -->
+                          <script type="text/javascript">
+                            $(document).ready(function() {
+                              $('#showGradeActivities').DataTable();
+                          } );
+                          </script>
+                          <!-- DataTable js ends -->
                         </div>
 
 
