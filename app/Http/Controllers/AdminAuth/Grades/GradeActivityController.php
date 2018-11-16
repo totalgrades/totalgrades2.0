@@ -115,6 +115,7 @@ class GradeActivityController extends Controller
 
     public function studentsCategoryGrades(GradeActivityCategory $gradeactivitycategory, School_year $schoolyear, Term $term , Course $course){
 
+        
         $grade_activities = GradeActivity::where('grade_activity_category_id', $gradeactivitycategory->id)->get();
         
         $student_grades = Grade::get();

@@ -9,14 +9,14 @@
 th.rotate > div {
   transform: 
     /* Magic Numbers */
-    translate(25px, 51px)
+    translate(5px, 51px)
     /* 45 is really 360 - 45 */
-    rotate(315deg);
+    rotate(271deg);
   width: 30px;
 }
 th.rotate > div > span {
-  border-bottom: 1px solid #ccc;
-  padding: 5px 10px;
+  /*border-bottom: 1px solid #ccc;*/
+  padding: 10px 10px;
 }
 
 
@@ -61,19 +61,26 @@ th.rotate > div > span {
                             
                         <div class="content">
                         <div class="table-responsive">
-                          <table class="table table-hover table-bordered">
+                          <table id="studentsCategoryGrades" class="table table-hover table-bordered">
                             <thead>
                               <tr >
                                   <th  class="text-center" style="font-size: 15px"><strong>#</strong></th>
-                                  <th  class="text-center" style="font-size: 15px"><strong>Face</strong></th>
+                                  <th  class="text-center" style="font-size: 15px"><strong>Face
+                                    <button type="button" class="btn btn-sm btn-warning"><strong><span style="font-size: 15px; color: #C70039;">{{$grade_activities->sum('grade_activity_weight')}}% </span></strong></button></strong></th>
                                   <th  class="text-center" style="font-size: 15px"><strong>Last Name</strong></th>
 
                                   @foreach($grade_activities as $key=>$grade_activity)
 
-  	                                <th class="rotate" style="padding-left: 8%;">
+  	                                <th class="rotate">
                                       <div>
-                                        <span style="font-size: 15px">
+                                        <span style="font-size: 12px">
+
+                                              {{$gradeactivitycategory->grade_activity_category_name}}
+                                           
+                                          <br>
                                           <strong>{{$grade_activity->grade_activity_name}}-({{$grade_activity->grade_activity_weight}}%)</strong>
+                                          <br>
+                                          <strong><span style="font-size: 15px; color: #C70039; font-style: italic;">{{$grade_activity->grade_activity_weight}}%</span></strong>
                                         </span>
                                       </div>
                                   </th>
@@ -108,7 +115,7 @@ th.rotate > div > span {
 
                                        
                                         @foreach($grade_activities as $key=>$grade_activity)
-                                        <td class="text-center">
+                                        <td>
                                         
                                           @foreach ($student_grades->where('grade_activity_id', $grade_activity->id) as $student_grade)
                                               @if($student_grade->student_id == $reg_students->student->id)
@@ -229,6 +236,14 @@ th.rotate > div > span {
                            
                             </tbody>
                           </table>
+
+                          <!-- DataTable js starts -->
+                          <script type="text/javascript">
+                            $(document).ready(function() {
+                              $('#studentsCategoryGrades').DataTable();
+                          } );
+                          </script>
+                          <!-- DataTable js ends -->
                         </div>
 
 

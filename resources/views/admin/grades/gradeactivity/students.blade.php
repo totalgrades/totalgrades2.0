@@ -1,5 +1,5 @@
 @extends('admin.dashboard')
-@include('admin.includes.tablesearch')
+
 <style type="text/css">
  th.rotate {
   /* Something you can count on */
@@ -68,7 +68,7 @@ th.rotate > div > span {
                         <div class="table-responsive">
 
                           
-                          <table id="example" class="table table-hover table-bordered results">
+                          <table id="enterGradesAllStudents" class="table table-hover table-bordered">
                             <thead>
                               <tr>
                                   <th  class="text-center" style="font-size: 15px"><strong>#</strong></th>
@@ -243,7 +243,13 @@ th.rotate > div > span {
                            
                             </tbody>
                           </table>
-                          @include('admin.includes.tablesearchjs')
+                          <!-- DataTable js starts -->
+                          <script type="text/javascript">
+                            $(document).ready(function() {
+                              $('#enterGradesAllStudents').DataTable();
+                          } );
+                          </script>
+                          <!-- DataTable js ends -->
                         </div>
 
 

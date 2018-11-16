@@ -25,7 +25,7 @@
                             </div>
 
                             <div class="content">
-                                <table class="table table-striped text-center">
+                                <table id="gradingSetupCourses" class="table table-striped text-center">
                                     <thead>
                                         <th class="text-center"><strong>Course Code</strong></th>
                                         <th class="text-center danger"><strong>Course Name</strong></th>
@@ -63,6 +63,14 @@
                                     </tbody>
                                 </table>
 
+                                <!-- DataTable js starts -->
+                                <script type="text/javascript">
+                                  $(document).ready(function() {
+                                    $('#gradingSetupCourses').DataTable();
+                                } );
+                                </script>
+                                <!-- DataTable js ends -->
+
                                 <div class="footer">
                                    
                                     <hr>
@@ -92,7 +100,7 @@
                             </div>
 
                             <div class="content">
-                                <table class="table table-striped text-center">
+                                <table id="gradingSetupCoursesTeaching" class="table table-striped text-center">
                                         <thead>
                                             <th class="text-center"><strong>Course Code</strong></th>
                                             <th class="text-center success"><strong>Course Name</strong></th>
@@ -135,7 +143,13 @@
                                         </tbody>
                                     </table>
 
-
+                                    <!-- DataTable js starts -->
+                                    <script type="text/javascript">
+                                      $(document).ready(function() {
+                                        $('#gradingSetupCoursesTeaching').DataTable();
+                                    } );
+                                    </script>
+                                    <!-- DataTable js ends -->
                                 <div class="footer">
                                    
                                     <hr>

@@ -13,8 +13,11 @@
 
 
     <!-- Bootstrap core CSS     -->
-    
     <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" />
+    <!--DataTables css-->
+    
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
     <!-- Animation library for notifications   -->
     <link href="{{asset('assets/css/animate.min.css')}}" rel="stylesheet"/>
@@ -33,8 +36,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet">
-
+    
+    <!-- DataTables js -->
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
     

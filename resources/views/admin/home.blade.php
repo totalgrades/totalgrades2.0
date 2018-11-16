@@ -44,7 +44,7 @@
                             </div>
                             <div class="content">
                             <div class="table-responsive">
-                          <table class="table table-bordered table-hover" table-responsive>
+                          <table id="adminHomeSearchStudents" class="table table-bordered table-hover" table-responsive>
                             <thead>
                               <tr class="info">
                                 <th>#</th>
@@ -128,6 +128,13 @@
                             
                             </tbody>
                           </table>
+                          <!-- DataTable js starts -->
+                          <script type="text/javascript">
+                            $(document).ready(function() {
+                              $('#adminHomeSearchStudents').DataTable();
+                          } );
+                          </script>
+                          <!-- DataTable js ends -->
                         </div>
                                 
                                 

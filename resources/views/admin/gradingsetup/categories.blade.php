@@ -90,7 +90,7 @@
 
                             <div class="content">
                                 <div class="table-responsive">
-                                <table class="table table-bordered table-hover text-center">
+                                <table id="gradingSetupCategories" class="table table-bordered table-hover text-center">
                                     <thead>
                                         <th class="text-center">Category</strong></th>
                                         <th class="text-center info"><strong><span style="color: #FF5733;">Activities({{$grade_activities->sum('grade_activity_weight')}}%)</span> | <span style="color: #2874A6;">Categories({{$gradeactivitycategories->sum('grade_activity_category_weight') }}%)</span></strong></th>
@@ -157,6 +157,15 @@
                                         
                                     </tbody>
                                 </table>
+
+                                <!-- DataTable js starts -->
+                                <script type="text/javascript">
+                                  $(document).ready(function() {
+                                    $('#gradingSetupCategories').DataTable();
+                                } );
+                                </script>
+                                <!-- DataTable js ends -->
+
                             </div>
                                 <div class="footer">
                                    
