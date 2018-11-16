@@ -30,7 +30,7 @@
                             </div>
                           <div class="content col-xs-12">
                           <div class="table-responsive">
-                          <table class="table table-bordered table-hover">
+                          <table id="reportCardStudents" class="table table-bordered table-hover">
                             <thead>
                               <tr class="info">
                                 <th>#</th>
@@ -83,6 +83,13 @@
                            
                             </tbody>
                           </table>
+                          <!-- DataTable js starts -->
+                          <script type="text/javascript">
+                            $(document).ready(function() {
+                              $('#reportCardStudents').DataTable();
+                          } );
+                          </script>
+                          <!-- DataTable js ends -->
                         </div>
                                 
                                 
