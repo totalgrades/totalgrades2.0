@@ -173,6 +173,7 @@ class CrudeController extends Controller
             $this->validate(request(), [
 
                 'grade_activity_name'=> 'required',
+                'max_point'=> 'required|numeric|min:0',
                 'grade_activity_weight'=> "required|numeric|min:0|max:$r->grade_activity_category_weight",
                 'grade_activity_description'=> 'required', 
 
@@ -181,6 +182,7 @@ class CrudeController extends Controller
             $edit_grade_activity = GradeActivity::where('id', '=', $gradeactivity->id)->first();
              
             $edit_grade_activity->grade_activity_name = $r->grade_activity_name;
+            $edit_grade_activity->max_point = $r->max_point;
             $edit_grade_activity->grade_activity_weight = $r->grade_activity_weight;
             $edit_grade_activity->grade_activity_description = $r->grade_activity_description;
           

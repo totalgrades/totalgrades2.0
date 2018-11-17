@@ -67,6 +67,7 @@
                                 <tr>
 	                                <th  class="text-center"><strong>#</strong></th>
 	                                <th  class="text-center"><strong>Activity Name</strong></th>
+                                   <th  class="text-center"><strong>Marked Over</strong></th>
 	                                <th  class="text-center"><strong>Weight</strong></th>
                                   <th  class="text-center"><strong>Description</strong></th>
 	                                @if($schoolyear->id == $current_school_year->id && $term->id == $current_term->id)
@@ -82,6 +83,7 @@
                                       <tr>
                                         <td class="text-center">{{$number_init++}}</td>
                                         <td class="text-center">{{$grade_activity->grade_activity_name}}</td>
+                                        <td class="text-center">{{$grade_activity->max_point}}</td>
                                         <td class="text-center">{{$grade_activity->grade_activity_weight}}%</td>
                                         <td class="text-center">{{$grade_activity->grade_activity_description}}</td>
                                         
@@ -101,9 +103,12 @@
                                                       <label for="grade_activity_name"><strong>Activity Name</strong></label>
                                                       <input type="text" class="form-control" id="grade_activity_name" name="grade_activity_name" value="{{$grade_activity->grade_activity_name}}" required="">
                                                     </div>
-
-                                                    <div class="col-md-2">
-                                                      <label for="max_point"><strong>Weight(%)</strong></label>
+                                                    <div class="col-md-3">
+                                                      <label for="max_point"><strong>Marked Over(%)</strong></label>
+                                                      <input type="number" step=".01" class="form-control" id="max_point" name="max_point" value="{{$grade_activity->max_point}}" required="">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                      <label for="grade_activity_weight"><strong>Weight(%)</strong></label>
                                                       <input type="number" step=".01" class="form-control" id="grade_activity_weight" name="grade_activity_weight" value="{{$grade_activity->grade_activity_weight}}" required="">
                                                     </div>
                                                   </div>

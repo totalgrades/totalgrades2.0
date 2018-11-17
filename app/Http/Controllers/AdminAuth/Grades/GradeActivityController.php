@@ -51,14 +51,14 @@ class GradeActivityController extends Controller
 
     	$max_point = GradeActivity::where('id', $gradeactivity->id)->first();
 
-        $max_value = $max_point->grade_activity_weight;
+        $max_value = $max_point->max_point;
 
         $this->validate(request(), [
 
             'grade_activity_id' => 'required',
             'student_id' => 'required',
             'activity_grade' => "required|numeric|min:0|max:$max_value",
-            //'activity_comment' => 'required',        
+                    
 
     		]);
 
@@ -66,7 +66,8 @@ class GradeActivityController extends Controller
 
             'grade_activity_id' => $r->grade_activity_id,
             'student_id' => $r->student_id,
-            'activity_grade' => $r->activity_grade,
+            'activity_grade' => ($r->activity_grade/$gradeactivity->max_point)*$gradeactivity->grade_activity_weight,
+            'actual_grade'=>$r->activity_grade,
     		'activity_comment'=>$r->activity_comment,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),    
@@ -81,7 +82,7 @@ class GradeActivityController extends Controller
 
         $max_point = GradeActivity::where('id', $gradeactivity->id)->first();
 
-        $max_value = $max_point->grade_activity_weight;
+        $max_value = $max_point->max_point;
 
     	$this->validate(request(), [
 
@@ -92,7 +93,8 @@ class GradeActivityController extends Controller
 
     	$edit_grade = Grade::where('id', '=', $grade->id)->first();
          
-        $edit_grade->activity_grade = $r->activity_grade;
+        $edit_grade->activity_grade = ($r->activity_grade/$gradeactivity->max_point)*$gradeactivity->grade_activity_weight;
+        $edit_grade->actual_grade = $r->activity_grade;
         $edit_grade->activity_comment = $r->activity_comment;
               
         $edit_grade->save();

@@ -131,7 +131,7 @@ th.rotate > div > span {
                                               @if($student_grade->student_id == $reg_students->student->id)
                                                 {{$student_grade->activity_grade}} % 
                                                 <i class="fa fa-edit" id="editGradeIcon-{{$grade_activity->id}}{{$student_grade->id}}"></i>
-                                                <a href="{{asset('/grades/gradeactivity/student/deletegrade/'.$student_grade->id) }}" onclick="return confirm('Are you sure you want to Delete this record?')"><i class="fa fa-trash"></i></a>
+                                                <a id="deleteGradeIcon-{{$grade_activity->id}}{{$student_grade->id}}" href="{{asset('/grades/gradeactivity/student/deletegrade/'.$student_grade->id) }}" onclick="return confirm('Are you sure you want to Delete this record?')"><i class="fa fa-trash"></i></a>
                                                 <!-- Add grade form-->
                                                 <form method="post" action="{{ url('/grades/gradeactivity/student/editgrade', [$grade_activity->id, $student_grade->id]) }}" id="editGradeForm-{{$grade_activity->id}}{{$student_grade->id}}" style="display: none;">
                                                 {{ csrf_field() }}
@@ -139,14 +139,10 @@ th.rotate > div > span {
                                                 
                                                 <div class="row">
                                                   <div class="col-md-6">
-                                                      <label>Grade</label>
-                                                      <input type="number" step=".01" class="form-control" id="activity_grade" name="activity_grade" value="{{$student_grade->activity_grade}}" required="">
+                                                      <label>Grade/{{$grade_activity->max_point}}</label>
+                                                      <input type="number" step=".01" class="form-control" id="activity_grade" name="activity_grade" value="{{$student_grade->actual_grade}}" required="">
                                                   </div>
 
-                                                  <div class="col-md-6">
-                                                    <label>Comment</label>
-                                                    <input type="text" class="form-control" id="activity_comment" name="activity_comment" value="{{$student_grade->activity_comment}}">
-                                                  </div>
                                                 
                                                 </div>
                                                 <div class="row">
@@ -168,9 +164,13 @@ th.rotate > div > span {
                                                      
                                                      $("#editGradeIcon-{{$grade_activity->id}}{{$student_grade->id}}").click(function(){
                                                         $("#editGradeForm-{{$grade_activity->id}}{{$student_grade->id}}").show(1000);
+                                                        $("#editGradeIcon-{{$grade_activity->id}}{{$student_grade->id}}").hide(1000);
+                                                        $("#deleteGradeIcon-{{$grade_activity->id}}{{$student_grade->id}}").hide(1000);
+                                                        $("#addGradeIcon-{{$grade_activity->id}}{{$reg_students->student->id}}").hide(1000);
                                                      });
                                                      $("#closeEditGradeForm-{{$grade_activity->id}}{{$student_grade->id}}").click(function(){
                                                         $("#editGradeForm-{{$grade_activity->id}}{{$student_grade->id}}").hide(1000);
+                                                        location.reload();
                                                      });
                                                   });
 
@@ -192,7 +192,7 @@ th.rotate > div > span {
 
                                             <div class="row">
                                               <div class="col-md-6">
-                                                  <label>Grade</label>
+                                                  <label>Marked out of {{$grade_activity->max_point}}%</label>
                                                   <input type="number" step=".01" class="form-control" id="activity_grade" name="activity_grade" placeholder="/{{$grade_activity->max_point}}%" required="">
                                               </div>
                                             
@@ -213,15 +213,17 @@ th.rotate > div > span {
                                           <script type="text/javascript">
                                               jQuery(document).ready(function(){
                                        
-                                                 
                                                  $("#addGradeIcon-{{$grade_activity->id}}{{$reg_students->student->id}}").click(function(){
                                                     $("#addGradeForm-{{$grade_activity->id}}{{$reg_students->student->id}}").show(1000);
+                                                    $("#addGradeIcon-{{$grade_activity->id}}{{$reg_students->student->id}}").hide(1000);
                                                  });
+
                                                  $("#closeGradeForm-{{$grade_activity->id}}{{$reg_students->student->id}}").click(function(){
                                                     $("#addGradeForm-{{$grade_activity->id}}{{$reg_students->student->id}}").hide(1000);
+                                                      location.reload();
                                                  });
-                                              });
 
+                                                });
                                           </script>
                                           <!-- Add grade form Ends-->
 
