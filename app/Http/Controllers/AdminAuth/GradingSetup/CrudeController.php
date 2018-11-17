@@ -47,7 +47,7 @@ class CrudeController extends Controller
                 'course_id' => 'required',
                 'grade_activity_category_name'=> 'required',
                 'grade_activity_category_weight'=> 'required|numeric|min:0|max:100',
-                //'grade_activity_category_description'=> 'required',
+                
                 
 
                 ]);
@@ -121,7 +121,7 @@ class CrudeController extends Controller
                 'course_id' => 'required',
                 'grade_activity_name'=> 'required',
                 'grade_activity_weight'=> "required|numeric|min:0|max:$r->grade_activity_category_weight",
-                'grade_activity_description'=> 'required',
+                'max_point'=> 'required|numeric|min:0|max:100',
                 
 
                 ]);
@@ -133,9 +133,9 @@ class CrudeController extends Controller
                 'group_id' => $r->group_id,
                 'course_id'=>$r->course_id,
                 'grade_activity_name'=>$r->grade_activity_name,
+                'max_point'=>$r->max_point,
                 'grade_activity_weight'=>$r->grade_activity_weight,
-                'grade_activity_description'=>$r->grade_activity_description,
-                //'total'=>$r->first_ca+$r->second_ca+$r->third_ca+$r->fourth_ca+$r->exam,
+                'grade_activity_description'=>$r->grade_activity_description,    
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),    
             ]);

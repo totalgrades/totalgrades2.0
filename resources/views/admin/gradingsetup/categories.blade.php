@@ -41,7 +41,7 @@
                                                 </div>
                                               </div>
                                               <div class="form-group col-md-12">
-                                                <label for="grade_activity_category_description"><strong>Short Description</strong></label>
+                                                <label for="grade_activity_category_description"><strong>Short Description<span style="color: red">(Optional)</span></strong></label>
                                                 <input type="text" class="form-control" id="grade_activity_category_description" name="grade_activity_category_description" placeholder="Short Description">
                                               </div>                                
                                              

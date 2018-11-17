@@ -193,12 +193,7 @@ th.rotate > div > span {
                                             <div class="row">
                                               <div class="col-md-6">
                                                   <label>Grade</label>
-                                                  <input type="number" step=".01" class="form-control" id="activity_grade" name="activity_grade" required="">
-                                              </div>
-
-                                              <div class="col-md-6">
-                                                <label>Comment</label>
-                                                <input type="text" class="form-control" id="activity_comment" name="activity_comment">
+                                                  <input type="number" step=".01" class="form-control" id="activity_grade" name="activity_grade" placeholder="/{{$grade_activity->max_point}}%" required="">
                                               </div>
                                             
                                             </div>

@@ -137,7 +137,7 @@ Route::group(['middleware' => 'admin_auth'], function(){
     //Grading setup routes for teachers
     //{group} refres to the group the teacher is currently registered in
     Route::get('/admin/gradingsetup/courses/{schoolyear}/{term}', 'AdminAuth\GradingSetup\CrudeController@courses')->name('gradingsetup');
-    Route::get('/admin/gradingsetup/categories/{schoolyear}/{term}/{course}', 'AdminAuth\GradingSetup\CrudeController@categories');
+        Route::get('/admin/gradingsetup/categories/{schoolyear}/{term}/{course}', 'AdminAuth\GradingSetup\CrudeController@categories');
     
     Route::post('/admin/gradingsetup/addNewGradeActivityCategory', 'AdminAuth\GradingSetup\CrudeController@addNewGradeActivityCategory');
     Route::post('/admin/gradingsetup/editGradeActivityCategory/{gradeactivitycategory}', 'AdminAuth\GradingSetup\CrudeController@editGradeActivityCategory');

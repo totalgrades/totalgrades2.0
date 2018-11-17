@@ -42,6 +42,13 @@
 
                                 <div class="form-group col-md-12">
                                   <div class="form-group col-md-6">
+                                      <label for="max_point"><strong>Marked Out Of</strong></label>
+                                      <input type="number" step=".01" class="form-control" id="max_point" name="max_point" placeholder="Marked Out Of" required="">
+                                  </div>
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                  <div class="form-group col-md-6">
                                       <label for="grade_activity_weight"><strong>Weight of this activity in this category</strong></label>
                                       <input type="number" step=".01" class="form-control" id="grade_activity_weight" name="grade_activity_weight" placeholder="Weight of this activity in this category" required="">
                                   </div>
@@ -49,8 +56,8 @@
 
                                 <div class="form-group col-md-12">
                                   <div class="form-group col-md-12">
-                                    <label for="grade_activity_description"><strong>Short Description</strong></label>
-                                    <input type="text" class="form-control" id="grade_activity_description" name="grade_activity_description" placeholder="Short Description" required="">
+                                    <label for="grade_activity_description"><strong>Short Description</strong><span style="color: red">(Optional)</span></label>
+                                    <input type="text" class="form-control" id="grade_activity_description" name="grade_activity_description" placeholder="Short Description">
                                   </div>
                                 </div>                                
                                
