@@ -67,6 +67,7 @@ th.rotate > div > span {
                                   <th  class="text-center" style="font-size: 15px"><strong>#</strong></th>
                                   <th  class="text-center" style="font-size: 15px"><strong>Face
                                     <button type="button" class="btn btn-sm btn-warning"><strong><span style="font-size: 15px; color: #C70039;">{{$grade_activities->sum('grade_activity_weight')}}% </span></strong></button></strong></th>
+                                  <th  class="text-center" style="font-size: 15px"><strong>First Name</strong></th>
                                   <th  class="text-center" style="font-size: 15px"><strong>Last Name</strong></th>
 
                                   @foreach($grade_activities as $key=>$grade_activity)
@@ -102,48 +103,42 @@ th.rotate > div > span {
 
                                               @if ($st_user->registration_code == $reg_students->student->registration_code)                         
 
-                                              <img class="avatar border-white" src="{{asset('/assets/img/students/'.$st_user->avatar) }}" alt="..."/>
-                                              <button type="button" class="btn btn-sm"><strong><span style="font-size: 20px; color: #EB5E28;">{{ $grades_and_activities->where('student_id', $reg_students->student->id)->sum('activity_grade') }}%</span></strong></button>
-                                               
+                                              <img class="avatar border-white" src="{{asset('/assets/img/students/'.$st_user->avatar) }}" alt="{{$st_user->name}}"/><br>                                             
 
                                              @endif
                                               
                                           @endforeach
+                                           <button type="button" class="btn btn-sm"><strong><span style="font-size: 20px; color: #EB5E28;">{{ $grades_and_activities->where('student_id', $reg_students->student->id)->sum('activity_grade') }}%</span></strong></button>
                                         </td>
 
-                                        <td class="text-center">{{$reg_students->student->last_name}} {{$reg_students->student->first_name}}</td>
-
+                                        <td class="text-center">{{$reg_students->student->first_name}}</td>
+                                        <td class="text-center">{{$reg_students->student->last_name}} </td>
                                        
                                         @foreach($grade_activities as $key=>$grade_activity)
                                         <td>
                                         
                                           @foreach ($student_grades->where('grade_activity_id', $grade_activity->id) as $student_grade)
                                               @if($student_grade->student_id == $reg_students->student->id)
-                                                {{$student_grade->activity_grade}} % 
+                                                <span id="weightedGrade-{{$grade_activity->id}}{{$student_grade->id}}">{{$student_grade->activity_grade}}%</span> 
                                                 <i class="fa fa-edit" id="editGradeIcon-{{$grade_activity->id}}{{$student_grade->id}}"></i>
-                                                <a href="{{asset('/grades/gradeactivity/student/deletegrade/'.$student_grade->id) }}" onclick="return confirm('Are you sure you want to Delete this record?')"><i class="fa fa-trash"></i></a>
+                                                <a  id="deleteGradeIcon-{{$grade_activity->id}}{{$student_grade->id}}" href="{{asset('/grades/gradeactivity/student/deletegrade/'.$student_grade->id) }}" onclick="return confirm('Are you sure you want to Delete this record?')"><i class="fa fa-trash"></i></a>
                                                 <!-- Add grade form-->
                                                 <form method="post" action="{{ url('/grades/gradeactivity/student/editgrade', [$grade_activity->id, $student_grade->id]) }}" id="editGradeForm-{{$grade_activity->id}}{{$student_grade->id}}" style="display: none;">
                                                 {{ csrf_field() }}
 
                                                 
-                                                <div class="row">
-                                                  <div class="col-md-3">
-                                                      <label>Grade</label>
-                                                      <input type="number" step=".01" class="form-control" id="activity_grade" name="activity_grade" value="{{$student_grade->activity_grade}}" required="">
-                                                  </div>
-
-                                                  <div class="col-md-3">
-                                                    <label>Comment</label>
-                                                    <input type="text" class="form-control" id="activity_comment" name="activity_comment" value="{{$student_grade->activity_comment}}">
+                                                <div class="form-group row">
+                                                  <div class="col-xs-2">
+                                                      <label>/{{$grade_activity->max_point}}%</label>
+                                                      <input type="number" step=".01" class="form-control" id="activity_grade" name="activity_grade" value="{{$student_grade->actual_grade}}" required="">
                                                   </div>
                                                 
                                                 </div>
                                                 <div class="row">
-                                                  <div class="col-md-2">
+                                                  <div class="col-xs-3">
                                                     <button type="submit" class="btn btn-sm btn-success" id="editGradeSubmit-{{$grade_activity->id}}{{$student_grade->id}}">Submit</button>
                                                   </div>
-                                                  <div class="col-md-2">
+                                                  <div class="col-xs-3">
                                                     <button type="button" class="btn btn-sm btn-danger" id="closeEditGradeForm-{{$grade_activity->id}}{{$student_grade->id}}">Close</button>
                                                   </div>
                                                 </div>
@@ -158,9 +153,14 @@ th.rotate > div > span {
                                                      
                                                      $("#editGradeIcon-{{$grade_activity->id}}{{$student_grade->id}}").click(function(){
                                                         $("#editGradeForm-{{$grade_activity->id}}{{$student_grade->id}}").show(1000);
+                                                        $("#editGradeIcon-{{$grade_activity->id}}{{$student_grade->id}}").hide(1000);
+                                                        $("#deleteGradeIcon-{{$grade_activity->id}}{{$student_grade->id}}").hide(1000);
+                                                        $("#weightedGrade-{{$grade_activity->id}}{{$student_grade->id}}").hide(1000);
+                                                        $("#addGradeIcon-{{$grade_activity->id}}{{$reg_students->student->id}}").hide(1000);
                                                      });
                                                      $("#closeEditGradeForm-{{$grade_activity->id}}{{$student_grade->id}}").click(function(){
                                                         $("#editGradeForm-{{$grade_activity->id}}{{$student_grade->id}}").hide(1000);
+                                                        location.reload();
                                                      });
                                                   });
 
@@ -181,21 +181,16 @@ th.rotate > div > span {
 
                                             <div class="row">
                                               <div class="col-md-3">
-                                                  <label>Grade</label>
-                                                  <input type="number" step=".01" class="form-control" id="activity_grade" name="activity_grade" required="">
-                                              </div>
-
-                                              <div class="col-md-3">
-                                                <label>Comment</label>
-                                                <input type="text" class="form-control" id="activity_comment" name="activity_comment">
+                                                  <label><small>Marked Out Of {{$grade_activity->max_point}}%</label>
+                                                  <input type="number" step=".01" class="form-control" id="activity_grade" name="activity_grade" required="" placeholder="/{{$grade_activity->max_point}}%">
                                               </div>
                                             
                                             </div>
                                             <div class="row">
-                                              <div class="col-md-2">
+                                              <div class="col-xs-3">
                                                 <button type="submit" class="btn btn-sm btn-success" id="addGradeSubmit-{{$grade_activity->id}}{{$reg_students->student->id}}">Submit</button>
                                               </div>
-                                              <div class="col-md-2">
+                                              <div class="col-xs-3">
                                                 <button type="button" class="btn btn-sm btn-danger" id="closeGradeForm-{{$grade_activity->id}}{{$reg_students->student->id}}">Close</button>
                                               </div>
                                             </div>
@@ -210,9 +205,11 @@ th.rotate > div > span {
                                                  
                                                  $("#addGradeIcon-{{$grade_activity->id}}{{$reg_students->student->id}}").click(function(){
                                                     $("#addGradeForm-{{$grade_activity->id}}{{$reg_students->student->id}}").show(1000);
+                                                    $("#addGradeIcon-{{$grade_activity->id}}{{$reg_students->student->id}}").hide(1000);
                                                  });
                                                  $("#closeGradeForm-{{$grade_activity->id}}{{$reg_students->student->id}}").click(function(){
                                                     $("#addGradeForm-{{$grade_activity->id}}{{$reg_students->student->id}}").hide(1000);
+                                                    location.reload();
                                                  });
                                               });
 
