@@ -166,11 +166,11 @@ th.rotate > div > span {
 
                                               </script>
                                               <!-- Add grade form Ends-->
-                                                
+
                                               @endif
                                           @endforeach
-                                            <button type="button" class="btn btn-sm btn-light" style="color: red" id="addGradeIcon-{{$grade_activity->id}}{{$reg_students->student->id}}"><i class="fa fa-pencil"></i></button>
-
+                                            
+                                             <button type="button" class="btn btn-sm btn-light" style="color: red" id="addGradeIcon-{{$grade_activity->id}}{{$reg_students->student->id}}"><i class="fa fa-pencil"></i></button>
                                             <!-- Add grade form-->
                                             <form method="post" action="{{ url('/grades/gradeactivity/student/addgrade', [$grade_activity->id]) }}" id="addGradeForm-{{$grade_activity->id}}{{$reg_students->student->id}}" style="display: none;">
                                             {{ csrf_field() }}
@@ -180,7 +180,7 @@ th.rotate > div > span {
                                             <input type="hidden" name="student_id" value="{{$reg_students->student->id}}" required="">
 
                                             <div class="row">
-                                              <div class="col-md-3">
+                                              <div class="col-xs-3">
                                                   <label><small>Marked Out Of {{$grade_activity->max_point}}%</label>
                                                   <input type="number" step=".01" class="form-control" id="activity_grade" name="activity_grade" required="" placeholder="/{{$grade_activity->max_point}}%">
                                               </div>

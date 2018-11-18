@@ -7,10 +7,10 @@
                 <div class="row">
                      @include('admin.includes.headdashboardtop')
                 </div>
+<div class="row">
+                <div class="col-md-12">
 
-                <div class="row">
-
-                    <div class="col-md-5">
+                    <div class="col-md-6">
                         <div class="card">
                             <div class="header">
                                 <div class="alert alert-warning">
@@ -20,7 +20,7 @@
                             </div>
 
                                 <div class="content">
-                                    <table id="showAdminCourses" class="table table-striped text-center">
+                                    <table id="showAdminCourses" class="table table-striped text-center table-responsive">
                                         <thead>
                                             <th class="text-center"><strong>Course Code</strong></th>
                                             <th class="text-center danger"><strong>Course Name</strong></th>
@@ -77,7 +77,7 @@
                         </div>
                     </div>
 
-                        <div class="col-md-7">
+                        <div class="col-md-6">
                         <div class="card">
                             <div class="header">
                                 <div class="alert alert-success">
@@ -87,7 +87,7 @@
                             </div>
 
                                 <div class="content">
-                                    <table id="showAdminCoursesTeaching" class="table table-striped text-center">
+                                    <table id="showAdminCoursesTeaching" class="table table-striped text-center table-responsive">
                                         <thead>
                                             <th class="text-center"><strong>Course Code</strong></th>
                                             <th class="text-center success"><strong>Course Name</strong></th>
@@ -147,6 +147,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
 
