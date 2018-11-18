@@ -92,8 +92,8 @@ th.rotate > div > span {
                             </thead>
                             <tbody>
 
-                               @foreach (@$join_students_regs->where('term_id', $term->id)->where('group_id', \App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('staffer_id', \App\Staffer::where('registration_code', '=', Auth::guard('web_admin')->user()->registration_code)->first()->id)->first()->group_id ) as $key => $reg_students)
-                                  
+                              
+                                  @foreach (@$join_students_regs->where('term_id', $term->id)->where('group_id', $course->group_id ) as $key => $reg_students)
 
                                       <tr>
                                         <td class="text-center">{{$number_init++}}</td>
