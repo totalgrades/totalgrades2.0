@@ -26,7 +26,7 @@ class CreateGradeActivitiesTable extends Migration
             $table->integer('grade_activity_category_id')->unsigned();
             $table->foreign('grade_activity_category_id')->references('id')->on('grade_activity_categories')->onDelete('cascade');
             $table->string('grade_activity_name');
-            $table->string('grade_activity_description')->nullable();
+            $table->string('grade_activity_description');
             $table->decimal('grade_activity_weight', 3, 1);
             $table->timestamps();
         });

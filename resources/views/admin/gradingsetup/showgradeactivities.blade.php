@@ -83,7 +83,7 @@
                                       <tr>
                                         <td class="text-center">{{$number_init++}}</td>
                                         <td class="text-center">{{$grade_activity->grade_activity_name}}</td>
-                                        <td class="text-center">{{$grade_activity->max_point}}</td>
+                                        <td class="text-center">{{$grade_activity->max_point}}%</td>
                                         <td class="text-center">{{$grade_activity->grade_activity_weight}}%</td>
                                         <td class="text-center">{{$grade_activity->grade_activity_description}}</td>
                                         
