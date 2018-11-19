@@ -128,7 +128,7 @@
             </li>
             <li class="list-group-item justify-content-between">
               # of students in class:
-              <span class="label label-primary pull-right"> {{ @\App\StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('group_id', \App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->first()->group_id)->count() }}</span>
+              <span class="label label-primary pull-right"> {{ @\App\StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('group_id', \App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('staffer_id', '=', $teacher->id)->first()->group_id)->count() }}</span>
             </li>
             <li class="list-group-item justify-content-between">
               Admission Date: 
