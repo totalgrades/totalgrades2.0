@@ -11,7 +11,7 @@
     <title>{{ config('app.name', 'AdminAuth') }}</title>
 
     <!-- Styles -->
-    <link href="{{asset('/css/app.css')}}" rel="stylesheet">
+    <link href="{{asset('/css/app-admin.css')}}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>

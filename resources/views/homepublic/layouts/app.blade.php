@@ -128,7 +128,7 @@
 
 								<!-- logo -->
 								<div class="logo">
-									<a href="{{url('/')}}"><img id="logo" src="{{asset('assets-homepublic/images/logo_totalgrades.png')}}" alt="TotalGrades"></a>
+									<a href="https://totalgrades.com/"><img id="logo" src="{{asset('assets-homepublic/images/logo_totalgrades.png')}}" alt="TotalGrades"></a>
 								</div>
 
 							</div>

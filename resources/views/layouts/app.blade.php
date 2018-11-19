@@ -12,7 +12,7 @@
     <title>{{ config('app.name', 'Totalgrades') }}</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app-students.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">

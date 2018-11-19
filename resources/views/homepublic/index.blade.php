@@ -9,14 +9,14 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-12">
-							<h1 class="text-center title">TotalGrades 2.0-Beta (New and Improved)</h1>
-							<h3 class="text-center title"> <mark>Teachers can now set up grades activities for each course with easy</h3>
+							<h1 class="text-center title">TotalGrades 2.0-Beta (New and Improved Features!)</h1>
+							<h3 class="text-center title"> <mark>Try Totalgrades2.0 for a whole term for free without commitment</h3>
 							
 							<div class="separator"></div>
 							<p class="text-center">Simple, Smart, and Affordable.</p>
 							<div class="text-center">
-								<a href="{{url('login')}}" class="btn radius btn-success btn-lg">Students-Login <i class="fa fa-user"></i></a>
-								<a href="{{url('admin_login')}}" class="btn radius btn-danger btn-lg">Teachers-Login <i class="fa fa-user-plus"></i></a>
+								<a href="{{url('login')}}" class="btn radius btn-success btn-lg">Students-Login(Demo) <i class="fa fa-user"></i></a>
+								<a href="{{url('admin_login')}}" class="btn radius btn-danger btn-lg">Teachers-Login(Demo) <i class="fa fa-user-plus"></i></a>
 							</div>
 							<div class="row grid-space-20">
 								<div class="col-sm-12 col-md-4 col-md-push-4">

@@ -15,7 +15,7 @@
                     <a href="https://socidy.com/" class="simple-text">
                         <img src="{{asset('/assets/img/logo/logo.jpg')}}" style="width: 130px; height: 130px; border-radius: 50%; margin-left: 1%; ">
                     </a>
-                    <div class="text-center" style="color: #3097d1;"> <strong>An Online Gradebook Project<br> for Primary & Secondary Schools</strong> </div>
+                    <div class="text-center" style="color: #FF5733;"> <strong>An Online Gradebook Project<br> for Primary & Secondary Schools</strong> </div>
                    </div>
                     
                 </div>
@@ -67,7 +67,7 @@
                                     Login
                                 </button>
 
-                                <a class="btn btn-link" href="{{ url('/admin_password/reset') }}">
+                                <a class="btn btn-link btn-warning" href="{{ url('/admin_password/reset') }}">
                                     Forgot Your Password?
                                 </a>
                             </div>
@@ -82,15 +82,10 @@
                 <div class="text-center">
                     <!-- Footer Content -->
                         <!-- Paragraph -->
-                        <p style="margin: 0;"> Copyright &copy; 2017 - Totalgrades(v1.0) -by <a href="https://socidy.com">nahorr Analytics </a></p>
-                        <p style="margin: 0;">55 Wesylynn Spur, Claresholm, ALberta T0L0T0, Canada</p>
-                        <p style="margin: 0;">Email: <a href="mailto:nahorr@totalgrades.com"> nahorr@totalgrades.com </a>
-                        <p style="margin: 0;">Phone: +14034022387 , +2348035525141</p>
-
-
-
-                        
-                       
+                        <p style="margin: 0;"> Copyright &copy; 2017 - 2018 Totalgrades(v2.0)</p>
+        
+                        <p style="margin: 0;">Email: <a style="color: #FF5733" href="mailto:totalgrades@gmail.com">totalgrades@gmail.com</a>
+                        <p style="margin: 0;">Phone: <span style="color: #FF5733">+14034022387</span></p>                      
                         <!-- Clearfix -->
                         <div class="clearfix"></div>
                 </div>
