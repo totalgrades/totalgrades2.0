@@ -93,10 +93,10 @@
 								<!-- header top dropdowns start -->
 								<!-- ================ -->
 								<div class="header-top-dropdown">
-									<div class="btn-group dropdown">
+									<!-- <div class="btn-group dropdown">
 										<button type="button" class="btn dropdown-toggle" data-toggle="dropdown"><i class="fa fa-phone"></i> <strong>08060776024</strong></button>
 									
-									</div>
+									</div> -->
 									<div class="btn-group dropdown">
 										<button type="button" class="btn dropdown-toggle" data-toggle="dropdown"><i class="fa fa-phone"></i><strong>+14034022387</strong></button>
 									</div>

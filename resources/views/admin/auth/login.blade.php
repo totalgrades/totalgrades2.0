@@ -97,7 +97,7 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-warning">
-                  <div class="panel-heading" style="background-color: #FF5733; color: #FFFFFF"><strong>Demo Teachers: Login Deatils</strong></div>
+                  <div class="panel-heading" style="background-color: #FF5733; color: #FFFFFF"><strong>Demo Teachers: Login Information</strong></div>
                   <div class="panel-body">
                      <table class="table table-hover">
                          <thead>

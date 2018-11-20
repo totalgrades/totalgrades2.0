@@ -9,9 +9,9 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-12">
-							<h1 class="text-center title">TotalGrades 2.0-Beta (New and Improved Features!)</h1>
-							<h3 class="text-center title"> <mark>Try Totalgrades2.0 for a whole term for free without commitment</h3>
-							
+							<h1 class="text-center title">TotalGrades2.0 (New and Improved Features!)</h1>
+							<h3 class="text-center title"> <mark style="background-color: #FF5733;">Use Totalgrades2.0 for free! No commitment! <a href="https://totalgrades.com/schoolRegistrationForm"> <mark>Just Register</mark></a> and your portal will be up and running in no time</mark></h3>
+							<h3 class="text-center title"> You can also check out the demo server. click on a login option below to get started.</h3>
 							<div class="separator"></div>
 							<p class="text-center">Simple, Smart, and Affordable.</p>
 							<div class="text-center">
