@@ -15,7 +15,7 @@
 							<div class="separator"></div>
 							<p class="text-center">Simple, Smart, and Affordable.</p>
 							<div class="text-center">
-								<a href="{{url('login')}}" class="btn radius btn-success btn-lg">Students-Login(Demo) <i class="fa fa-user"></i></a>
+								<a href="{{url('login')}}" class="btn radius btn-primary btn-lg">Students-Login(Demo) <i class="fa fa-user"></i></a>
 								<a href="{{url('admin_login')}}" class="btn radius btn-danger btn-lg">Teachers-Login(Demo) <i class="fa fa-user-plus"></i></a>
 							</div>
 							<div class="row grid-space-20">

@@ -95,8 +95,8 @@ class HomeController extends Controller
             ->where('grade_activities.school_year_id', $schoolyear->id)
             //->where('grade_activities.term_id', $term->id)
             //->where('grade_activities.group_id', \App\StafferRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('staffer_id', \App\Staffer::where('registration_code', '=', Auth::guard('web_admin')->user()->registration_code)->first()->id)->first()->group_id )
-            ->groupBy('student_id')->get(['student_id', DB::raw('SUM(activity_grade) as total')]);
-
+            ->get()->groupBy('course_id');
+//dd($grade_grade_activities_test);
         //school max, min, total, count, school average   
        //Start of School statistics - school year
         //join grade activities and grade for the school year of interest.
@@ -105,7 +105,6 @@ class HomeController extends Controller
             ->where('grade_activities.school_year_id', $schoolyear->id)
             ->groupBy('student_id')->get(['student_id', DB::raw('SUM(activity_grade) as total')]);
 
-        
         $school_max_school_year = $grade_grade_activities_schoolyear->max('total');
         $school_min_school_year = $grade_grade_activities_schoolyear->min('total');
         $school_total_school_year = $grade_grade_activities_schoolyear->sum('total');
