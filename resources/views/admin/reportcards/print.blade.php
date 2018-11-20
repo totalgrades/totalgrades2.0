@@ -7,9 +7,9 @@
   @include('google_analytics')
   <link rel="icon" type="image/png" sizes="96x96" href="{{asset('assets/img/favicon.png')}}">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link href='http://fonts.googleapis.com/css?family=Meddon|Miss+Fajardose' rel='stylesheet'>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Meddon|Miss+Fajardose' rel='stylesheet'>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
   <style type="text/css" media="all">
     
