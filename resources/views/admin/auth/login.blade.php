@@ -82,14 +82,55 @@
                 <div class="text-center">
                     <!-- Footer Content -->
                         <!-- Paragraph -->
-                        <p style="margin: 0;"> Copyright &copy; 2017 - 2018 Totalgrades(v2.0)</p>
+                        <p style="margin: 0;"><strong> Copyright &copy; <a href="https://totalgrades.com">Totalgrades</a> 2017 - 2018 (v2.0)</strong></p>
         
-                        <p style="margin: 0;">Email: <a style="color: #FF5733" href="mailto:totalgrades@gmail.com">totalgrades@gmail.com</a>
-                        <p style="margin: 0;">Phone: <span style="color: #FF5733">+14034022387</span></p>                      
+                        <p style="margin: 0;"><strong>Email: <a style="color: #FF5733" href="mailto:totalgrades@gmail.com">totalgrades@gmail.com</a></strong>
+                        <p style="margin: 0;"><strong>Phone: <span style="color: #FF5733">+14034022387</span></strong></p>                      
                         <!-- Clearfix -->
                         <div class="clearfix"></div>
                 </div>
             </footer>
+        </div>
+
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-warning">
+                  <div class="panel-heading" style="background-color: #FF5733; color: #FFFFFF"><strong>Demo Teachers: Login Deatils</strong></div>
+                  <div class="panel-body">
+                     <table class="table table-hover">
+                         <thead>
+                           <tr>
+                             <th><strong>Email</strong></th>
+                             <th><strong>Password</strong></th>
+                           </tr>
+                         </thead>
+                         <tbody>
+                           <tr>
+                             <td><strong>teacherone@gmail.com</strong></td>
+                             <td><strong>123456</strong></td>
+                             
+                           </tr>
+                           <tr>
+                             <td><strong>teachertwo@gmail.com</strong></td>
+                             <td><strong>123456</strong></td>
+                             
+                           </tr>
+                           <tr>
+                             <td><strong>teacherthree@gmail.com</strong></td>
+                             <td><strong>123456</strong></td>
+                             
+                           </tr>
+                           <tr>
+                             <td><strong>teacherfour@gmail.com</strong></td>
+                             <td><strong>123456</strong></td>
+                             
+                           </tr>
+                         </tbody>
+                       </table>
+                  </div>
+                </div>
         </div>
     </div>
 </div>

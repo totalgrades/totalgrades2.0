@@ -11,6 +11,8 @@
 
     <title>{{ config('app.name', 'Totalgrades') }}</title>
 
+    @include('google_analytics')
+    
     <!-- Styles -->
     <link href="{{ asset('css/app-students.css') }}" rel="stylesheet">
 </head>

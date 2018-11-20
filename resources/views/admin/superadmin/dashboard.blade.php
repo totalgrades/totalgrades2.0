@@ -5,11 +5,11 @@
         <meta charset="utf-8" />
         <meta name="_token" content="{{csrf_token()}}" />
         <link rel="icon" type="image/png" sizes="96x96" href="{{asset('assets/img/favicon.png')}}">
-        <title>nahorr Analytics - Super Admin Dashboard</title>
+        <title>Totalgrades - Super Admin Dashboard</title>
 
         <meta name="description" content="Common form elements and layouts" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-
+        @include('google_analytics')
         <!-- bootstrap & fontawesome -->
         <link rel="stylesheet" href="{{asset('assets-superAdmin/css/bootstrap.min.css')}}" />
         <link rel="stylesheet" href="{{asset('assets-superAdmin/font-awesome/4.5.0/css/font-awesome.min.css')}}" />
