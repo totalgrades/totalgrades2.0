@@ -46,7 +46,7 @@ class TermController extends Controller
             ->where('grade_activities.school_year_id', $schoolyear->id)
             ->where('grade_activities.term_id', $term->id)
             ->where('grade_activities.group_id', @StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id )
-            ->groupBy('student_id')->get(['student_id', 'school_year_id', 'group_id','term_id', DB::raw('SUM(activity_grade) as total')]);
+            ->groupBy('course_id')->groupBy('student_id')->get(['student_id', 'school_year_id', 'group_id','term_id', 'course_id', DB::raw('SUM(activity_grade) as total')]);
 
         $class_term_max = $grade_grade_activities_class_term->max('total');                    
         $class_term_min = $grade_grade_activities_class_term->min('total'); 
@@ -59,8 +59,9 @@ class TermController extends Controller
             ->where('grade_activities.school_year_id', $schoolyear->id)
             ->where('grade_activities.term_id', $term->id)
             ->where('grade_activities.group_id', @StudentRegistration::where('school_year_id', '=', $schoolyear->id)->where('term_id', '=', $term->id)->where('student_id', '=', Student::where('registration_code', '=', Auth::user()->registration_code)->first()->id)->first()->group_id )
-            ->groupBy('term_id')->get(['student_id', 'school_year_id', 'group_id','term_id', DB::raw('SUM(activity_grade) as total')]);
+            ->groupBy('course_id')->get(['student_id', 'school_year_id', 'group_id','term_id', 'course_id', DB::raw('SUM(activity_grade) as total')]);
 
+        //dd($grade_grade_activities_class_term);
 
         $student_term_max = $grade_grade_activities_student_term->max('total');
         $student_term_min = $grade_grade_activities_student_term->min('total'); 
@@ -82,8 +83,7 @@ class TermController extends Controller
                 ->dataset('Student', [$student_term_min,$student_term_max,$student_term_avg])
                 ->dataset('Class', [$class_term_min, $class_term_max, $class_term_avg])
                 // Setup what the values mean
-                ->labels(['Minimum', 'Maximum', 'Average']); 
-       
+                ->labels(['Minimum', 'Maximum', 'Average']);      
 
 
         return view('showtermcourses', 

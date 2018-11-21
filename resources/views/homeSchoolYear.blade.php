@@ -172,7 +172,7 @@
                    <div class="col-md-6">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title"><strong>Year Statistics</strong></h4>
+                                <h4 class="title"><strong>{{$students_teacher_current->group->name}} Overall % Statistics</strong></h4>
                                 <p class="category">
                                     {{@$schoolyear->school_year}} School Year
                                 </p>

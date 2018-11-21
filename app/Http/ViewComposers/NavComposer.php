@@ -69,7 +69,7 @@ Class NavComposer {
         //get term
         $terms = Term::get();
 
-        $current_term = @Term::where([['start_date', '<=', $today], ['show_until', '>=', $today]])->first();
+        $current_term = Term::where([['start_date', '<=', $today], ['show_until', '>=', $today]])->first();
 
         //Students, Users and Registrations
         $all_users = User::get();
@@ -159,7 +159,7 @@ Class NavComposer {
 
         $staffers = Staffer::get();
         
-        //dd($registrations_teachers);
+        //dd($current_term->id);
         
         //put variables in views
         $view

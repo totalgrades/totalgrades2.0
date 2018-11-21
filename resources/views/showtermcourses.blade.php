@@ -61,7 +61,7 @@
                                 <div class="footer">
                                    <div class="chart-legend">
                                         <i class="fa fa-circle text-primary"></i> Your Term Min: {{@$student_term_min}}
-                                        <i class="fa fa-circle text-primary"></i> Your Term Max: {{@student_term_max}}
+                                        <i class="fa fa-circle text-primary"></i> Your Term Max: {{@$student_term_max}}
                                         <i class="fa fa-circle text-primary"></i>Your Term Ave: {{number_format(@$student_term_avg, 1)}}
                                         
                                     </div> 
