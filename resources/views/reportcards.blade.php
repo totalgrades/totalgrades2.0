@@ -38,21 +38,18 @@
                                                 <td>{{ $student->first_name }}</td>
                                                 <td>{{ $student->last_name }}</td>
                                                 <td>
-                                                    @foreach($student_registered_groups as $student_group)
-                                                        @if($student_group->term_id == $term->id)
-                                                         {{ $student_group->group->name }}
-                                                        @else
-                                                            <span class="bg-danger"><strike>Not Registered</strike></span>
-                                                        @endif
+                                                    @foreach($student_registered_groups->where('term_id',$term->id) as $student_group)
+                                                        
+                                                         {{ $student_group->group->name }}    
+                                                             
                                                     @endforeach
                                                 </td>
                                                 <td>
-                                                    @foreach($student_registered_groups as $student_group)
-                                                        @if($student_group->term_id == $term->id)
+                                                    @foreach($student_registered_groups->where('term_id',$term->id) as $student_group)
+                                                        
                                                             <a href="{{asset('/showtermreportcard/'.$schoolyear->id) }}/{{Crypt::encrypt($term->id)}}" style="font-size: 16px; font-weight: bold;">VIEW&nbsp;<i class="fa fa-check-square-o fa-2x"></i></a>
-                                                        @else
-                                                            <span class="bg-danger"><strike>Not Registered</strike></span>
-                                                        @endif
+                                                        
+                                                            
                                                     @endforeach
                                                 {{-- <a href="{{asset('/pdfreportcard/'.Crypt::encrypt($term->id)) }}">Print&nbsp;<i class="fa fa-print" aria-hidden="true"></i></a> --}}
                                                 </td>

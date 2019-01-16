@@ -23,7 +23,7 @@
                                 <div class="footer">
                                     <hr />
                                     <div class="stats">
-                                        <i class="fa fa-user-plus" aria-hidden="true"></i>Your Teacher this term:
+                                        <i class="fa fa-user-plus" aria-hidden="true"></i>Teacher:
                                         
                                             <strong style="color: red;">{{ @$students_teacher_current->staffer->first_name }} {{ @$students_teacher_current->staffer->last_name }}</strong>
 
@@ -55,7 +55,7 @@
                                     <div class="stats">
                                         <i class="ti-calendar"></i>
                                         
-                                            Current Term Ends:  {{ $current_term ? @$current_term->end_date->toFormattedDateString(): '-' }}
+                                            Ends:  {{ $current_term ? @$current_term->end_date->toFormattedDateString(): '-' }}
 
                                     </div>
                                 </div>
@@ -109,7 +109,7 @@
                                     <div class="stats">
                                         <i class="ti-pin-alt"></i>
                                        
-                                            Current School Year Ends: {{ @$schoolyear->end_date->toFormattedDateString() }}
+                                            Ends: {{ @$schoolyear->end_date->toFormattedDateString() }}
 
                                     </div>
                                 </div>
