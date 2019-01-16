@@ -39,6 +39,9 @@
                                                 <td>{{ $student->last_name }}</td>
                                                 <td>
                                                     @foreach($student_registered_groups->where('term_id',$term->id) as $student_group)
+                                                        @if($student_registered_groups->where('term_id',$term->id) == null)
+                                                         <span class="bg-danger"><strike>Not Registered</strike></span>
+                                                        @endif
                                                         
                                                          {{ $student_group->group->name }}    
                                                              
